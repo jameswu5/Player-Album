@@ -147,8 +147,8 @@ def scrape_players(gender):
                 writer.writerow(player_dict)
 
 def main():
-    scrape_players(gender=1)
     scrape_players(gender=0)
+    scrape_players(gender=1)
 
 if __name__ == '__main__':
     main()
