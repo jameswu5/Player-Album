@@ -184,8 +184,9 @@ class Database:
         return (unused_id, False)
 
     def display_table(self, table: str, limit: int = 5) -> None:
-        self.__cur.execute(f"""SELECT * FROM {table} LIMIT {limit}""")
-
+        # self.__cur.execute(f"""SELECT * FROM {table} LIMIT {limit}""")
+        self.__cur.execute(f"""SELECT * FROM {table}""")
+        
         for row in self.__cur.fetchall():
             print(row)
     

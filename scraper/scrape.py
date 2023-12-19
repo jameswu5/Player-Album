@@ -6,8 +6,8 @@ from bs4 import BeautifulSoup as bs
 import re
 import csv
 
-MALE_CSV   = "csv/male_players.csv"
-FEMALE_CSV = "csv/female_players.csv"
+MALE_CSV   = "static/csv/male_players.csv"
+FEMALE_CSV = "static/csv/female_players.csv"
 
 fields = ['Name', 'Nation', 'Club', 'League',
          'Position', 'Age', 'Height', 'Weight',

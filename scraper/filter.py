@@ -13,12 +13,12 @@ def filter_file(source, target, league):
                 writer.writerow(row)
 
 if __name__ == '__main__':
-    SOURCE_FILE = "csv/male_players.csv"
-    TARGET_FILE = "csv/premier_league.csv"
+    SOURCE_FILE = "static/csv/male_players.csv"
+    TARGET_FILE = "static/csv/premier_league.csv"
     LEAGUE = "Premier League"
 
-    SOURCE_FILE2 = "csv/female_players.csv"
-    TARGET_FILE2 = "csv/womens_super_league.csv"
+    SOURCE_FILE2 = "static/csv/female_players.csv"
+    TARGET_FILE2 = "static/csv/womens_super_league.csv"
     LEAGUE2 = "Barclays WSL"
 
     # filter_file(SOURCE_FILE, TARGET_FILE, LEAGUE)
