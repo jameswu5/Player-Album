@@ -84,7 +84,7 @@ class Database:
 
     def populate_players(self, players: list) -> None:
         for player in players:
-            country_id, country_flag = self.get_id("Country", "Name", player["Nation"], "Name")
+            _, country_flag = self.get_id("Country", "Name", player["Nation"], "Name")
             club_id, club_flag = self.get_id("Club", "Name", player["Club"], "ID")
             if not country_flag:
                 self.__cur.execute(
@@ -239,4 +239,4 @@ class Database:
 
 if __name__ == '__main__':
     db = Database()
-    db.display_table("Player")
+    db.display_table("Club")

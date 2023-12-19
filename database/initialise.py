@@ -1,5 +1,8 @@
 from database import Database
-from read import read_file, MALE_PATH, FEMALE_PATH
+from read import read_file
+
+MALE_PATH = "csv/male_players.csv"
+FEMALE_PATH = "csv/female_players.csv"
 
 if __name__ == '__main__':
     db = Database()
