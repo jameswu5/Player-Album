@@ -21,15 +21,16 @@ fields = ['Name', 'Nation', 'Club', 'League',
          'Att work rate', 'Def work rate', 'Preferred foot', 'Weak foot',
          'Skill moves', 'URL', 'Gender', 'GK']
 
-def scrape_players(gender):
+def scrape_players(gender, overwrite=False):
     pages = 16 if gender else 160
     count = 0
 
     csv_file = FEMALE_CSV if gender else MALE_CSV
 
-    with open(csv_file, 'w') as fd:
-        writer = csv.writer(fd)
-        writer.writerow(fields)
+    if overwrite:
+        with open(csv_file, 'w') as fd:
+            writer = csv.writer(fd)
+            writer.writerow(fields)
 
     for page in range(1, pages):
         absolute = 'https://www.ea.com'
@@ -147,8 +148,8 @@ def scrape_players(gender):
                 writer.writerow(player_dict)
 
 def main():
-    scrape_players(gender=0)
     scrape_players(gender=1)
+    scrape_players(gender=0)
 
 if __name__ == '__main__':
     main()
