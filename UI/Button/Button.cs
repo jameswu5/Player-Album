@@ -1,20 +1,16 @@
 using System;
-using System.Numerics;
 using Raylib_cs;
 using static Raylib_cs.Raylib;
 
 namespace PlayerAlbum;
 
 public class Button {
-    private static Color colour = Color.WHITE;
-    private static Color HoveredColour = Color.YELLOW;
+    protected readonly int posX;
+    protected readonly int posY;
+    protected readonly int height;
+    protected readonly int width;
 
-    private readonly int posX;
-    private readonly int posY;
-    private readonly int height;
-    private readonly int width;
-
-    private readonly string name;
+    protected readonly string name;
 
     public Button(int posX, int posY, int width, int height, string? name) {
         this.posX = posX;
@@ -25,20 +21,23 @@ public class Button {
     }
 
     public void Render() {
-        Color buttonColour = colour;
-
+        Display();
         if (IsHovered(GetMouseX(), GetMouseY())) {
-            buttonColour = HoveredColour;
-            
             if (IsMouseButtonPressed(0)) {
-                Console.WriteLine($"{name} pressed.");
+                OnClick();
             }
         }
-
-        DrawRectangle(posX, posY, width, height, buttonColour);
     }
 
-    public bool IsHovered(float x, float y) {
+    protected virtual void Display() {
+        DrawRectangle(posX, posY, width, height, Color.WHITE);
+    }
+
+    protected virtual void OnClick() {
+        Console.WriteLine($"{name} pressed.");
+    }
+
+    protected bool IsHovered(float x, float y) {
         return x >= posX && x <= posX + width && y >= posY && y <= posY + height;
     }
 }

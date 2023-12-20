@@ -10,13 +10,16 @@ public class Image {
         img = Raylib.LoadImage(path);
     }
 
-    public void Resize(int width, int height) {
-        Raylib.ImageResize(ref img, width, height);
+    public Raylib_cs.Image Resize(int width, int height) {
+        Raylib_cs.Image newImg = Raylib.ImageCopy(img);
+        Raylib.ImageResize(ref newImg, width, height);
+        return newImg;
     }
 
     public void Draw(int posX, int posY, int width, int height) {
-        Resize(width, height);
-        Texture2D tex = Raylib.LoadTextureFromImage(img);
+        // I would prefer to load the texture only once, but this seems to work.
+        Raylib_cs.Image newImg = Resize(width, height);
+        Texture2D tex = Raylib.LoadTextureFromImage(newImg);
         Raylib.DrawTexture(tex, posX, posY, Color.WHITE);
     }
 }
