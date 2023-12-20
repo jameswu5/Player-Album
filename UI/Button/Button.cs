@@ -9,10 +9,7 @@ public abstract class Button {
     protected readonly int posY;
     protected readonly int height;
     protected readonly int width;
-
     protected readonly string name;
-
-    protected Color colour = Color.WHITE;
 
     public Button(int posX, int posY, int width, int height, string name = "") {
         this.posX = posX;
@@ -33,13 +30,18 @@ public abstract class Button {
         }
     }
 
+    protected bool IsHovered(float x, float y) => x >= posX && x <= posX + width && y >= posY && y <= posY + height;
+
+    /* These methods are supposed to be overridden.
+     * Implement how the button should be displayed,
+     * and by default hover display is the same.
+     * Also implement when it's clicked, a basic
+     * functionality is already provided.
+     */
+
     protected abstract void Display();
 
     protected virtual void HoverDisplay() => Display();
 
     protected virtual void OnClick() => Console.WriteLine($"{name} pressed.");
-
-    protected bool IsHovered(float x, float y) {
-        return x >= posX && x <= posX + width && y >= posY && y <= posY + height;
-    }
 }

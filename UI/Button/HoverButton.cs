@@ -9,10 +9,11 @@ namespace PlayerAlbum;
 /// A button that changes colour when you hover over it.
 /// </summary>
 public class HoverButton : Button {
+    private Color colour;
     private Color hoverColour;
     private Color textColour;
-    private string text;
-    private int fontSize;
+    private readonly string text;
+    private readonly int fontSize;
 
     public HoverButton(int posX, int posY, int width, int height, Color? colour = null, Color? hoverColour = null, Color? textColour = null, string name = "", string text = "", int fontSize = -1) : base(posX, posY, width, height, name) {
         this.colour = colour ?? Settings.ButtonColour;
