@@ -11,7 +11,7 @@ public class ImageButton : Button {
     
     private Image img;
 
-    public ImageButton(int posX, int posY, Image img, string? name) : base(posX, posY, img.width, img.height, name) {
+    public ImageButton(int posX, int posY, Image img, string name = "") : base(posX, posY, img.width, img.height, name) {
         this.img = img;
     }
 

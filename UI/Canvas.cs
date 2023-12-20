@@ -18,10 +18,11 @@ public class Canvas {
     }
 
     public static void GameLoop() {
-        Raylib.ClearBackground(Color.BLACK);
-        // Button button = new(20, 20, 100, 100, "test");
-        // button.Render();
-        ImageButton imageButton = new (20, 20, img, "Man City");
+        Raylib.ClearBackground(Color.WHITE);
+
+        HoverButton hoverButton = new(20, 20, 500, 200, text: "new button");
+        hoverButton.Render();
+        ImageButton imageButton = new(700, 20, img);
         imageButton.Render();
     }
 }

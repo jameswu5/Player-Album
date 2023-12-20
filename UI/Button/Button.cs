@@ -4,7 +4,7 @@ using static Raylib_cs.Raylib;
 
 namespace PlayerAlbum;
 
-public class Button {
+public abstract class Button {
     protected readonly int posX;
     protected readonly int posY;
     protected readonly int height;
@@ -12,30 +12,32 @@ public class Button {
 
     protected readonly string name;
 
-    public Button(int posX, int posY, int width, int height, string? name) {
+    protected Color colour = Color.WHITE;
+
+    public Button(int posX, int posY, int width, int height, string name = "") {
         this.posX = posX;
         this.posY = posY;
         this.height = height;
         this.width = width;
-        this.name = name ?? "";
+        this.name = name;
     }
 
     public void Render() {
-        Display();
         if (IsHovered(GetMouseX(), GetMouseY())) {
+            HoverDisplay();
             if (IsMouseButtonPressed(0)) {
                 OnClick();
             }
+        } else {
+            Display();
         }
     }
 
-    protected virtual void Display() {
-        DrawRectangle(posX, posY, width, height, Color.WHITE);
-    }
+    protected abstract void Display();
 
-    protected virtual void OnClick() {
-        Console.WriteLine($"{name} pressed.");
-    }
+    protected virtual void HoverDisplay() => Display();
+
+    protected virtual void OnClick() => Console.WriteLine($"{name} pressed.");
 
     protected bool IsHovered(float x, float y) {
         return x >= posX && x <= posX + width && y >= posY && y <= posY + height;
