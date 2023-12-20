@@ -5,21 +5,21 @@ namespace PlayerAlbum;
 
 public class Image {
     private Raylib_cs.Image img;
+    private Texture2D texture;
 
-    public Image(string path) {
+    public int width;
+    public int height;
+
+    public Image(string path, int width, int height) {
+        this.width = width;
+        this.height = height;
+        
         img = Raylib.LoadImage(path);
+        Raylib.ImageResize(ref img, width, height);
+        texture = Raylib.LoadTextureFromImage(img);
     }
 
-    public Raylib_cs.Image Resize(int width, int height) {
-        Raylib_cs.Image newImg = Raylib.ImageCopy(img);
-        Raylib.ImageResize(ref newImg, width, height);
-        return newImg;
-    }
-
-    public void Draw(int posX, int posY, int width, int height) {
-        // I would prefer to load the texture only once, but this seems to work.
-        Raylib_cs.Image newImg = Resize(width, height);
-        Texture2D tex = Raylib.LoadTextureFromImage(newImg);
-        Raylib.DrawTexture(tex, posX, posY, Color.WHITE);
+    public void Draw(int posX, int posY) {
+        Raylib.DrawTexture(texture, posX, posY, Color.WHITE);
     }
 }
