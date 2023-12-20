@@ -9,15 +9,19 @@ public class Canvas {
         Raylib.SetTargetFPS(60);
         while (!Raylib.WindowShouldClose()) {
             Raylib.BeginDrawing();
-
-            Raylib.ClearBackground(Color.WHITE);
-
-            Image img = new("static/badges/MCI.png");
-            img.Draw(10, 10, 60, 60);
-
+            GameLoop();
             Raylib.EndDrawing();
         }
-        
         Raylib.CloseWindow();
+    }
+
+    public static void GameLoop() {
+        Raylib.ClearBackground(Color.BLACK);
+
+        // Image img = new("static/badges/MCI.png");
+        // img.Draw(10, 10, 60, 60);
+
+        Button button = new(20, 20, 100, 100, "test");
+        button.Render();
     }
 }

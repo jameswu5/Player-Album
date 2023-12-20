@@ -10,12 +10,12 @@ public class Image {
         img = Raylib.LoadImage(path);
     }
 
-    public void Resize(int targetHeight, int targetWidth) {
-        Raylib.ImageResize(ref img, targetHeight, targetWidth);
+    public void Resize(int width, int height) {
+        Raylib.ImageResize(ref img, width, height);
     }
 
-    public void Draw(int posX, int posY, int height, int width) {
-        Resize(height, width);
+    public void Draw(int posX, int posY, int width, int height) {
+        Resize(width, height);
         Texture2D tex = Raylib.LoadTextureFromImage(img);
         Raylib.DrawTexture(tex, posX, posY, Color.WHITE);
     }
