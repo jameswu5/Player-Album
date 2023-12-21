@@ -1,4 +1,7 @@
 using System;
+using Raylib_cs;
+
+namespace PlayerAlbum;
 
 public static class Helper {
 
@@ -30,4 +33,11 @@ public static class Helper {
     };
 
     public static string GetBadgePath(string club) => $"{BadgePathRoot}{ClubShortcodes[club]}.png";
+
+    public static (int, int) GetTextPositions(string text, int width, int height, int fontSize) {
+        int textWidth = Raylib.MeasureText(text, fontSize);
+        int x = (width - textWidth) >> 1;
+        int y = (height - fontSize) >> 1;
+        return (x, y);
+    }
 }

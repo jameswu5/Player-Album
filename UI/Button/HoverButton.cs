@@ -1,5 +1,6 @@
 using System;
 using System.Runtime.InteropServices;
+using System.Security.Cryptography.X509Certificates;
 using Raylib_cs;
 using static Raylib_cs.Raylib;
 
@@ -37,11 +38,7 @@ public class HoverButton : Button {
 
     private void DisplayText() {
         if (text.Length == 0) return;
-
-        int textWidth = MeasureText(text, fontSize);
-        int x = (width - textWidth) / 2 + posX;
-        int y = (height - fontSize) / 2 + posY;
-
-        DrawText(text, x, y, fontSize, textColour);
+        (int x, int y) = Helper.GetTextPositions(text, width, height, fontSize);
+        DrawText(text, x + posX, y + posY, fontSize, textColour);
     }
 }

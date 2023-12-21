@@ -1,17 +1,22 @@
 using System;
+using System.Runtime.InteropServices;
 using Raylib_cs;
 
 namespace PlayerAlbum;
 
 public class Canvas {
-    private static Image img = new("static/badges/MCI.png", 200, 200);
 
     public static void MainLoop() {
-        Raylib.InitWindow(1080, 720, "Game");
+        Raylib.InitWindow(Settings.ScreenWidth, Settings.ScreenHeight, "Game");
         Raylib.SetTargetFPS(60);
+        Player player = Database.GetPlayers("Premier League", 1)[0];
         while (!Raylib.WindowShouldClose()) {
             Raylib.BeginDrawing();
-            GameLoop();
+            // GameLoop();
+            
+            Raylib.ClearBackground(Color.WHITE);
+            player.DisplayCard(20, 20);
+
             Raylib.EndDrawing();
         }
         Raylib.CloseWindow();
@@ -19,10 +24,5 @@ public class Canvas {
 
     public static void GameLoop() {
         Raylib.ClearBackground(Color.WHITE);
-
-        HoverButton hoverButton = new(20, 20, 500, 200, text: "new button");
-        hoverButton.Render();
-        ImageButton imageButton = new(700, 20, img);
-        imageButton.Render();
     }
 }

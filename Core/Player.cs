@@ -1,4 +1,6 @@
 using System;
+using Raylib_cs;
+using static Raylib_cs.Raylib;
 
 namespace PlayerAlbum;
 
@@ -26,6 +28,11 @@ public class Player {
     public long SkillMoves;
     public string Gender;
 
+    public const string ImagePathRoot = "static/faces/";
+    public string ImagePath;
+
+    public Image cardImage;
+
     public Player(object[] values) {
         ID = (long)values[0];
         Club = (string)values[1];
@@ -49,6 +56,10 @@ public class Player {
         WeakFoot = (long)values[19];
         SkillMoves = (long)values[20];
         Gender = (string)values[21];
+
+        ImagePath = $"{ImagePathRoot}{ID}.png";
+        int size = Settings.CardWidth - 4 * Settings.CardOffset;
+        cardImage = new(ImagePath, size, size);
     }
 
     public override string ToString() {
@@ -80,5 +91,45 @@ public class Player {
         Console.WriteLine($"Skill Moves: {SkillMoves}");
         Console.WriteLine($"Gender: {Gender}");
         Console.WriteLine("------------------------------------------");
+    }
+
+    public void DisplayCard(int offsetX, int offsetY) {
+        // Club border - need to use club colour, using sky blue for now
+        DrawRectangle(offsetX, offsetY, Settings.CardWidth, Settings.CardHeight, Color.SKYBLUE);
+
+        // Main card
+        DrawRectangle(offsetX + Settings.CardOffset,
+                      offsetY + Settings.CardOffset,
+                      Settings.CardWidth - 2 * Settings.CardOffset,
+                      Settings.CardHeight - 2 * Settings.CardOffset,
+                      Color.WHITE);
+        
+        // Draw the face
+        cardImage.Draw(offsetX + 2 * Settings.CardOffset, offsetY + 2 * Settings.CardOffset);
+
+        // Border around the face
+        DrawRectangleLines(offsetX + 2 * Settings.CardOffset,
+                           offsetY + 2 * Settings.CardOffset,
+                           Settings.CardWidth - 4 * Settings.CardOffset,
+                           Settings.CardWidth - 4 * Settings.CardOffset,
+                           Color.BLACK);
+
+        // Write the name
+        // Name might not fit on card -- deal with later
+        (int boxX, int boxY) = Helper.GetTextPositions(
+            Name,
+            Settings.CardWidth,
+            Settings.CardHeight - Settings.CardWidth + Settings.CardOffset,
+            Settings.CardFontSize
+        );
+
+        int textPosX = boxX + offsetX;
+        int textPosY = boxY +  offsetY + Settings.CardWidth - 2 * Settings.CardOffset;
+
+        DrawText(Name, textPosX, textPosY, Settings.CardFontSize, Color.BLACK);
+    }
+
+    public void DisplayDetailedCard() {
+        throw new NotImplementedException();
     }
 }
