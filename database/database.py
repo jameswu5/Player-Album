@@ -70,9 +70,9 @@ class Database:
                 )
                 VALUES (
                     {player["ID"]},
-                    "{player['Nation']}",
                     "{player['Club']}",
                     "{player['League']}",
+                    "{player['Nation']}",
                     "{player["Name"]}",
                     "{player["Position"]}",
                     {player["Age"]},
