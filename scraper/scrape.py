@@ -1,5 +1,7 @@
 """Crawl the EA SPORTS database."""
 
+# Bug report: Since there are two Dribbling attributes, the one that appears on the card gets overwritten.
+
 import numpy as np
 import requests
 from bs4 import BeautifulSoup as bs
