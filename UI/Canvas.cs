@@ -14,8 +14,8 @@ public class Canvas {
             Raylib.BeginDrawing();
             // GameLoop();
             
-            Raylib.ClearBackground(Color.WHITE);
-            player.DisplayCard(20, 20);
+            Raylib.ClearBackground(Color.BLACK);
+            player.DisplayDetailedCard();
 
             Raylib.EndDrawing();
         }

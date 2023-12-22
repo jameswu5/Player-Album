@@ -1,6 +1,7 @@
 using System;
 using Raylib_cs;
 using static Raylib_cs.Raylib;
+using static PlayerAlbum.Settings;
 
 namespace PlayerAlbum;
 
@@ -32,6 +33,7 @@ public class Player {
     public string ImagePath;
 
     public Image cardImage;
+    public Image detailedCardImage;
 
     public Player(object[] values) {
         ID = (long)values[0];
@@ -58,8 +60,10 @@ public class Player {
         Gender = (string)values[21];
 
         ImagePath = $"{ImagePathRoot}{ID}.png";
-        int size = Settings.CardWidth - 4 * Settings.CardOffset;
-        cardImage = new(ImagePath, size, size);
+        int size = CardWidth - 4 * CardOffset;
+        cardImage = new Image(ImagePath, size, size);
+        int detailedSize = DCardWidth / 2 - DCardImageWidthOffset * 2;
+        detailedCardImage = new Image(ImagePath, detailedSize, detailedSize);
     }
 
     public override string ToString() {
@@ -95,41 +99,110 @@ public class Player {
 
     public void DisplayCard(int offsetX, int offsetY) {
         // Club border - need to use club colour, using sky blue for now
-        DrawRectangle(offsetX, offsetY, Settings.CardWidth, Settings.CardHeight, Color.SKYBLUE);
+        DrawRectangle(offsetX, offsetY, CardWidth, CardHeight, Color.SKYBLUE);
 
         // Main card
-        DrawRectangle(offsetX + Settings.CardOffset,
-                      offsetY + Settings.CardOffset,
-                      Settings.CardWidth - 2 * Settings.CardOffset,
-                      Settings.CardHeight - 2 * Settings.CardOffset,
-                      Color.WHITE);
+        DrawRectangle(
+            offsetX + CardOffset,
+            offsetY + CardOffset,
+            CardWidth - 2 * CardOffset,
+            CardHeight - 2 * CardOffset,
+            Color.WHITE
+        );
         
         // Draw the face
-        cardImage.Draw(offsetX + 2 * Settings.CardOffset, offsetY + 2 * Settings.CardOffset);
+        cardImage.Draw(offsetX + 2 * CardOffset, offsetY + 2 * CardOffset);
 
         // Border around the face
-        DrawRectangleLines(offsetX + 2 * Settings.CardOffset,
-                           offsetY + 2 * Settings.CardOffset,
-                           Settings.CardWidth - 4 * Settings.CardOffset,
-                           Settings.CardWidth - 4 * Settings.CardOffset,
-                           Color.BLACK);
+        DrawRectangleLines(
+            offsetX + 2 * CardOffset,
+            offsetY + 2 * CardOffset,
+            CardWidth - 4 * CardOffset,
+            CardWidth - 4 * CardOffset,
+            Color.BLACK
+        );
 
         // Write the name
         // Name might not fit on card -- deal with later
         (int boxX, int boxY) = Helper.GetTextPositions(
             Name,
-            Settings.CardWidth,
-            Settings.CardHeight - Settings.CardWidth + Settings.CardOffset,
-            Settings.CardFontSize
+            CardWidth,
+            CardHeight - CardWidth + CardOffset,
+            CardFontSize
         );
 
         int textPosX = boxX + offsetX;
-        int textPosY = boxY +  offsetY + Settings.CardWidth - 2 * Settings.CardOffset;
+        int textPosY = boxY +  offsetY + CardWidth - 2 * CardOffset;
 
-        DrawText(Name, textPosX, textPosY, Settings.CardFontSize, Color.BLACK);
+        DrawText(Name, textPosX, textPosY, CardFontSize, Color.BLACK);
     }
 
     public void DisplayDetailedCard() {
-        throw new NotImplementedException();
+        DrawRectangle(
+            DCardWidthOffset,
+            DCardHeightOffset,
+            DCardWidth,
+            DCardHeight,
+            Color.WHITE
+        );
+
+        /* Left hand side */
+
+        int imageSize = DCardWidth / 2 - DCardImageWidthOffset * 2;
+
+        // Header - heavy maths
+        int heightPadding = 20;
+        int headerImageWidthPadding = 10;
+        int headerFontSize = DCardImageHeightOffset - heightPadding * 2;
+
+        // Overall
+        DrawText(
+            Overall.ToString(),
+            DCardWidthOffset + DCardImageWidthOffset + headerImageWidthPadding,
+            DCardHeightOffset + heightPadding,
+            headerFontSize,
+            Color.BLACK
+        );
+
+        // Position
+        DrawText(
+            Position,
+            DCardWidthOffset + DCardImageWidthOffset + imageSize - MeasureText(Position, headerFontSize) - headerImageWidthPadding,
+            DCardHeightOffset + heightPadding,
+            headerFontSize,
+            Color.BLACK
+        );
+
+
+        // Face picture
+        detailedCardImage.Draw(DCardWidthOffset + DCardImageWidthOffset, DCardHeightOffset + DCardImageHeightOffset);
+
+        DrawRectangleLines(
+            DCardWidthOffset + DCardImageWidthOffset,
+            DCardHeightOffset + DCardImageHeightOffset,
+            imageSize,
+            imageSize,
+            Color.BLACK
+        );
+
+
+        // Player information
+
+        int segmentHeight = (DCardHeight - DCardImageHeightOffset - imageSize - 2 * heightPadding) / 6;
+        int smallPadding = 5;
+
+        // Player name
+        int nameFontSize = Math.Min(segmentHeight * 2 - smallPadding, 32);
+        (int namePosX, int namePosY) = Helper.GetTextPositions(Name, DCardWidth >> 1, 2 * segmentHeight, nameFontSize);
+        DrawText(
+            Name,
+            namePosX + DCardWidthOffset,
+            namePosY + DCardHeightOffset + DCardImageHeightOffset + imageSize + heightPadding,
+            nameFontSize,
+            Color.BLACK
+        );
+
+        
+
     }
 }

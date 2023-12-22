@@ -1,6 +1,5 @@
 using System;
 using Raylib_cs;
-using static Raylib_cs.Raylib;
 
 namespace PlayerAlbum;
 
@@ -24,4 +23,13 @@ public static class Settings {
     public static readonly int CardOffset = 12;
     public static readonly int CardFontSize = 20;
 
+    // DCard - DetailedCard
+    public static readonly int DCardWidth = 810;
+    public static readonly int DCardHeight = 540;
+    public static readonly int DCardWidthOffset = (ScreenWidth - DCardWidth) >> 1;
+    public static readonly int DCardHeightOffset = (ScreenHeight - DCardHeight) >> 1;
+
+    // Left side of detailed card
+    public static readonly int DCardImageWidthOffset = 80;
+    public static readonly int DCardImageHeightOffset = 90;
 }
