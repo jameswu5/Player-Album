@@ -37,6 +37,8 @@ public class Player {
     public Image cardImage;
     public Image detailedCardImage;
 
+    private static string[] statTexts;
+
     public Player(object[] values) {
         ID = (long)values[0];
         Club = (string)values[1];
@@ -66,6 +68,8 @@ public class Player {
         cardImage = new Image(ImagePath, size, size);
         int detailedSize = DCardWidth / 2 - DCardImageWidthOffset * 2;
         detailedCardImage = new Image(ImagePath, detailedSize, detailedSize);
+
+        statTexts = (Position != "GK") ? new string[] {"PAC", "SHO", "PAS", "DRI", "DEF", "PHY"} : new string[] {"DIV", "HAN", "KIC", "REF", "SPE", "POS"};
     }
 
     public override string ToString() {
@@ -226,13 +230,21 @@ public class Player {
         int statsWidthPadding = 15; // padding between stats
         int statsHeightPadding = 10; // padding between the stat name and the corresponding number
         int statsFontSize = 22;
-        int totalStatsWidth = 5 * statsWidthPadding
-                            + MeasureText("PAC", statsFontSize)
-                            + MeasureText("SHO", statsFontSize)
-                            + MeasureText("PAS", statsFontSize)
-                            + MeasureText("DRI", statsFontSize)
-                            + MeasureText("DEF", statsFontSize)
-                            + MeasureText("PHY", statsFontSize);
+
+        int[] statTextLengths = new int[6];
+        statTextLengths[0] = MeasureText(statTexts[0], statsFontSize);
+        statTextLengths[1] = MeasureText(statTexts[1], statsFontSize);
+        statTextLengths[2] = MeasureText(statTexts[2], statsFontSize);
+        statTextLengths[3] = MeasureText(statTexts[3], statsFontSize);
+        statTextLengths[4] = MeasureText(statTexts[4], statsFontSize);
+        statTextLengths[5] = MeasureText(statTexts[5], statsFontSize);
+
+        int[] statTextLengthsPrefix = new int[6];
+        statTextLengthsPrefix[0] = statTextLengths[0];
+        for (int i = 1; i < 6; i++) {
+            statTextLengthsPrefix[i] = statTextLengths[i] + statTextLengthsPrefix[i-1];
+        }
+        int totalStatsWidth = 5 * statsWidthPadding + statTextLengthsPrefix[5];
         int totalStatsHeight = 2 * statsFontSize + statsHeightPadding;
 
         (int statsOffsetX, int statsOffsetY) = Helper.GetCenteredPositions(totalStatsWidth, totalStatsHeight,
@@ -240,22 +252,8 @@ public class Player {
 
         int statsPosY = DCardHeightOffset + DCardImageHeightOffset + imageSize + smallPadding + segmentHeight * 3 + statsOffsetY;
 
-        int[] statTextLengths = new int[6];
-        statTextLengths[0] = MeasureText("PAC", statsFontSize);
-        statTextLengths[1] = MeasureText("SHO", statsFontSize);
-        statTextLengths[2] = MeasureText("PAS", statsFontSize);
-        statTextLengths[3] = MeasureText("DRI", statsFontSize);
-        statTextLengths[4] = MeasureText("DEF", statsFontSize);
-        statTextLengths[5] = MeasureText("PHY", statsFontSize);
-
-        int[] statTextLengthsPrefix = new int[6];
-        statTextLengthsPrefix[0] = statTextLengths[0];
-        for (int i = 1; i < 6; i++) {
-            statTextLengthsPrefix[i] = statTextLengths[i] + statTextLengthsPrefix[i-1];
-        }
-
         DrawText(
-            "PAC",
+            statTexts[0],
             DCardWidthOffset + statsOffsetX,
             statsPosY,
             statsFontSize,
@@ -263,7 +261,7 @@ public class Player {
         );
 
         DrawText(
-            "SHO",
+            statTexts[1],
             DCardWidthOffset + statsOffsetX + statsWidthPadding + statTextLengthsPrefix[0],
             statsPosY,
             statsFontSize,
@@ -271,7 +269,7 @@ public class Player {
         );
 
         DrawText(
-            "PAS",
+            statTexts[2],
             DCardWidthOffset + statsOffsetX + statsWidthPadding * 2 + statTextLengthsPrefix[1],
             statsPosY,
             statsFontSize,
@@ -279,7 +277,7 @@ public class Player {
         );
 
         DrawText(
-            "DRI",
+            statTexts[3],
             DCardWidthOffset + statsOffsetX + statsWidthPadding * 3 + statTextLengthsPrefix[2],
             statsPosY,
             statsFontSize,
@@ -287,7 +285,7 @@ public class Player {
         );
 
         DrawText(
-            "DEF",
+            statTexts[4],
             DCardWidthOffset + statsOffsetX + statsWidthPadding * 4 + statTextLengthsPrefix[3],
             statsPosY,
             statsFontSize,
@@ -295,7 +293,7 @@ public class Player {
         );
 
         DrawText(
-            "PHY",
+            statTexts[5],
             DCardWidthOffset + statsOffsetX + statsWidthPadding * 5 + statTextLengthsPrefix[4],
             statsPosY,
             statsFontSize,
@@ -391,7 +389,7 @@ public class Player {
 
         /* Right hand side */
 
-        int hexagonRadius = 100;
+        int hexagonRadius = 120;
 
         DrawHexagon(
             DCardWidthOffset + 3 * DCardWidth / 4,
