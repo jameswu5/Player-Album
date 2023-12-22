@@ -2,6 +2,8 @@ using System;
 using Raylib_cs;
 using static Raylib_cs.Raylib;
 using static PlayerAlbum.Settings;
+using System.Runtime.CompilerServices;
+using System.Numerics;
 
 namespace PlayerAlbum;
 
@@ -194,13 +196,13 @@ public class Player {
         // Player name
 
         // placeholder -- to delete
-        DrawRectangle(
-            DCardWidthOffset,
-            DCardHeightOffset + DCardImageHeightOffset + imageSize + smallPadding,
-            DCardWidth / 2,
-            segmentHeight * 3,
-            Color.LIGHTGRAY
-        );
+        // DrawRectangle(
+        //     DCardWidthOffset,
+        //     DCardHeightOffset + DCardImageHeightOffset + imageSize + smallPadding,
+        //     DCardWidth / 2,
+        //     segmentHeight * 3,
+        //     Color.LIGHTGRAY
+        // );
 
         int nameFontSize = Math.Min(segmentHeight * 3 - smallPadding, 32);
         (int namePosX, int namePosY) = Helper.GetTextPositions(Name, DCardWidth >> 1, 3 * segmentHeight, nameFontSize);
@@ -213,15 +215,15 @@ public class Player {
         );
 
         // Stats placeholder -- to delete
-        DrawRectangle(
-            DCardWidthOffset,
-            DCardHeightOffset + DCardImageHeightOffset + imageSize + smallPadding + segmentHeight * 3,
-            DCardWidth / 2,
-            segmentHeight * 4,
-            Color.YELLOW
-        );
+        // DrawRectangle(
+        //     DCardWidthOffset,
+        //     DCardHeightOffset + DCardImageHeightOffset + imageSize + smallPadding + segmentHeight * 3,
+        //     DCardWidth / 2,
+        //     segmentHeight * 4,
+        //     Color.YELLOW
+        // );
 
-        int statsWidthPadding = 10; // padding between stats
+        int statsWidthPadding = 15; // padding between stats
         int statsHeightPadding = 10; // padding between the stat name and the corresponding number
         int statsFontSize = 22;
         int totalStatsWidth = 5 * statsWidthPadding
@@ -367,13 +369,13 @@ public class Player {
 
 
         // Badges placeholder -- to delete
-        DrawRectangle(
-            DCardWidthOffset,
-            DCardHeightOffset + DCardImageHeightOffset + imageSize + smallPadding + segmentHeight * 7,
-            DCardWidth / 2,
-            segmentHeight * 2,
-            Color.SKYBLUE
-        );
+        // DrawRectangle(
+        //     DCardWidthOffset,
+        //     DCardHeightOffset + DCardImageHeightOffset + imageSize + smallPadding + segmentHeight * 7,
+        //     DCardWidth / 2,
+        //     segmentHeight * 2,
+        //     Color.SKYBLUE
+        // );
 
         
         /* Middle divider */
@@ -389,5 +391,52 @@ public class Player {
 
         /* Right hand side */
 
+        int hexagonRadius = 100;
+
+        DrawHexagon(
+            DCardWidthOffset + 3 * DCardWidth / 4,
+            DCardHeightOffset + DCardHeight / 2,
+            hexagonRadius
+        );
+    }
+
+    private void DrawHexagon(int centreX, int centreY, int radius) {
+
+        DrawCircle(centreX, centreY, radius, Color.BLACK);
+        DrawCircle(centreX, centreY, radius - 3, Color.WHITE);
+
+        int[] GetCoordinates(double modulus, double argument) {
+            int x = (int)Math.Round(modulus * Math.Cos(argument));
+            int y = (int)Math.Round(modulus * Math.Sin(argument));
+            return new int[] {x + centreX, -y + centreY};
+        }
+
+        int[][] endpoints = new int[6][];
+        endpoints[0] = GetCoordinates(radius,  2 * Math.PI / 3);
+        endpoints[1] = GetCoordinates(radius,      Math.PI / 3);
+        endpoints[2] = GetCoordinates(radius,                0);
+        endpoints[3] = GetCoordinates(radius,    - Math.PI / 3);
+        endpoints[4] = GetCoordinates(radius, -2 * Math.PI / 3);
+        endpoints[5] = GetCoordinates(radius,          Math.PI);
+
+        for (int i = 0; i < 3; i++) {
+            DrawLine(endpoints[i][0], endpoints[i][1], endpoints[i+3][0], endpoints[i+3][1], Color.BLACK);
+        }
+
+        int[][] coordinates = new int[6][];
+        coordinates[0] = GetCoordinates(radius * Pace        / 100.0,  2 * Math.PI / 3);
+        coordinates[1] = GetCoordinates(radius * Shooting    / 100.0,      Math.PI / 3);
+        coordinates[2] = GetCoordinates(radius * Passing     / 100.0,                0);
+        coordinates[3] = GetCoordinates(radius * Dribbling   / 100.0,    - Math.PI / 3);
+        coordinates[4] = GetCoordinates(radius * Defending   / 100.0, -2 * Math.PI / 3);
+        coordinates[5] = GetCoordinates(radius * Physicality / 100.0,          Math.PI);
+
+        for (int i = 0; i < 6; i++) {
+            DrawLineEx(
+                new Vector2(coordinates[i][0], coordinates[i][1]),
+                new Vector2(coordinates[(i+1)%6][0], coordinates[(i+1)%6][1]),
+                3, Color.DARKBLUE
+            );
+        }
     }
 }
