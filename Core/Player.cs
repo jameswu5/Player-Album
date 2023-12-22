@@ -218,7 +218,7 @@ public class Player {
             DCardHeightOffset + DCardImageHeightOffset + imageSize + smallPadding + segmentHeight * 3,
             DCardWidth / 2,
             segmentHeight * 4,
-            Color.DARKGRAY
+            Color.YELLOW
         );
 
         int statsWidthPadding = 10; // padding between stats
@@ -235,14 +235,6 @@ public class Player {
 
         (int statsOffsetX, int statsOffsetY) = Helper.GetCenteredPositions(totalStatsWidth, totalStatsHeight,
                                                DCardWidth / 2, segmentHeight * 4);
-
-        DrawRectangle(
-            DCardWidthOffset + statsOffsetX,
-            DCardHeightOffset + DCardImageHeightOffset + imageSize + smallPadding + segmentHeight * 3 + statsOffsetY,
-            totalStatsWidth,
-            totalStatsHeight,
-            Color.YELLOW
-        );
 
         int statsPosY = DCardHeightOffset + DCardImageHeightOffset + imageSize + smallPadding + segmentHeight * 3 + statsOffsetY;
 
@@ -313,14 +305,6 @@ public class Player {
 
         (int x, int y) pacOffset = Helper.GetTextPositions(Pace.ToString(), statTextLengths[0], statsFontSize, statsFontSize);
 
-        DrawRectangle(
-            DCardWidthOffset + statsOffsetX,
-            statsPosY + statsFontSize + statsHeightPadding,
-            MeasureText("PAC", statsFontSize),
-            statsFontSize,
-            Color.BEIGE
-        );
-
         DrawText(
             Pace.ToString(),
             DCardWidthOffset + statsOffsetX + pacOffset.x,
@@ -332,14 +316,6 @@ public class Player {
 
         (int x, int y) shoOffset = Helper.GetTextPositions(Shooting.ToString(), statTextLengths[1], statsFontSize, statsFontSize);
 
-        DrawRectangle(
-            DCardWidthOffset + statsOffsetX + statTextLengthsPrefix[0] + 1 * statsWidthPadding,
-            statsPosY + statsFontSize + statsHeightPadding,
-            MeasureText("SHO", statsFontSize),
-            statsFontSize,
-            Color.BEIGE
-        );
-
         DrawText(
             Shooting.ToString(),
             DCardWidthOffset + statsOffsetX + statTextLengthsPrefix[0] + 1 * statsWidthPadding + shoOffset.x,
@@ -350,14 +326,6 @@ public class Player {
 
         (int x, int y) pasOffset = Helper.GetTextPositions(Passing.ToString(), statTextLengths[2], statsFontSize, statsFontSize);
 
-        DrawRectangle(
-            DCardWidthOffset + statsOffsetX + statTextLengthsPrefix[1] + 2 * statsWidthPadding,
-            statsPosY + statsFontSize + statsHeightPadding,
-            MeasureText("SHO", statsFontSize),
-            statsFontSize,
-            Color.BEIGE
-        );
-
         DrawText(
             Passing.ToString(),
             DCardWidthOffset + statsOffsetX + statTextLengthsPrefix[1] + 2 * statsWidthPadding + pasOffset.x,
@@ -367,14 +335,6 @@ public class Player {
         );
 
         (int x, int y) driOffset = Helper.GetTextPositions(Dribbling.ToString(), statTextLengths[3], statsFontSize, statsFontSize);
-
-        DrawRectangle(
-            DCardWidthOffset + statsOffsetX + statTextLengthsPrefix[2] + 3 * statsWidthPadding,
-            statsPosY + statsFontSize + statsHeightPadding,
-            MeasureText("SHO", statsFontSize),
-            statsFontSize,
-            Color.BEIGE
-        );
 
         DrawText(
             Dribbling.ToString(),
@@ -387,14 +347,6 @@ public class Player {
 
         (int x, int y) defOffset = Helper.GetTextPositions(Defending.ToString(), statTextLengths[4], statsFontSize, statsFontSize);
 
-        DrawRectangle(
-            DCardWidthOffset + statsOffsetX + statTextLengthsPrefix[3] + 4 * statsWidthPadding,
-            statsPosY + statsFontSize + statsHeightPadding,
-            MeasureText("SHO", statsFontSize),
-            statsFontSize,
-            Color.BEIGE
-        );
-
         DrawText(
             Defending.ToString(),
             DCardWidthOffset + statsOffsetX + statTextLengthsPrefix[3] + 4 * statsWidthPadding + defOffset.x,
@@ -404,14 +356,6 @@ public class Player {
         );
 
         (int x, int y) phyOffset = Helper.GetTextPositions(Physicality.ToString(), statTextLengths[5], statsFontSize, statsFontSize);
-
-        DrawRectangle(
-            DCardWidthOffset + statsOffsetX + statTextLengthsPrefix[4] + 5 * statsWidthPadding,
-            statsPosY + statsFontSize + statsHeightPadding,
-            MeasureText("SHO", statsFontSize),
-            statsFontSize,
-            Color.BEIGE
-        );
 
         DrawText(
             Physicality.ToString(),
