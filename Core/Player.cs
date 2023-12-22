@@ -188,21 +188,146 @@ public class Player {
 
         // Player information
 
-        int segmentHeight = (DCardHeight - DCardImageHeightOffset - imageSize - 2 * heightPadding) / 6;
         int smallPadding = 5;
+        int segmentHeight = (DCardHeight - DCardImageHeightOffset - imageSize - heightPadding - smallPadding) / 9;
 
         // Player name
-        int nameFontSize = Math.Min(segmentHeight * 2 - smallPadding, 32);
-        (int namePosX, int namePosY) = Helper.GetTextPositions(Name, DCardWidth >> 1, 2 * segmentHeight, nameFontSize);
+
+        // placeholder -- to delete
+        DrawRectangle(
+            DCardWidthOffset,
+            DCardHeightOffset + DCardImageHeightOffset + imageSize + smallPadding,
+            DCardWidth / 2,
+            segmentHeight * 3,
+            Color.LIGHTGRAY
+        );
+
+        int nameFontSize = Math.Min(segmentHeight * 3 - smallPadding, 32);
+        (int namePosX, int namePosY) = Helper.GetTextPositions(Name, DCardWidth >> 1, 3 * segmentHeight, nameFontSize);
         DrawText(
             Name,
             namePosX + DCardWidthOffset,
-            namePosY + DCardHeightOffset + DCardImageHeightOffset + imageSize + heightPadding,
+            namePosY + DCardHeightOffset + DCardImageHeightOffset + imageSize + smallPadding,
             nameFontSize,
             Color.BLACK
         );
 
+        // Stats placeholder -- to delete
+        DrawRectangle(
+            DCardWidthOffset,
+            DCardHeightOffset + DCardImageHeightOffset + imageSize + smallPadding + segmentHeight * 3,
+            DCardWidth / 2,
+            segmentHeight * 4,
+            Color.DARKGRAY
+        );
+
+        int statsWidthPadding = 10; // padding between stats
+        int statsHeightPadding = 15; // padding between the stat name and the corresponding number
+        int statsFontSize = 18;
+        int totalStatsWidth = 5 * statsWidthPadding
+                            + MeasureText("PAC", statsFontSize)
+                            + MeasureText("SHO", statsFontSize)
+                            + MeasureText("PAS", statsFontSize)
+                            + MeasureText("DRI", statsFontSize)
+                            + MeasureText("DEF", statsFontSize)
+                            + MeasureText("PHY", statsFontSize);
+        int totalStatsHeight = 2 * statsFontSize + statsHeightPadding;
+
+        (int statsOffsetX, int statsOffsetY) = Helper.GetCenteredPositions(totalStatsWidth, totalStatsHeight,
+                                               DCardWidth / 2, segmentHeight * 4);
+
+        DrawRectangle(
+            DCardWidthOffset + statsOffsetX,
+            DCardHeightOffset + DCardImageHeightOffset + imageSize + smallPadding + segmentHeight * 3 + statsOffsetY,
+            totalStatsWidth,
+            totalStatsHeight,
+            Color.YELLOW
+        );
+
+        int statsPosY = DCardHeightOffset + DCardImageHeightOffset + imageSize + smallPadding + segmentHeight * 3 + statsOffsetY;
+
+        // This can be optimised with a prefix sum, but I'll bother with it later
+
+        int[] statTextLengths = new int[6]; // This is a PREFIX SUM!
+        statTextLengths[0] = MeasureText("PAC", statsFontSize);
+        statTextLengths[1] = MeasureText("SHO", statsFontSize) + statTextLengths[0];
+        statTextLengths[2] = MeasureText("PAS", statsFontSize) + statTextLengths[1];
+        statTextLengths[3] = MeasureText("DRI", statsFontSize) + statTextLengths[2];
+        statTextLengths[4] = MeasureText("DEF", statsFontSize) + statTextLengths[3];
+        statTextLengths[5] = MeasureText("PHY", statsFontSize) + statTextLengths[4];
+
+        DrawText(
+            "PAC",
+            DCardWidthOffset + statsOffsetX,
+            statsPosY,
+            statsFontSize,
+            Color.BLACK
+        );
+
+        DrawText(
+            "SHO",
+            DCardWidthOffset + statsOffsetX + statsWidthPadding + statTextLengths[0],
+            statsPosY,
+            statsFontSize,
+            Color.BLACK
+        );
+
+        DrawText(
+            "PAS",
+            DCardWidthOffset + statsOffsetX + statsWidthPadding * 2 + statTextLengths[1],
+            statsPosY,
+            statsFontSize,
+            Color.BLACK
+        );
+
+        DrawText(
+            "DRI",
+            DCardWidthOffset + statsOffsetX + statsWidthPadding * 3 + statTextLengths[2],
+            statsPosY,
+            statsFontSize,
+            Color.BLACK
+        );
+
+        DrawText(
+            "DEF",
+            DCardWidthOffset + statsOffsetX + statsWidthPadding * 4 + statTextLengths[3],
+            statsPosY,
+            statsFontSize,
+            Color.BLACK
+        );
+
+        DrawText(
+            "PHY",
+            DCardWidthOffset + statsOffsetX + statsWidthPadding * 5 + statTextLengths[4],
+            statsPosY,
+            statsFontSize,
+            Color.BLACK
+        );
+
+
+
+        // Badges placeholder -- to delete
+        DrawRectangle(
+            DCardWidthOffset,
+            DCardHeightOffset + DCardImageHeightOffset + imageSize + smallPadding + segmentHeight * 7,
+            DCardWidth / 2,
+            segmentHeight * 2,
+            Color.SKYBLUE
+        );
+
         
+        /* Middle divider */
+
+        DrawLine(
+            DCardWidthOffset + DCardWidth / 2,
+            DCardHeightOffset,
+            DCardWidthOffset + DCardWidth / 2,
+            DCardHeightOffset + DCardHeight,
+            Color.BLACK
+        );
+
+
+        /* Right hand side */
 
     }
 }

@@ -36,8 +36,12 @@ public static class Helper {
 
     public static (int, int) GetTextPositions(string text, int width, int height, int fontSize) {
         int textWidth = Raylib.MeasureText(text, fontSize);
-        int x = (width - textWidth) >> 1;
-        int y = (height - fontSize) >> 1;
+        return GetCenteredPositions(textWidth, fontSize, width, height);
+    }
+
+    public static (int, int) GetCenteredPositions(int width, int height, int boxWidth, int boxHeight) {
+        int x = (boxWidth - width) >> 1;
+        int y = (boxHeight - height) >> 1;
         return (x, y);
     }
 }
