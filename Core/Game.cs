@@ -5,7 +5,7 @@ using static PlayerAlbum.Settings;
 namespace PlayerAlbum;
 
 public class Game {
-    public enum Screen {Home};
+    public enum Screen {Home, Menu};
     private Screen currentScreen;
 
     public Game() {
