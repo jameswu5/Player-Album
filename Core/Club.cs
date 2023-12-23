@@ -5,12 +5,12 @@ namespace PlayerAlbum;
 
 public struct Club {
     public string name;
-    public string badgePath;
+    public string shortcode;
     public Color colour;
 
-    public Club(string name, string badgePath, Color colour) {
+    public Club(string name, string shortcode, Color colour) {
         this.name = name;
-        this.badgePath = badgePath;
+        this.shortcode = shortcode;
         this.colour = colour;
     }
 }
