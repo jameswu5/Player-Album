@@ -32,7 +32,18 @@ class Database:
                 PreferredFoot CHAR NOT NULL,
                 WeakFoot INTEGER NOT NULL,
                 SkillMoves INTEGER NOT NULL,
-                Gender CHAR NOT NULL
+                Gender CHAR NOT NULL,
+                FOREIGN KEY (Club) REFERENCES Club(Name)
+            );
+            """
+        )
+
+        self.__cur.execute(
+            """
+            CREATE TABLE IF NOT EXISTS Club (
+                Name TEXT PRIMARY KEY,
+                Shortcode TEXT UNIQUE NOT NULL,
+                Colour TEXT
             );
             """
         )
@@ -99,6 +110,19 @@ class Database:
                 self.__cur.execute(query)
             except:
                 print(f"{player['Name']} failed to insert.")
+
+        self.__conn.commit()
+
+    def populate_clubs(self, clubs: list) -> None:
+        for club in clubs:
+            query = f"""
+                INSERT INTO Club (Name, Shortcode, Colour)
+                VALUES("{club['Name']}", "{club['Shortcode']}", "{club['Colour']}");
+            """
+            try:
+                self.__cur.execute(query)
+            except:
+                print(f"{club['Name']} failed to insert.")
 
         self.__conn.commit()
 
