@@ -5,6 +5,7 @@ namespace PlayerAlbum;
 
 public static class Program {
     public static void Main() {
-        Canvas.MainLoop();
+        Game game = new Game();
+        game.Run();
     }
 }

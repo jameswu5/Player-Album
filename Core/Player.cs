@@ -2,7 +2,6 @@ using System;
 using Raylib_cs;
 using static Raylib_cs.Raylib;
 using static PlayerAlbum.Settings;
-using System.Runtime.CompilerServices;
 using System.Numerics;
 
 namespace PlayerAlbum;

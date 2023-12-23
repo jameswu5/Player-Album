@@ -9,6 +9,7 @@ namespace PlayerAlbum;
 public static class Settings {
     public static readonly int ScreenWidth  = 1080;
     public static readonly int ScreenHeight = 720;
+    public static readonly Color ScreenColour = new Color(230, 230, 230, 255);
 
     public static readonly Color ButtonColour = Color.LIGHTGRAY;
     public static readonly Color ButtonHoverColour = Color.DARKGRAY;
