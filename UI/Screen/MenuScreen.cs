@@ -35,7 +35,7 @@ public class MenuScreen : Screen {
         // See all player button
         HoverButton allPlayerButton = new HoverButton(
             ButtonWidthPadding, HeaderHeight + ButtonHeightPadding, ButtonWidth, ButtonHeight,
-            colour: Color.VIOLET,
+            colour: Color.SKYBLUE,
             text: "See all players",
             fontSize: 40
         );
@@ -45,7 +45,7 @@ public class MenuScreen : Screen {
         // Open pack button
         HoverButton openPackButton = new HoverButton(
             ButtonWidthPadding, HeaderHeight + ButtonHeightPadding * 2 + ButtonHeight, ButtonWidth, ButtonHeight,
-            colour: Color.DARKBLUE,
+            colour: Color.ORANGE,
             text: "Open pack",
             fontSize: 40
         );
