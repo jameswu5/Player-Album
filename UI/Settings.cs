@@ -33,6 +33,14 @@ public static class Settings {
         public static readonly Color HeaderColour = Color.LIGHTGRAY;
         public static readonly int HeaderHeight = 80;
         public static readonly int HeaderFontSize = 30;
+        
+        // Left side
+        public static readonly int ButtonWidth = 400;
+        public static readonly int ButtonWidthPadding = (ScreenWidth / 2 - ButtonWidth) / 2;
+        public static readonly int ButtonHeight = 250;
+        public static readonly int ButtonHeightPadding = (ScreenHeight - HeaderHeight - 2 * ButtonHeight) / 3;
+
+        // Right side
     }
 
     /* Player UI Settings */

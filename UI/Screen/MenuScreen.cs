@@ -34,6 +34,25 @@ public class MenuScreen : Screen {
         AddButtonAction(homeButton, new Action(targetScreen: Game.GameScreen.Home));
         res.Add(homeButton);
         
+        // See all player button
+        HoverButton allPlayerButton = new HoverButton(
+            ButtonWidthPadding, HeaderHeight + ButtonHeightPadding, ButtonWidth, ButtonHeight,
+            colour: Color.VIOLET,
+            text: "See all players",
+            fontSize: 40
+        );
+        AddButtonAction(allPlayerButton, new Action());
+        res.Add(allPlayerButton);
+
+        // Open pack button
+        HoverButton openPackButton = new HoverButton(
+            ButtonWidthPadding, HeaderHeight + ButtonHeightPadding * 2 + ButtonHeight, ButtonWidth, ButtonHeight,
+            colour: Color.DARKBLUE,
+            text: "Open pack",
+            fontSize: 40
+        );
+        AddButtonAction(openPackButton, new Action());
+        res.Add(openPackButton);
 
         return res;
     }
