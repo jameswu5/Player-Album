@@ -19,6 +19,17 @@ public static class Settings {
     public static readonly int MediumFontSize = 20;
     public static readonly int LargeFontSize  = 30;
 
+    /* Home Screen UI Settings */
+    public static class HomeScreen {
+        public static readonly int FontSize = 64;
+        public static readonly int ButtonWidth = 600;
+        public static readonly int ButtonHeight = 100;
+        public static readonly int ButtonFontSize = 36;
+        public static readonly int Padding = 40;
+    }
+
+    /* Player UI Settings */
+
     public static readonly int CardWidth = 210;
     public static readonly int CardHeight = 270;
     public static readonly int CardOffset = 12;
