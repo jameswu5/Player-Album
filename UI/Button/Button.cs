@@ -14,18 +14,12 @@ public abstract class Button {
     protected readonly int width;
     protected readonly string name;
 
-    protected Action action = new Action();
-
     public Button(int posX, int posY, int width, int height, string name = "") {
         this.posX = posX;
         this.posY = posY;
         this.height = height;
         this.width = width;
         this.name = name;
-    }
-
-    public void SetAction(Action action) {
-        this.action = action;
     }
 
     public void Render() {
