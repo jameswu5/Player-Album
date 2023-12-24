@@ -29,19 +29,22 @@ public static class Settings {
     }
 
     /* Player UI Settings */
+    public static class Player {
+        // Card icon
+        public static readonly int CardWidth = 210;
+        public static readonly int CardHeight = 270;
+        public static readonly int CardOffset = 12;
+        public static readonly int CardFontSize = 20;
 
-    public static readonly int CardWidth = 210;
-    public static readonly int CardHeight = 270;
-    public static readonly int CardOffset = 12;
-    public static readonly int CardFontSize = 20;
+        // Detailed Card
+        public static readonly int DCardWidth = 810;
+        public static readonly int DCardHeight = 540;
+        public static readonly int DCardWidthOffset = (ScreenWidth - DCardWidth) >> 1;
+        public static readonly int DCardHeightOffset = (ScreenHeight - DCardHeight) >> 1;
 
-    // DCard - DetailedCard
-    public static readonly int DCardWidth = 810;
-    public static readonly int DCardHeight = 540;
-    public static readonly int DCardWidthOffset = (ScreenWidth - DCardWidth) >> 1;
-    public static readonly int DCardHeightOffset = (ScreenHeight - DCardHeight) >> 1;
+        // Left side of detailed card
+        public static readonly int DCardImageWidthOffset = 80;
+        public static readonly int DCardImageHeightOffset = 90;
+    }
 
-    // Left side of detailed card
-    public static readonly int DCardImageWidthOffset = 80;
-    public static readonly int DCardImageHeightOffset = 90;
 }
