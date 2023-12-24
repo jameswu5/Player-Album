@@ -11,8 +11,8 @@ public abstract class Screen {
     protected void AddButtonAction(Button button, Action action) {
         button.OnClick += () => clickAction(action);
     }
-    
-    protected void AddButtonAction(HoverButton button, Action action) {
+
+    protected void AddButtonAction(TextButton button, Action action) {
         button.OnClick += () => clickAction(action);
     }
 

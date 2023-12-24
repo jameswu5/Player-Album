@@ -22,7 +22,7 @@ public class MenuScreen : Screen {
         List<Button> res = new();
 
         // Home button
-        HoverButton homeButton = new HoverButton(
+        TextButton homeButton = new TextButton(
             0, 0, HeaderHeight, HeaderHeight,
             colour: Color.BLACK,
             text: "Home",
@@ -33,7 +33,7 @@ public class MenuScreen : Screen {
         res.Add(homeButton);
         
         // See all player button
-        HoverButton allPlayerButton = new HoverButton(
+        TextButton allPlayerButton = new TextButton(
             ButtonWidthPadding, HeaderHeight + ButtonHeightPadding, ButtonWidth, ButtonHeight,
             colour: Color.SKYBLUE,
             text: "See all players",
@@ -43,7 +43,7 @@ public class MenuScreen : Screen {
         res.Add(allPlayerButton);
 
         // Open pack button
-        HoverButton openPackButton = new HoverButton(
+        TextButton openPackButton = new TextButton(
             ButtonWidthPadding, HeaderHeight + ButtonHeightPadding * 2 + ButtonHeight, ButtonWidth, ButtonHeight,
             colour: Color.ORANGE,
             text: "Open pack",
