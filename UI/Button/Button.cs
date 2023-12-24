@@ -5,11 +5,16 @@ using static Raylib_cs.Raylib;
 namespace PlayerAlbum;
 
 public abstract class Button {
+
+    public event System.Action OnClick;
+
     protected readonly int posX;
     protected readonly int posY;
     protected readonly int height;
     protected readonly int width;
     protected readonly string name;
+
+    protected Action action = new Action();
 
     public Button(int posX, int posY, int width, int height, string name = "") {
         this.posX = posX;
@@ -19,11 +24,15 @@ public abstract class Button {
         this.name = name;
     }
 
+    public void SetAction(Action action) {
+        this.action = action;
+    }
+
     public void Render() {
         if (IsHovered(GetMouseX(), GetMouseY())) {
             HoverDisplay();
             if (IsMouseButtonPressed(0)) {
-                OnClick();
+                Click();
             }
         } else {
             Display();
@@ -43,5 +52,5 @@ public abstract class Button {
 
     protected virtual void HoverDisplay() => Display();
 
-    protected virtual void OnClick() => Console.WriteLine($"{name} pressed.");
+    protected virtual void Click() => OnClick.Invoke();
 }

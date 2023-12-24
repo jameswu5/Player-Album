@@ -2,7 +2,7 @@ using System;
 
 namespace PlayerAlbum;
 
-public class PackScreen : IScreen {
+public class PackScreen : Screen {
 
     private IEnumerable<Player> players;
 
@@ -10,7 +10,7 @@ public class PackScreen : IScreen {
         this.players = players;
     }
 
-    public void Display() {
+    public override void Display() {
         throw new NotImplementedException();
     }
 }

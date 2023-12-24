@@ -2,7 +2,7 @@ using System;
 
 namespace PlayerAlbum;
 
-public class MenuScreen : IScreen {
+public class MenuScreen : Screen {
 
     private IEnumerable<Club> clubs;
 
@@ -14,7 +14,7 @@ public class MenuScreen : IScreen {
         throw new NotImplementedException();
     }
 
-    public void Display() {
+    public override void Display() {
         throw new NotImplementedException();
     }
 }

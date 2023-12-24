@@ -6,7 +6,7 @@ using static PlayerAlbum.Settings.HomeScreen;
 
 namespace PlayerAlbum;
 
-public class HomeScreen : IScreen {
+public class HomeScreen : Screen {
 
     private List<Collection> collections;
     private List<Button> buttons;
@@ -30,14 +30,16 @@ public class HomeScreen : IScreen {
         int posX = (ScreenWidth - ButtonWidth) >> 1;
         for (int i = 0; i < collections.Count; i++) {
             int posY = heightOffset + FontSize + (i + 1) * Padding + i * ButtonHeight;
-            HoverButton button = new(posX, posY, ButtonWidth, ButtonHeight, text: collections[i].name, fontSize: ButtonFontSize);
+            HoverButton button = new(posX, posY, ButtonWidth, ButtonHeight, name: collections[i].name, text: collections[i].name, fontSize: ButtonFontSize);
+            Action action = new(targetScreen: Game.GameScreen.Menu, debugText: collections[i].name);
+            AddButtonAction(button, action);
             res.Add(button);
         }
 
         return res;
     }
 
-    public void Display() {
+    public override void Display() {
         // Title
         int titleWidthOffset = (ScreenWidth - MeasureText(TitleText, FontSize)) >> 1;
         DrawText(TitleText, titleWidthOffset, heightOffset, FontSize, Color.BLACK);

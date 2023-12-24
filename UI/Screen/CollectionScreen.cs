@@ -2,7 +2,7 @@ using System;
 
 namespace PlayerAlbum;
 
-public class CollectionScreen : IScreen {
+public class CollectionScreen : Screen {
 
     private IEnumerable<Player> players;
 
@@ -10,7 +10,7 @@ public class CollectionScreen : IScreen {
         this.players = players;
     }
 
-    public void Display() {
+    public override void Display() {
         throw new NotImplementedException();
     }
 }
