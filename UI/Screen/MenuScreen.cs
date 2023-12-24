@@ -61,10 +61,12 @@ public class MenuScreen : Screen {
             int r = i / ClubsPerRow;
             int c = i % ClubsPerRow;
 
-            HoverButton button = new(
+            Image img = new Image(Helper.GetBadgePath(clubs[i].shortcode), ClubButtonSize, ClubButtonSize);
+
+            ImageButton button = new(
                 ScreenWidth / 2 + ClubButtonEdgePadding + c * (ClubButtonSize + ClubButtonPadding),
                 HeaderHeight + (ClubTitleBoxHeight + ClubFontSize) / 2 + clubTopPadding + r * (ClubButtonSize + ClubButtonPadding),
-                ClubButtonSize, ClubButtonSize, colour: Color.LIME, text: i.ToString()
+                img, clubs[i].name
             );
             AddButtonAction(button, new Action());
             res.Add(button);
@@ -91,7 +93,6 @@ public class MenuScreen : Screen {
         string clubText = "CLUBS";
 
         (int x, int y) clubTextPos = Helper.GetTextPositions(clubText, ScreenWidth / 2, ClubTitleBoxHeight, ClubFontSize);
-        // DrawRectangle(ScreenWidth / 2, HeaderHeight, ScreenWidth / 2, (ClubTitleBoxHeight + ClubFontSize) >> 1, Color.MAROON);
         DrawText(clubText, ScreenWidth / 2 + clubTextPos.x, HeaderHeight + clubTextPos.y, ClubFontSize, Color.BLACK);
 
         // Buttons

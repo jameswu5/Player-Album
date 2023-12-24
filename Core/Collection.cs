@@ -9,5 +9,6 @@ public struct Collection {
     public Collection(string name, List<Club> clubs) {
         this.name = name;
         this.clubs = clubs;
+        clubs.Sort((a, b) => a.shortcode.CompareTo(b.shortcode));
     }
 }
