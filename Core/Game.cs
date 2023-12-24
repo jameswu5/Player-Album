@@ -16,9 +16,13 @@ public class Game {
         HomeScreen homeScreen = new HomeScreen(Data.collections);
         homeScreen.clickAction += ExecuteAction;
 
+        MenuScreen menuScreen = new MenuScreen();
+        menuScreen.clickAction += ExecuteAction;
+
         screens = new()
         {
-            [GameScreen.Home] = homeScreen
+            [GameScreen.Home] = homeScreen,
+            [GameScreen.Menu] = menuScreen
         };
     }
 
@@ -41,6 +45,7 @@ public class Game {
                 screens[GameScreen.Home].Display();
                 break;
             case GameScreen.Menu:
+                screens[GameScreen.Menu].Display();
                 break;
             default:
                 throw new Exception("No screen found.");
