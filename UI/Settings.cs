@@ -41,6 +41,16 @@ public static class Settings {
         public static readonly int ButtonHeightPadding = (ScreenHeight - HeaderHeight - 2 * ButtonHeight) / 3;
 
         // Right side
+        public static readonly int ClubFontSize = 64;
+        public static readonly int ClubTitleBoxHeight = 160;
+
+        public static readonly int ClubsPerRow = 4;
+        public static readonly int ClubButtonSize = 64;
+        public static readonly int ClubButtonPadding = 35;
+        public static readonly int ClubButtonEdgePadding = (ScreenWidth / 2
+                                                         - ClubsPerRow * ClubButtonSize
+                                                         - (ClubsPerRow - 1) * ClubButtonPadding) / 2;
+
     }
 
     /* Player UI Settings */

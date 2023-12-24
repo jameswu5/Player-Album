@@ -16,8 +16,6 @@ public class MenuScreen : Screen {
     public MenuScreen() {
         clubs = new List<Club>();
         buttons = InitialiseButtons();
-
-
     }
 
     private List<Button> InitialiseButtons() {
@@ -26,7 +24,7 @@ public class MenuScreen : Screen {
         // Home button
         HoverButton homeButton = new HoverButton(
             0, 0, HeaderHeight, HeaderHeight,
-            colour: Color.DARKGRAY,
+            colour: Color.BLACK,
             text: "Home",
             textColour: Color.WHITE,
             fontSize: HeaderFontSize
@@ -54,12 +52,31 @@ public class MenuScreen : Screen {
         AddButtonAction(openPackButton, new Action());
         res.Add(openPackButton);
 
+        // Right hand side
+        int rows = (clubs.Count - 1) / ClubsPerRow + 1;
+        int clubRowsNeededHeight = rows * ClubButtonSize + (rows - 1) * ClubButtonPadding;
+        int clubTopPadding = (ScreenHeight - HeaderHeight - (ClubFontSize + ClubTitleBoxHeight) / 2 - clubRowsNeededHeight) >> 1;
+
+        for (int i = 0; i < clubs.Count; i++) {
+            int r = i / ClubsPerRow;
+            int c = i % ClubsPerRow;
+
+            HoverButton button = new(
+                ScreenWidth / 2 + ClubButtonEdgePadding + c * (ClubButtonSize + ClubButtonPadding),
+                HeaderHeight + (ClubTitleBoxHeight + ClubFontSize) / 2 + clubTopPadding + r * (ClubButtonSize + ClubButtonPadding),
+                ClubButtonSize, ClubButtonSize, colour: Color.LIME, text: i.ToString()
+            );
+            AddButtonAction(button, new Action());
+            res.Add(button);
+        }
+
         return res;
     }
 
     public void SetClubs(Collection collection) {
         this.collection = collection;
         clubs = collection.clubs;
+        buttons = InitialiseButtons();
     }
 
     public override void Display() {
@@ -70,6 +87,12 @@ public class MenuScreen : Screen {
         (int x, int y) headerPos = Helper.GetTextPositions(collection.name, ScreenWidth, HeaderHeight, HeaderFontSize);
         DrawText(collection.name, headerPos.x, headerPos.y, HeaderFontSize, Color.BLACK);
 
+        // Club title text
+        string clubText = "CLUBS";
+
+        (int x, int y) clubTextPos = Helper.GetTextPositions(clubText, ScreenWidth / 2, ClubTitleBoxHeight, ClubFontSize);
+        // DrawRectangle(ScreenWidth / 2, HeaderHeight, ScreenWidth / 2, (ClubTitleBoxHeight + ClubFontSize) >> 1, Color.MAROON);
+        DrawText(clubText, ScreenWidth / 2 + clubTextPos.x, HeaderHeight + clubTextPos.y, ClubFontSize, Color.BLACK);
 
         // Buttons
         foreach (Button button in buttons) {
