@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Data;
 using Microsoft.Data.Sqlite;
 
 namespace PlayerAlbum;
@@ -31,6 +30,28 @@ public static class Database {
             }
             Console.WriteLine();
         }
+    }
+
+    public static List<string> GetDistinctColumn(string query) {
+        List<string> res = new();
+        SqliteCommand command = CreateCommand(query);
+        SqliteDataReader reader = command.ExecuteReader();
+        while (reader.Read()) {
+            res.Add(reader[0].ToString());
+        }
+        return res;
+    }
+
+    public static List<object[]> GetColumns(string query) {
+        List<object[]> res = new();
+        SqliteCommand command = CreateCommand(query);
+        SqliteDataReader reader = command.ExecuteReader();
+        while (reader.Read()) {
+            object[] values = new object[reader.FieldCount];
+            reader.GetValues(values);
+            res.Add(values);
+        }
+        return res;
     }
 
     public static void DisplayTable(string table, int limit = 5) {

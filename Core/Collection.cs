@@ -4,10 +4,10 @@ namespace PlayerAlbum;
 
 public struct Collection {
     public string name;
-    public string logoPath;
+    public List<Club> clubs;
 
-    public Collection(string name, string logoPath) {
+    public Collection(string name, List<Club> clubs) {
         this.name = name;
-        this.logoPath = logoPath;
+        this.clubs = clubs;
     }
 }

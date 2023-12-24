@@ -1,5 +1,6 @@
 using System;
 using Raylib_cs;
+using static Raylib_cs.Raylib;
 
 namespace PlayerAlbum;
 
@@ -12,6 +13,6 @@ public class HomeScreen : IScreen {
     }
 
     public void Display() {
-        throw new NotImplementedException();
+        
     }
 }
