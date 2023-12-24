@@ -7,23 +7,20 @@ namespace PlayerAlbum;
 public class Game {
     public enum GameScreen {Home, Menu};
     private GameScreen currentScreen;
-    private Dictionary<GameScreen, Screen> screens;
+
+    private HomeScreen homeScreen;
+    private MenuScreen menuScreen;
+
 
     public Game() {
         Data.Initialise();
         currentScreen = GameScreen.Home;
 
-        HomeScreen homeScreen = new HomeScreen(Data.collections);
+        homeScreen = new HomeScreen(Data.collections);
         homeScreen.clickAction += ExecuteAction;
 
-        MenuScreen menuScreen = new MenuScreen();
+        menuScreen = new MenuScreen();
         menuScreen.clickAction += ExecuteAction;
-
-        screens = new()
-        {
-            [GameScreen.Home] = homeScreen,
-            [GameScreen.Menu] = menuScreen
-        };
     }
 
     public void Run() {
@@ -42,10 +39,10 @@ public class Game {
     private void Update() {
         switch (currentScreen) {
             case GameScreen.Home:
-                screens[GameScreen.Home].Display();
+                homeScreen.Display();
                 break;
             case GameScreen.Menu:
-                screens[GameScreen.Menu].Display();
+                menuScreen.Display();
                 break;
             default:
                 throw new Exception("No screen found.");
@@ -57,6 +54,16 @@ public class Game {
             Console.WriteLine(action.debugText.Length == 0 ? $"Button clicked." : action.debugText);
         }
         if (action.targetScreen != null) {
+            switch (action.targetScreen) {
+                case GameScreen.Menu:
+                    if (action.collection == null) {
+                        throw new Exception("Null collection trying to go to menu screen");
+                    }
+                    menuScreen.SetClubs((Collection)action.collection); 
+                    break;
+                default:
+                    break;
+            }
             currentScreen = (GameScreen)action.targetScreen;
         }
     }

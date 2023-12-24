@@ -16,8 +16,10 @@ public class MenuScreen : Screen {
         clubs = GetClubs(collection);
     }
 
+    // this is not implemented yet
     private List<Club> GetClubs(Collection collection) {
-        throw new NotImplementedException();
+        // throw new NotImplementedException();
+        return new List<Club>();
     }
 
     public override void Display() {
