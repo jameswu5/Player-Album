@@ -74,5 +74,8 @@ public class Game {
             }
             currentScreen = (GameScreen)action.targetScreen;
         }
+        if (action.pageShift != null) {
+            collectionScreen.ShiftPage((int)action.pageShift);
+        }
     }
 }

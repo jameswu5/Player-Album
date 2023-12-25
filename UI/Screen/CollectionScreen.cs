@@ -44,14 +44,14 @@ public class CollectionScreen : Screen {
             0, DirectionButtonPadding, DirectionButtonWidth, DirectionButtonHeight,
             colour: DirectionButtonColour, text: "<", fontSize: DirectionButtonFontSize
         );
-        AddButtonAction(left, new Action());
+        AddButtonAction(left, new Action(pageShift: -1));
         res.Add(left);
         
         TextButton right = new TextButton(
             ScreenWidth - DirectionButtonWidth, DirectionButtonPadding, DirectionButtonWidth, DirectionButtonHeight,
             colour: DirectionButtonColour, text: ">", fontSize: DirectionButtonFontSize
         );
-        AddButtonAction(right, new Action());
+        AddButtonAction(right, new Action(pageShift: 1));
         res.Add(right);
 
         return res;
@@ -64,6 +64,16 @@ public class CollectionScreen : Screen {
         } else {
             Club cur = (Club)club;
             players = Database.GetPlayers($"""SELECT * FROM Player WHERE Club = "{cur.name}" ORDER BY Overall DESC""");
+        }
+    }
+
+    public void ShiftPage(int shift) {
+        if (shift > 0) {
+            page = Math.Min(page + shift, players.Count / (Rows * Columns));
+        }
+
+        if (shift < 0) {
+            page = Math.Max(page + shift, 0);
         }
     }
 
@@ -80,7 +90,7 @@ public class CollectionScreen : Screen {
         int indexOffset = page * Rows * Columns;
         for (int i = 0; i < Rows; i++) {
             for (int j = 0; j < Columns; j++) {
-                int index = i * Rows + j + indexOffset;
+                int index = i * Columns + j + indexOffset;
                 if (index >= players.Count) {
                     break;
                 }
