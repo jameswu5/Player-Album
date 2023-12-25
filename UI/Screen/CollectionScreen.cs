@@ -7,18 +7,17 @@ using static PlayerAlbum.Settings.CollectionScreen;
 
 /* NEED TO DO:
  * Display detailed card (need to add GhostButton class)
- * Separate male and female teams
  */
 
 namespace PlayerAlbum;
 
 public class CollectionScreen : Screen {
 
-    public int page;
-    public int maxPages;
+    private int page;
+    private int maxPages;
     public Collection collection;
-    public List<Player> players;
-    public Club? club;
+    private List<Player> players;
+    private Club? club;
 
     public CollectionScreen() {
         page = 0;
@@ -65,7 +64,7 @@ public class CollectionScreen : Screen {
             players = Database.GetPlayers($"""SELECT * FROM Player WHERE League = "{collection.name}" ORDER BY Overall DESC""");
         } else {
             Club cur = (Club)club;
-            players = Database.GetPlayers($"""SELECT * FROM Player WHERE Club = "{cur.name}" ORDER BY Overall DESC""");
+            players = Database.GetPlayers($"""SELECT * FROM Player WHERE Club = "{cur.name}" AND League = "{collection.name}" ORDER BY Overall DESC""");
         }
         maxPages = (players.Count - 1) / (Rows * Columns);
     }
@@ -79,6 +78,8 @@ public class CollectionScreen : Screen {
             page = Math.Max(page + shift, 0);
         }
     }
+
+    public void ResetPage() => page = 0;
 
     public override void Display() {
         /* Header */

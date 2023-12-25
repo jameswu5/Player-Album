@@ -69,6 +69,7 @@ public class Game {
                     break;
                 case GameScreen.Collection:
                     collectionScreen.SetClub(action.club);
+                    collectionScreen.ResetPage();
                     break;
                 default:
                     break;
