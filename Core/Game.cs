@@ -62,10 +62,9 @@ public class Game {
         if (action.targetScreen != null) {
             switch (action.targetScreen) {
                 case GameScreen.Menu:
-                    if (action.collection == null) {
-                        throw new Exception("Null collection trying to go to menu screen");
+                    if (action.collection != null) {
+                        menuScreen.SetClubs((Collection)action.collection); 
                     }
-                    menuScreen.SetClubs((Collection)action.collection); 
                     break;
                 case GameScreen.Collection:
                     collectionScreen.SetClub(action.club);

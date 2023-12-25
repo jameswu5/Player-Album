@@ -53,7 +53,6 @@ public static class Settings {
         public static readonly int ClubButtonEdgePadding = (ScreenWidth / 2
                                                          - ClubsPerRow * ClubButtonSize
                                                          - (ClubsPerRow - 1) * ClubButtonPadding) / 2;
-
     }
 
     /* Player UI Settings */
@@ -84,10 +83,10 @@ public static class Settings {
         public static readonly int CardPadding = (ScreenWidth - 2 * HorizontalPadding - Columns * Player.CardWidth) / (Columns - 1);
         public static readonly int VerticalPadding = (ScreenHeight - HeaderHeight - Rows * Player.CardHeight) / (Rows + 1);
 
-        public static readonly int DirectionButtonWidth = 30;
+        public static readonly int DirectionButtonWidth = 50;
         public static readonly int DirectionButtonHeight = 200;
         public static readonly int DirectionButtonPadding = (ScreenHeight - DirectionButtonHeight) >> 1;
         public static readonly int DirectionButtonFontSize = 40;
+        public static readonly Color DirectionButtonColour = Color.LIGHTGRAY;
     }
-
 }

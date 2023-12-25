@@ -16,10 +16,40 @@ public class CollectionScreen : Screen {
     public CollectionScreen() {
         page = 0;
         players = new();
+        buttons = InitialiseButtons();
     }
 
     protected override List<Button> InitialiseButtons() {
-        throw new NotImplementedException();
+        List<Button> res = new();
+
+        // Home button
+        TextButton backButton = new TextButton(
+            0, 0, HeaderHeight, HeaderHeight,
+            colour: Color.BLACK,
+            text: "Back",
+            textColour: Color.WHITE,
+            fontSize: HeaderFontSize
+        );
+        AddButtonAction(backButton, new Action(targetScreen: Game.GameScreen.Menu));
+        res.Add(backButton);
+
+        // Direction buttons
+
+        TextButton left = new TextButton(
+            0, DirectionButtonPadding, DirectionButtonWidth, DirectionButtonHeight,
+            colour: DirectionButtonColour, text: "<", fontSize: DirectionButtonFontSize
+        );
+        AddButtonAction(left, new Action());
+        res.Add(left);
+        
+        TextButton right = new TextButton(
+            ScreenWidth - DirectionButtonWidth, DirectionButtonPadding, DirectionButtonWidth, DirectionButtonHeight,
+            colour: DirectionButtonColour, text: ">", fontSize: DirectionButtonFontSize
+        );
+        AddButtonAction(right, new Action());
+        res.Add(right);
+
+        return res;
     }
 
     public void SetClub(Club? c = null) {
@@ -45,6 +75,11 @@ public class CollectionScreen : Screen {
                 int posY = HeaderHeight + VerticalPadding + (CardHeight + VerticalPadding) * i;
                 players[index].DisplayCard(posX, posY);
             }
+        }
+
+        /* Buttons */
+        foreach (Button button in buttons) {
+            button.Render();
         }
 
     }
