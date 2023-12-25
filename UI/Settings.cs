@@ -98,5 +98,7 @@ public static class Settings {
         public static readonly Color DirectionButtonColour = Color.LIGHTGRAY;
 
         public static readonly int PageNumberFontSize = 18;
+
+        public static readonly Color DarkenFilter = new Color(0, 0, 0, 150);
     }
 }

@@ -159,6 +159,9 @@ public class CollectionScreen : Screen {
 
 
         if (displayPlayer != null) {
+            // Make screen darker
+            DrawRectangle(0, 0, ScreenWidth, ScreenHeight, DarkenFilter);
+
             displayPlayer.DisplayDetailedCard();
             exitButton.Render();
         }
