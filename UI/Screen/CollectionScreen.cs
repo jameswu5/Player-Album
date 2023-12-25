@@ -83,12 +83,13 @@ public class CollectionScreen : Screen {
 
     public override void Display() {
         /* Header */
-        DrawRectangle(0, 0, ScreenWidth, HeaderHeight, HeaderColour);
+        Color headerColour = club == null ? HeaderColour : ((Club)club).colour;
+        DrawRectangle(0, 0, ScreenWidth, HeaderHeight, headerColour);
 
         // Club name
         string text = club == null ? "All Players" : ((Club)club).name;
         (int x, int y) headerPos = Helper.GetTextPositions(text, ScreenWidth, HeaderHeight, HeaderFontSize);
-        DrawText(text, headerPos.x, headerPos.y, HeaderFontSize, Color.BLACK);
+        DrawText(text, headerPos.x, headerPos.y, HeaderFontSize, Helper.GetTextColour(headerColour));
 
         /* Players */
         int indexOffset = page * Rows * Columns;

@@ -1,5 +1,6 @@
 using System;
 using Raylib_cs;
+using static PlayerAlbum.Settings;
 
 namespace PlayerAlbum;
 
@@ -30,5 +31,11 @@ public static class Helper {
             res[i] = Convert.ToInt32(hexCode.Substring(i * 2, 2), 16);
         }
         return res;
+    }
+
+    public static double CalculateLuminance(Color colour) => (0.2126 * colour.R + 0.7152 * colour.G + 0.0722 * colour.B) / 255;
+
+    public static Color GetTextColour(Color backgroundColour) {
+        return CalculateLuminance(backgroundColour) > LuminanceThreshold ? DefaultDarkTextColour : DefaultLightTextColour;
     }
 }

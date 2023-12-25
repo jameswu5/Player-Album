@@ -19,6 +19,9 @@ public static class Settings {
     public static readonly int MediumFontSize = 20;
     public static readonly int LargeFontSize  = 30;
 
+    public static readonly Color DefaultDarkTextColour  = Color.BLACK;
+    public static readonly Color DefaultLightTextColour = Color.WHITE;
+    public static readonly double LuminanceThreshold = 0.5;
 
     /* Header Settings */
     public static readonly Color HeaderColour = Color.LIGHTGRAY;
