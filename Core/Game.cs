@@ -81,7 +81,7 @@ public class Game {
 
         // Technically this check is not needed, but it makes the code easier to understand
         if (currentScreen == GameScreen.Collection) {
-            collectionScreen.displayPlayer = action.player;
+            collectionScreen.SetDisplayPlayer(action.player);
         }
     }
 }

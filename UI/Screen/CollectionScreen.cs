@@ -91,7 +91,7 @@ public class CollectionScreen : Screen {
         }
 
         playerButtons = GetPlayerButtons();
-        displayPlayer = null;
+        SetDisplayPlayer(null);
     }
 
     public void ResetPage() => ShiftPage(-page);
@@ -162,6 +162,28 @@ public class CollectionScreen : Screen {
             displayPlayer.DisplayDetailedCard();
             exitButton.Render();
         }
+    }
 
+
+    public void SetDisplayPlayer(Player? player) {
+        if (player == null) {
+            // Activate all the buttons
+            foreach (Button button in buttons) {
+                button.Activate();
+            }
+            foreach (Button button in playerButtons) {
+                button.Activate();
+            }
+        } else {
+            // Deactivate all the buttons
+            foreach (Button button in buttons) {
+                button.Deactivate();
+            }
+            foreach (Button button in playerButtons) {
+                button.Deactivate();
+            }
+        }
+
+        displayPlayer = player;
     }
 }

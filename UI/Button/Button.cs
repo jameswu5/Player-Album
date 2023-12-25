@@ -14,15 +14,24 @@ public abstract class Button {
     protected readonly int width;
     protected readonly string name;
 
+    protected bool activated; // Deactivated buttons still display, but cannot be clicked or hovered
+
     public Button(int posX, int posY, int width, int height, string? name = null) {
         this.posX = posX;
         this.posY = posY;
         this.height = height;
         this.width = width;
         this.name = name ?? "";
+
+        activated = true;
     }
 
     public void Render() {
+        if (!activated) {
+            Display();
+            return;
+        }
+
         if (IsHovered(GetMouseX(), GetMouseY())) {
             HoverDisplay();
             if (IsMouseButtonPressed(0)) {
@@ -47,4 +56,8 @@ public abstract class Button {
     protected virtual void HoverDisplay() => Display();
 
     protected virtual void Click() => OnClick.Invoke();
+
+    public void Activate() => activated = true;
+
+    public void Deactivate() => activated = false;
 }

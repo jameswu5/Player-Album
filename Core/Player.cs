@@ -153,12 +153,23 @@ public class Player {
     }
 
     public void DisplayDetailedCard() {
+
+        // Border
+        int borderWidth = 5;
+        DrawRectangle(
+            DCardWidthOffset - borderWidth,
+            DCardHeightOffset - borderWidth,
+            DCardWidth + borderWidth * 2,
+            DCardHeight + borderWidth * 2,
+            Color.BLACK
+        );
+
         DrawRectangle(
             DCardWidthOffset,
             DCardHeightOffset,
             DCardWidth,
             DCardHeight,
-            Color.WHITE
+            Settings.ScreenColour
         );
 
         /* Left hand side */
