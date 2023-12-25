@@ -3,6 +3,7 @@ using Raylib_cs;
 using static Raylib_cs.Raylib;
 using static PlayerAlbum.Settings;
 using static PlayerAlbum.Settings.MenuScreen;
+using System.Runtime.CompilerServices;
 
 namespace PlayerAlbum;
 
@@ -11,14 +12,12 @@ public class MenuScreen : Screen {
     private Collection collection;
     private List<Club> clubs;
 
-    private List<Button> buttons;
-
     public MenuScreen() {
         clubs = new List<Club>();
         buttons = InitialiseButtons();
     }
 
-    private List<Button> InitialiseButtons() {
+    protected override List<Button> InitialiseButtons() {
         List<Button> res = new();
 
         // Home button

@@ -9,7 +9,6 @@ namespace PlayerAlbum;
 public class HomeScreen : Screen {
 
     private List<Collection> collections;
-    private List<Button> buttons;
 
     private int heightOffset;
 
@@ -24,7 +23,7 @@ public class HomeScreen : Screen {
         buttons = InitialiseButtons();
     }
 
-    private List<Button> InitialiseButtons() {
+    protected override List<Button> InitialiseButtons() {
         List<Button> res = new();
 
         int posX = (ScreenWidth - ButtonWidth) >> 1;

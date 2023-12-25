@@ -18,9 +18,13 @@ public class CollectionScreen : Screen {
         players = new();
     }
 
+    protected override List<Button> InitialiseButtons() {
+        throw new NotImplementedException();
+    }
+
     public void SetClub(Club? c = null) {
         if (c == null) {
-            // All players
+            throw new NotImplementedException();
         } else {
             // Club players
             Club club = (Club)c;
