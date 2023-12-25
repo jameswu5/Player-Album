@@ -22,4 +22,8 @@ public abstract class Screen {
     protected void AddButtonAction(ImageButton button, Action action) {
         button.OnClick += () => clickAction(action);
     }
+
+    protected void AddButtonAction(GhostButton button, Action action) {
+        button.OnClick += () => clickAction(action);
+    }
 }

@@ -5,7 +5,7 @@ using static Raylib_cs.Raylib;
 namespace PlayerAlbum;
 
 /// <summary>
-/// A button that changes colour when you hover over it.
+/// A button that displays text and changes appearance when hovered.
 /// </summary>
 public class TextButton : Button {
     private Color colour;
@@ -14,12 +14,12 @@ public class TextButton : Button {
     private readonly string text;
     private readonly int fontSize;
 
-    public TextButton(int posX, int posY, int width, int height, Color? colour = null, Color? hoverColour = null, Color? textColour = null, string name = "", string text = "", int fontSize = -1) : base(posX, posY, width, height, name) {
+    public TextButton(int posX, int posY, int width, int height, Color? colour = null, Color? hoverColour = null, Color? textColour = null, string? name = null, string? text = null, int? fontSize = null) : base(posX, posY, width, height, name) {
         this.colour = colour ?? Settings.ButtonColour;
         this.hoverColour = hoverColour ?? Settings.ButtonHoverColour;
         this.textColour = textColour ?? Settings.ButtonTextColour;
-        this.fontSize = fontSize == -1 ? Settings.MediumFontSize : fontSize;
-        this.text = text;
+        this.fontSize = fontSize == null ? Settings.MediumFontSize : (int)fontSize;
+        this.text = text ?? "";
     }
 
     protected override void Display()

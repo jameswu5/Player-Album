@@ -19,10 +19,13 @@ public class CollectionScreen : Screen {
     private List<Player> players;
     private Club? club;
 
+    private List<Button> playerButtons;
+
     public CollectionScreen() {
         page = 0;
         players = new();
         buttons = InitialiseButtons();
+        playerButtons = new();
     }
 
     protected override List<Button> InitialiseButtons() {
@@ -67,6 +70,8 @@ public class CollectionScreen : Screen {
             players = Database.GetPlayers($"""SELECT * FROM Player WHERE Club = "{cur.name}" AND League = "{collection.name}" ORDER BY Overall DESC""");
         }
         maxPages = (players.Count - 1) / (Rows * Columns);
+
+        playerButtons = GetPlayerButtons();
     }
 
     public void ShiftPage(int shift) {
@@ -77,9 +82,33 @@ public class CollectionScreen : Screen {
         if (shift < 0) {
             page = Math.Max(page + shift, 0);
         }
+
+        playerButtons = GetPlayerButtons();
     }
 
-    public void ResetPage() => page = 0;
+    public void ResetPage() => ShiftPage(-page);
+
+    public List<Button> GetPlayerButtons() {
+        Console.WriteLine("Getting player buttons");
+        List<Button> res = new();
+        int indexOffset = page * Rows * Columns;
+        for (int i = 0; i < Rows; i++) {
+            for (int j = 0; j < Columns; j++) {
+                int index = i * Columns + j + indexOffset;
+                if (index >= players.Count) {
+                    break;
+                }
+
+                int posX = HorizontalPadding + (CardWidth + CardPadding) * j;
+                int posY = HeaderHeight + VerticalPadding + (CardHeight + VerticalPadding) * i;
+
+                GhostButton button = new GhostButton(posX, posY, CardWidth, CardHeight);
+                AddButtonAction(button, new Action(debugText: $"{players[index].Name}"));
+                res.Add(button);
+            }
+        }
+        return res;
+    }
 
     public override void Display() {
         /* Header */
@@ -92,6 +121,10 @@ public class CollectionScreen : Screen {
         DrawText(text, headerPos.x, headerPos.y, HeaderFontSize, Helper.GetTextColour(headerColour));
 
         /* Players */
+        foreach (Button button in playerButtons) {
+            button.Render();
+        }
+
         int indexOffset = page * Rows * Columns;
         for (int i = 0; i < Rows; i++) {
             for (int j = 0; j < Columns; j++) {
