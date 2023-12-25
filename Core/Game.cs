@@ -79,7 +79,8 @@ public class Game {
             collectionScreen.ShiftPage((int)action.pageShift);
         }
 
-        if (action.player != null) {
+        // Technically this check is not needed, but it makes the code easier to understand
+        if (currentScreen == GameScreen.Collection) {
             collectionScreen.displayPlayer = action.player;
         }
     }

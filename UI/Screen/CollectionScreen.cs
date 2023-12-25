@@ -5,10 +5,6 @@ using static PlayerAlbum.Settings;
 using static PlayerAlbum.Settings.Player;
 using static PlayerAlbum.Settings.CollectionScreen;
 
-/* NEED TO DO:
- * Display detailed card (need to add GhostButton class)
- */
-
 namespace PlayerAlbum;
 
 public class CollectionScreen : Screen {
@@ -20,6 +16,7 @@ public class CollectionScreen : Screen {
     private Club? club;
 
     private List<Button> playerButtons;
+    private TextButton exitButton;
 
     public Player? displayPlayer;
 
@@ -46,7 +43,6 @@ public class CollectionScreen : Screen {
         res.Add(backButton);
 
         // Direction buttons
-
         TextButton left = new TextButton(
             0, DirectionButtonPadding, DirectionButtonWidth, DirectionButtonHeight,
             colour: DirectionButtonColour, text: "<", fontSize: DirectionButtonFontSize
@@ -61,6 +57,14 @@ public class CollectionScreen : Screen {
         AddButtonAction(right, new Action(pageShift: 1));
         res.Add(right);
 
+        // Exit button
+        exitButton = new TextButton(
+            DCardWidthOffset + DCardWidth - ExitPadding - ExitButtonSize,
+            DCardHeightOffset + ExitPadding,
+            ExitButtonSize, ExitButtonSize, colour: ExitButtonColour, hoverColour: ExitButtonHoverColour, text: "x"
+        );
+        AddButtonAction(exitButton, new Action());
+
         return res;
     }
 
@@ -73,7 +77,7 @@ public class CollectionScreen : Screen {
             players = Database.GetPlayers($"""SELECT * FROM Player WHERE Club = "{cur.name}" AND League = "{collection.name}" ORDER BY Overall DESC""");
         }
         maxPages = (players.Count - 1) / (Rows * Columns);
-        
+
         ResetPage();
     }
 
@@ -156,6 +160,7 @@ public class CollectionScreen : Screen {
 
         if (displayPlayer != null) {
             displayPlayer.DisplayDetailedCard();
+            exitButton.Render();
         }
 
     }

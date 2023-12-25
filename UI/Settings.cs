@@ -28,7 +28,6 @@ public static class Settings {
     public static readonly int HeaderHeight = 80;
     public static readonly int HeaderFontSize = 30;
 
-
     /* Home Screen UI Settings */
     public static class HomeScreen {
         public static readonly int FontSize = 64;
@@ -75,6 +74,12 @@ public static class Settings {
         // Left side of detailed card
         public static readonly int DCardImageWidthOffset = 80;
         public static readonly int DCardImageHeightOffset = 90;
+
+        // Exit button
+        public static readonly int ExitPadding = 20;
+        public static readonly int ExitButtonSize = 40;
+        public static readonly Color ExitButtonColour = new Color(249,124,124,255);
+        public static readonly Color ExitButtonHoverColour = new Color(238,105,105,255);
     }
 
     /* Collection UI Settings */
