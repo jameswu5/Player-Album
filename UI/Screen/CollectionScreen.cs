@@ -7,7 +7,7 @@ using static PlayerAlbum.Settings.CollectionScreen;
 
 /* NEED TO DO:
  * Display detailed card (need to add GhostButton class)
- * Add functionality to direction buttons
+ * Separate male and female teams
  */
 
 namespace PlayerAlbum;
@@ -15,6 +15,8 @@ namespace PlayerAlbum;
 public class CollectionScreen : Screen {
 
     public int page;
+    public int maxPages;
+    public Collection collection;
     public List<Player> players;
     public Club? club;
 
@@ -60,16 +62,17 @@ public class CollectionScreen : Screen {
     public void SetClub(Club? club = null) {
         this.club = club;
         if (club == null) {
-            throw new NotImplementedException();
+            players = Database.GetPlayers($"""SELECT * FROM Player WHERE League = "{collection.name}" ORDER BY Overall DESC""");
         } else {
             Club cur = (Club)club;
             players = Database.GetPlayers($"""SELECT * FROM Player WHERE Club = "{cur.name}" ORDER BY Overall DESC""");
         }
+        maxPages = (players.Count - 1) / (Rows * Columns);
     }
 
     public void ShiftPage(int shift) {
         if (shift > 0) {
-            page = Math.Min(page + shift, players.Count / (Rows * Columns));
+            page = Math.Min(page + shift, maxPages);
         }
 
         if (shift < 0) {
@@ -106,5 +109,9 @@ public class CollectionScreen : Screen {
             button.Render();
         }
 
+        /* Page number */
+        string pageText = $"Page {page + 1} of {maxPages + 1}";
+        (int x, int y) pagePos = Helper.GetTextPositions(pageText, ScreenWidth, VerticalPadding, PageNumberFontSize);
+        DrawText(pageText, pagePos.x, ScreenHeight - VerticalPadding + pagePos.y, PageNumberFontSize, Color.BLACK);
     }
 }

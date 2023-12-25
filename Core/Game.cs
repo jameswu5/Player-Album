@@ -64,6 +64,7 @@ public class Game {
                 case GameScreen.Menu:
                     if (action.collection != null) {
                         menuScreen.SetClubs((Collection)action.collection); 
+                        collectionScreen.collection = (Collection)action.collection;
                     }
                     break;
                 case GameScreen.Collection:

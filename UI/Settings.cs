@@ -88,5 +88,7 @@ public static class Settings {
         public static readonly int DirectionButtonPadding = (ScreenHeight - DirectionButtonHeight) >> 1;
         public static readonly int DirectionButtonFontSize = 40;
         public static readonly Color DirectionButtonColour = Color.LIGHTGRAY;
+
+        public static readonly int PageNumberFontSize = 18;
     }
 }
