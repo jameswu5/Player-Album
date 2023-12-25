@@ -7,11 +7,12 @@ public class Action {
     public Game.GameScreen? targetScreen;
     public string? debugText;
     public Collection? collection;
+    public Club? club;
 
-    public Action(Game.GameScreen? targetScreen = null, string? debugText = null, Collection? collection = null) {
+    public Action(Game.GameScreen? targetScreen = null, string? debugText = null, Collection? collection = null, Club? club = null) {
         this.targetScreen = targetScreen;
         this.debugText = debugText;
         this.collection = collection;
+        this.club = club;
     }
-
 }

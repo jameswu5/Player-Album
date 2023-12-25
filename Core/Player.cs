@@ -36,7 +36,9 @@ public class Player {
     public Image cardImage;
     public Image detailedCardImage;
 
-    private static string[] statTexts;
+    public Color clubColour;
+
+    private string[] statTexts;
 
     public Player(object[] values) {
         ID = (long)values[0];
@@ -68,11 +70,20 @@ public class Player {
         int detailedSize = DCardWidth / 2 - DCardImageWidthOffset * 2;
         detailedCardImage = new Image(ImagePath, detailedSize, detailedSize);
 
+        clubColour = GetColour();
+
         statTexts = (Position != "GK") ? new string[] {"PAC", "SHO", "PAS", "DRI", "DEF", "PHY"} : new string[] {"DIV", "HAN", "KIC", "REF", "SPE", "POS"};
     }
 
     public override string ToString() {
         return $"{ID}: {Name} ({Overall})";
+    }
+
+    // Can make more generalised?
+    private Color GetColour() {
+        string hexCode = Database.GetDistinctColumn($"""SELECT Colour FROM Club WHERE Name = "{Club}";""")[0];
+        int[] codes = Helper.ParseHexCode(hexCode);
+        return new Color(codes[0], codes[1], codes[2], 255);
     }
 
     public void DisplayDetailedInfo() {
@@ -103,8 +114,7 @@ public class Player {
     }
 
     public void DisplayCard(int offsetX, int offsetY) {
-        // Club border - need to use club colour, using sky blue for now
-        DrawRectangle(offsetX, offsetY, CardWidth, CardHeight, Color.SKYBLUE);
+        DrawRectangle(offsetX, offsetY, CardWidth, CardHeight, clubColour);
 
         // Main card
         DrawRectangle(

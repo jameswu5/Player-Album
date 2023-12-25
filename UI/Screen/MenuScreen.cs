@@ -39,7 +39,7 @@ public class MenuScreen : Screen {
             text: "See all players",
             fontSize: 40
         );
-        AddButtonAction(allPlayerButton, new Action());
+        AddButtonAction(allPlayerButton, new Action(targetScreen: Game.GameScreen.Collection));
         res.Add(allPlayerButton);
 
         // Open pack button
@@ -68,7 +68,7 @@ public class MenuScreen : Screen {
                 HeaderHeight + (ClubTitleBoxHeight + ClubFontSize) / 2 + clubTopPadding + r * (ClubButtonSize + ClubButtonPadding),
                 img, clubs[i].name
             );
-            AddButtonAction(button, new Action());
+            AddButtonAction(button, new Action(targetScreen: Game.GameScreen.Collection, club: clubs[i]));
             res.Add(button);
         }
 

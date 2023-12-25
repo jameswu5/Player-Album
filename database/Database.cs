@@ -58,11 +58,9 @@ public static class Database {
         DisplayQueryResults($"SELECT * FROM {table} LIMIT {limit}");
     }
 
-    public static List<Player> GetPlayers(string league, int count) {
+    public static List<Player> GetPlayers(string query) {
         List<Player> players = new();
-        SqliteCommand command = CreateCommand(
-            $"SELECT * FROM Player WHERE League = '{league}' ORDER BY RANDOM() LIMIT {count}"
-        );
+        SqliteCommand command = CreateCommand(query);
         SqliteDataReader reader = command.ExecuteReader();
         while (reader.Read()) {
             object[] values = new object[reader.FieldCount];

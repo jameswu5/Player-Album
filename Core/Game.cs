@@ -5,12 +5,12 @@ using static PlayerAlbum.Settings;
 namespace PlayerAlbum;
 
 public class Game {
-    public enum GameScreen {Home, Menu};
+    public enum GameScreen {Home, Menu, Collection};
     private GameScreen currentScreen;
 
     private HomeScreen homeScreen;
     private MenuScreen menuScreen;
-
+    private CollectionScreen collectionScreen;
 
     public Game() {
         Data.Initialise();
@@ -21,6 +21,9 @@ public class Game {
 
         menuScreen = new MenuScreen();
         menuScreen.clickAction += ExecuteAction;
+
+        collectionScreen = new CollectionScreen();
+        collectionScreen.clickAction += ExecuteAction;
     }
 
     public void Run() {
@@ -44,6 +47,9 @@ public class Game {
             case GameScreen.Menu:
                 menuScreen.Display();
                 break;
+            case GameScreen.Collection:
+                collectionScreen.Display();
+                break;
             default:
                 throw new Exception("No screen found.");
         }
@@ -60,6 +66,9 @@ public class Game {
                         throw new Exception("Null collection trying to go to menu screen");
                     }
                     menuScreen.SetClubs((Collection)action.collection); 
+                    break;
+                case GameScreen.Collection:
+                    collectionScreen.SetClub(action.club);
                     break;
                 default:
                     break;

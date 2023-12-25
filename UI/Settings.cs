@@ -19,6 +19,13 @@ public static class Settings {
     public static readonly int MediumFontSize = 20;
     public static readonly int LargeFontSize  = 30;
 
+
+    /* Header Settings */
+    public static readonly Color HeaderColour = Color.LIGHTGRAY;
+    public static readonly int HeaderHeight = 80;
+    public static readonly int HeaderFontSize = 30;
+
+
     /* Home Screen UI Settings */
     public static class HomeScreen {
         public static readonly int FontSize = 64;
@@ -30,10 +37,6 @@ public static class Settings {
 
     /* Menu Screen UI Settings */
     public static class MenuScreen {
-        public static readonly Color HeaderColour = Color.LIGHTGRAY;
-        public static readonly int HeaderHeight = 80;
-        public static readonly int HeaderFontSize = 30;
-        
         // Left side
         public static readonly int ButtonWidth = 400;
         public static readonly int ButtonWidthPadding = (ScreenWidth / 2 - ButtonWidth) / 2;
@@ -56,10 +59,10 @@ public static class Settings {
     /* Player UI Settings */
     public static class Player {
         // Card icon
-        public static readonly int CardWidth = 210;
-        public static readonly int CardHeight = 270;
+        public static readonly int CardWidth = 180;
+        public static readonly int CardHeight = 240;
         public static readonly int CardOffset = 12;
-        public static readonly int CardFontSize = 20;
+        public static readonly int CardFontSize = 18;
 
         // Detailed Card
         public static readonly int DCardWidth = 810;
@@ -70,6 +73,17 @@ public static class Settings {
         // Left side of detailed card
         public static readonly int DCardImageWidthOffset = 80;
         public static readonly int DCardImageHeightOffset = 90;
+    }
+
+    /* Collection UI Settings */
+    public static class CollectionScreen {
+        public static readonly int Rows = 2;
+        public static readonly int Columns = 4;
+
+        public static readonly int HorizontalPadding = 100;
+        public static readonly int CardPadding = (ScreenWidth - 2 * HorizontalPadding - Columns * Player.CardWidth) / (Columns - 1);
+        public static readonly int VerticalPadding = (ScreenHeight - HeaderHeight - Rows * Player.CardHeight) / (Rows + 1);
+
     }
 
 }
