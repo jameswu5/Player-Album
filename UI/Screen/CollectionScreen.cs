@@ -21,11 +21,14 @@ public class CollectionScreen : Screen {
 
     private List<Button> playerButtons;
 
+    public Player? displayPlayer;
+
     public CollectionScreen() {
         page = 0;
         players = new();
         buttons = InitialiseButtons();
         playerButtons = new();
+        displayPlayer = null;
     }
 
     protected override List<Button> InitialiseButtons() {
@@ -70,8 +73,8 @@ public class CollectionScreen : Screen {
             players = Database.GetPlayers($"""SELECT * FROM Player WHERE Club = "{cur.name}" AND League = "{collection.name}" ORDER BY Overall DESC""");
         }
         maxPages = (players.Count - 1) / (Rows * Columns);
-
-        playerButtons = GetPlayerButtons();
+        
+        ResetPage();
     }
 
     public void ShiftPage(int shift) {
@@ -84,6 +87,7 @@ public class CollectionScreen : Screen {
         }
 
         playerButtons = GetPlayerButtons();
+        displayPlayer = null;
     }
 
     public void ResetPage() => ShiftPage(-page);
@@ -102,8 +106,8 @@ public class CollectionScreen : Screen {
                 int posX = HorizontalPadding + (CardWidth + CardPadding) * j;
                 int posY = HeaderHeight + VerticalPadding + (CardHeight + VerticalPadding) * i;
 
-                GhostButton button = new GhostButton(posX, posY, CardWidth, CardHeight);
-                AddButtonAction(button, new Action(debugText: $"{players[index].Name}"));
+                GhostButton button = new(posX, posY, CardWidth, CardHeight);
+                AddButtonAction(button, new Action(player: players[index]));
                 res.Add(button);
             }
         }
@@ -148,5 +152,11 @@ public class CollectionScreen : Screen {
         string pageText = $"Page {page + 1} of {maxPages + 1}";
         (int x, int y) pagePos = Helper.GetTextPositions(pageText, ScreenWidth, VerticalPadding, PageNumberFontSize);
         DrawText(pageText, pagePos.x, ScreenHeight - VerticalPadding + pagePos.y, PageNumberFontSize, Color.BLACK);
+
+
+        if (displayPlayer != null) {
+            displayPlayer.DisplayDetailedCard();
+        }
+
     }
 }

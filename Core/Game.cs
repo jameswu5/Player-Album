@@ -69,7 +69,6 @@ public class Game {
                     break;
                 case GameScreen.Collection:
                     collectionScreen.SetClub(action.club);
-                    collectionScreen.ResetPage();
                     break;
                 default:
                     break;
@@ -78,6 +77,10 @@ public class Game {
         }
         if (action.pageShift != null) {
             collectionScreen.ShiftPage((int)action.pageShift);
+        }
+
+        if (action.player != null) {
+            collectionScreen.displayPlayer = action.player;
         }
     }
 }
