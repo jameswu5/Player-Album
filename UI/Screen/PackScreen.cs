@@ -10,7 +10,6 @@ namespace PlayerAlbum;
 public class PackScreen : Screen {
 
     private List<Player> players;
-    private List<Button> playerButtons;
     private List<Button> dynamicButtons;
     private TextButton exitButton;
 
@@ -18,7 +17,6 @@ public class PackScreen : Screen {
 
     public PackScreen() {
         players = new();
-        playerButtons = new();
         dynamicButtons = new();
         buttons = InitialiseButtons();
     }
