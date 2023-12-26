@@ -9,20 +9,24 @@ public static class File {
     public static Dictionary<int, int> LoadFile(string path) {
         Dictionary<int, int> res = new();
 
-        using (StreamReader reader = new StreamReader(path)) {
-            while (!reader.EndOfStream) {
-                string line = reader.ReadLine();
-                try {
-                    int id = int.Parse(line);
-                    if (res.ContainsKey(id)) {
-                        res[id]++;
-                    } else {
-                        res[id] = 1;
+        try {
+            using (StreamReader reader = new StreamReader(path)) {
+                while (!reader.EndOfStream) {
+                    string line = reader.ReadLine();
+                    try {
+                        int id = int.Parse(line);
+                        if (res.ContainsKey(id)) {
+                            res[id]++;
+                        } else {
+                            res[id] = 1;
+                        }
+                    } catch {
+                        Console.WriteLine($"Could not parse [{line}] into an int.");
                     }
-                } catch {
-                    Console.WriteLine($"Could not parse [{line}] into an int.");
                 }
             }
+        } catch {
+            Console.WriteLine($"File at path {path} cannot be found.");
         }
 
         return res;
