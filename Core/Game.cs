@@ -120,7 +120,7 @@ public class Game {
 
         if (action.packedPlayers != null) {
             foreach (Player player in action.packedPlayers) {
-                int id = (int)player.ID;
+                int id = player.ID;
 
                 // Add packed players to dictionary
                 if (save.ContainsKey(id)) {
