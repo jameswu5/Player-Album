@@ -112,5 +112,11 @@ public static class Settings {
         // These are the same, but I separate them for more customisability
         public static readonly int CardPadding = (ScreenWidth - PlayersPerPack * Player.CardWidth) / (PlayersPerPack + 1);
         public static readonly int SidePadding = CardPadding;
+
+        public static readonly int ButtonWidth = 300;
+        public static readonly int ButtonHeight = 80;
+        public static readonly int ButtonFontSize = 40;
+        public static readonly int ButtonTopPadding = (ScreenHeight - HeaderHeight - TopPadding - Player.CardHeight - ButtonHeight) >> 1;
+        public static readonly int ButtonSidePadding = (ScreenWidth - ButtonWidth) >> 1;
     }
 }

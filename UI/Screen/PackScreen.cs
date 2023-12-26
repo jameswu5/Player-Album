@@ -10,6 +10,7 @@ public class PackScreen : Screen {
 
     private List<Player> players;
     private List<Button> playerButtons;
+    private List<Button> dynamicButtons;
 
     public PackScreen() {
         players = new();
@@ -36,10 +37,21 @@ public class PackScreen : Screen {
 
     public void SetPlayers(List<Player> players) {
         this.players = players;
+        dynamicButtons = GetDynamicButtons();
     }
 
-    private List<Button> GetPlayerButtons() {
-        throw new NotImplementedException();
+    private List<Button> GetDynamicButtons() {
+        List<Button> res = new();
+
+        // OK Button
+        TextButton okButton = new TextButton(
+            ButtonSidePadding, ScreenHeight - ButtonTopPadding - ButtonHeight, ButtonWidth, ButtonHeight,
+            text: "OK", fontSize: ButtonFontSize
+        );
+        AddButtonAction(okButton, new Action(targetScreen: Game.GameScreen.Menu, packedPlayers: players));
+        res.Add(okButton);
+
+        return res;
     }
 
     public override void Display() {
@@ -55,6 +67,10 @@ public class PackScreen : Screen {
 
         /* Buttons */
         foreach (Button button in buttons) {
+            button.Render();
+        }
+
+        foreach (Button button in dynamicButtons) {
             button.Render();
         }
     }
