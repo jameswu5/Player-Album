@@ -10,6 +10,8 @@ public static class Settings {
     public static readonly int ScreenWidth  = 1080;
     public static readonly int ScreenHeight = 720;
     public static readonly Color ScreenColour = new Color(250, 250, 250, 255);
+    public static readonly Color DarkenFilter = new Color(0, 0, 0, 150);
+
 
     public static readonly Color ButtonColour = Color.LIGHTGRAY;
     public static readonly Color ButtonHoverColour = Color.DARKGRAY;
@@ -101,8 +103,6 @@ public static class Settings {
         public static readonly Color DirectionButtonColour = Color.LIGHTGRAY;
 
         public static readonly int PageNumberFontSize = 18;
-
-        public static readonly Color DarkenFilter = new Color(0, 0, 0, 150);
     }
 
     /* Pack Screen Settings */

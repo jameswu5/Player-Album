@@ -108,6 +108,10 @@ public class Game {
             collectionScreen.SetDisplayPlayer(action.player);
         }
 
+        if (currentScreen == GameScreen.Pack) {
+            packScreen.SetDisplayPlayer(action.player);
+        }
+
         if (action.packedPlayers != null) {
             // Deal with packed players
         }
