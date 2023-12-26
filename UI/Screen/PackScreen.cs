@@ -26,17 +26,6 @@ public class PackScreen : Screen {
     protected override List<Button> InitialiseButtons() {
         List<Button> res = new();
 
-        // Back button
-        TextButton backButton = new TextButton(
-            0, 0, HeaderHeight, HeaderHeight,
-            colour: Color.BLACK,
-            text: "Back",
-            textColour: Color.WHITE,
-            fontSize: HeaderFontSize
-        );
-        AddButtonAction(backButton, new Action(targetScreen: Game.GameScreen.Menu));
-        res.Add(backButton);
-
         // Exit button
         exitButton = new TextButton(
             DCardWidthOffset + DCardWidth - ExitPadding - ExitButtonSize,
@@ -82,7 +71,6 @@ public class PackScreen : Screen {
         string title = "Pack";
         (int x, int y) headerPos = Helper.GetTextPositions(title, ScreenWidth, HeaderHeight, HeaderFontSize);
         DrawText(title, headerPos.x, headerPos.y, HeaderFontSize, DefaultDarkTextColour);
-
 
         /* Players */
         foreach (Button button in dynamicButtons) {
