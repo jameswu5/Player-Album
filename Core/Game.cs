@@ -94,7 +94,8 @@ public class Game {
                 case GameScreen.Pack:
                     if (activeCollection != null) {
                         List<Player> packedPlayers = Pack.GetRandomPlayers((Collection)activeCollection, PlayersPerPack);
-                        packScreen.SetPlayers(packedPlayers);
+                        List<PlayerStatus> playerStatuses = Helper.GetPlayerStatuses(packedPlayers, save);
+                        packScreen.SetPlayers(playerStatuses);
                     } else {
                         throw new Exception("Cannot open pack, active collection is null");
                     }

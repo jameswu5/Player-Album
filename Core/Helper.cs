@@ -40,7 +40,7 @@ public static class Helper {
     public static List<PlayerStatus> GetPlayerStatuses(List<Player> players, Dictionary<int, int> save) {
         List<PlayerStatus> res = new();
         foreach (Player player in players) {
-            res.Add(new PlayerStatus(player, save.ContainsKey((int)player.ID)));
+            res.Add(new PlayerStatus(player, save.ContainsKey(player.ID)));
         }
         return res;
     }

@@ -9,14 +9,16 @@ namespace PlayerAlbum;
 
 public class PackScreen : Screen {
 
-    private List<Player> players;
+    private List<PlayerStatus> playerStatuses;
     private List<Button> dynamicButtons;
     private TextButton exitButton;
 
     private Player? displayPlayer;
 
+    private const string OwnedText = "Owned";
+
     public PackScreen() {
-        players = new();
+        playerStatuses = new();
         dynamicButtons = new();
         buttons = InitialiseButtons();
     }
@@ -35,8 +37,8 @@ public class PackScreen : Screen {
         return res;
     }
 
-    public void SetPlayers(List<Player> players) {
-        this.players = players;
+    public void SetPlayers(List<PlayerStatus> playerStatuses) {
+        this.playerStatuses = playerStatuses;
         dynamicButtons = GetDynamicButtons();
     }
 
@@ -48,12 +50,17 @@ public class PackScreen : Screen {
             ButtonSidePadding, ScreenHeight - ButtonTopPadding - ButtonHeight, ButtonWidth, ButtonHeight,
             text: "OK", fontSize: ButtonFontSize
         );
+
+        List<Player> players = new();
+        foreach (PlayerStatus playerStatus in playerStatuses) {
+            players.Add(playerStatus.player);
+        }
         AddButtonAction(okButton, new Action(targetScreen: Game.GameScreen.Menu, packedPlayers: players));
         res.Add(okButton);
 
         // Player Button
         int posY = HeaderHeight + TopPadding;
-        for (int i = 0; i < players.Count; i++) {
+        for (int i = 0; i < playerStatuses.Count; i++) {
             int posX = SidePadding + i * (CardWidth + CardPadding);
             GhostButton button = new GhostButton(posX, posY, CardWidth, CardHeight);
             AddButtonAction(button, new Action(player: players[i]));
@@ -76,9 +83,21 @@ public class PackScreen : Screen {
         }
 
         int playerPosY = HeaderHeight + TopPadding;
-        for (int i = 0; i < players.Count; i++) {
+        for (int i = 0; i < playerStatuses.Count; i++) {
             int playerPosX = SidePadding + i * (CardWidth + CardPadding);
-            players[i].DisplayCard(playerPosX, playerPosY, true);
+            playerStatuses[i].player.DisplayCard(playerPosX, playerPosY, true);
+
+            // If they're already owned, display that fact
+            if (playerStatuses[i].isCollected) {
+                (int x, int y) textPos = Helper.GetTextPositions(OwnedText, CardWidth, TextBoxHeight, TextFontSize);
+                DrawText(
+                    OwnedText,
+                    playerPosX + textPos.x,
+                    playerPosY + CardHeight + textPos.y,
+                    TextFontSize,
+                    DefaultDarkTextColour
+                );
+            }
         }
 
         /* Buttons */
