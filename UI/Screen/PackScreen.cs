@@ -78,7 +78,7 @@ public class PackScreen : Screen {
         int playerPosY = HeaderHeight + TopPadding;
         for (int i = 0; i < players.Count; i++) {
             int playerPosX = SidePadding + i * (CardWidth + CardPadding);
-            players[i].DisplayCard(playerPosX, playerPosY);
+            players[i].DisplayCard(playerPosX, playerPosY, true);
         }
 
         /* Buttons */

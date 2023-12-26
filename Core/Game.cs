@@ -89,7 +89,7 @@ public class Game {
                     }
                     break;
                 case GameScreen.Collection:
-                    collectionScreen.SetClub(action.club);
+                    collectionScreen.SetClub(action.club, save);
                     break;
                 case GameScreen.Pack:
                     if (activeCollection != null) {

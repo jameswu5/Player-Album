@@ -12,11 +12,15 @@ public static class File {
         using (StreamReader reader = new StreamReader(path)) {
             while (!reader.EndOfStream) {
                 string line = reader.ReadLine();
-                int id = int.Parse(line);
-                if (res.ContainsKey(id)) {
-                    res[id]++;
-                } else {
-                    res[id] = 1;
+                try {
+                    int id = int.Parse(line);
+                    if (res.ContainsKey(id)) {
+                        res[id]++;
+                    } else {
+                        res[id] = 1;
+                    }
+                } catch {
+                    Console.WriteLine($"Could not parse [{line}] into an int.");
                 }
             }
         }

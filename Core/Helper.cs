@@ -36,4 +36,12 @@ public static class Helper {
     public static Color GetTextColour(Color backgroundColour) {
         return CalculateLuminance(backgroundColour) > LuminanceThreshold ? DefaultDarkTextColour : DefaultLightTextColour;
     }
+
+    public static List<PlayerStatus> GetPlayerStatuses(List<Player> players, Dictionary<int, int> save) {
+        List<PlayerStatus> res = new();
+        foreach (Player player in players) {
+            res.Add(new PlayerStatus(player, save.ContainsKey((int)player.ID)));
+        }
+        return res;
+    }
 }

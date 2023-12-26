@@ -12,7 +12,7 @@ public class CollectionScreen : Screen {
     private int page;
     private int maxPages;
     public Collection collection;
-    private List<Player> players;
+    private List<PlayerStatus> playerStatuses;
     private Club? club;
 
     private List<Button> playerButtons;
@@ -22,7 +22,7 @@ public class CollectionScreen : Screen {
 
     public CollectionScreen() {
         page = 0;
-        players = new();
+        playerStatuses = new();
         buttons = InitialiseButtons();
         playerButtons = new();
         displayPlayer = null;
@@ -68,15 +68,17 @@ public class CollectionScreen : Screen {
         return res;
     }
 
-    public void SetClub(Club? club = null) {
+    public void SetClub(Club? club, Dictionary<int, int> save) {
         this.club = club;
         if (club == null) {
-            players = Database.GetPlayers($"""SELECT * FROM Player WHERE League = "{collection.name}" ORDER BY Overall DESC""");
+            List<Player> players = Database.GetPlayers($"""SELECT * FROM Player WHERE League = "{collection.name}" ORDER BY Overall DESC""");
+            playerStatuses = Helper.GetPlayerStatuses(players, save);
         } else {
             Club cur = (Club)club;
-            players = Database.GetPlayers($"""SELECT * FROM Player WHERE Club = "{cur.name}" AND League = "{collection.name}" ORDER BY Overall DESC""");
+            List<Player> players = Database.GetPlayers($"""SELECT * FROM Player WHERE Club = "{cur.name}" AND League = "{collection.name}" ORDER BY Overall DESC""");
+            playerStatuses = Helper.GetPlayerStatuses(players, save);
         }
-        maxPages = (players.Count - 1) / (Rows * Columns);
+        maxPages = (playerStatuses.Count - 1) / (Rows * Columns);
 
         ResetPage();
     }
@@ -102,15 +104,20 @@ public class CollectionScreen : Screen {
         for (int i = 0; i < Rows; i++) {
             for (int j = 0; j < Columns; j++) {
                 int index = i * Columns + j + indexOffset;
-                if (index >= players.Count) {
+                if (index >= playerStatuses.Count) {
                     break;
+                }
+
+                // Only make the button if the player is collected.
+                if (playerStatuses[index].isCollected == false) {
+                    continue;
                 }
 
                 int posX = HorizontalPadding + (CardWidth + CardPadding) * j;
                 int posY = HeaderHeight + VerticalPadding + (CardHeight + VerticalPadding) * i;
 
                 GhostButton button = new(posX, posY, CardWidth, CardHeight);
-                AddButtonAction(button, new Action(player: players[index]));
+                AddButtonAction(button, new Action(player: playerStatuses[index].player));
                 res.Add(button);
             }
         }
@@ -136,13 +143,13 @@ public class CollectionScreen : Screen {
         for (int i = 0; i < Rows; i++) {
             for (int j = 0; j < Columns; j++) {
                 int index = i * Columns + j + indexOffset;
-                if (index >= players.Count) {
+                if (index >= playerStatuses.Count) {
                     break;
                 }
 
                 int posX = HorizontalPadding + (CardWidth + CardPadding) * j;
                 int posY = HeaderHeight + VerticalPadding + (CardHeight + VerticalPadding) * i;
-                players[index].DisplayCard(posX, posY);
+                playerStatuses[index].player.DisplayCard(posX, posY, playerStatuses[index].isCollected);
             }
         }
 

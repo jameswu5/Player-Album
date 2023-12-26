@@ -112,25 +112,27 @@ public class Player {
         Console.WriteLine("------------------------------------------");
     }
 
-    public void DisplayCard(int offsetX, int offsetY) {
-        DrawRectangle(offsetX, offsetY, CardWidth, CardHeight, clubColour);
+    public void DisplayCard(int posX, int posY, bool displayImage) {
+        DrawRectangle(posX, posY, CardWidth, CardHeight, clubColour);
 
         // Main card
         DrawRectangle(
-            offsetX + CardOffset,
-            offsetY + CardOffset,
+            posX + CardOffset,
+            posY + CardOffset,
             CardWidth - 2 * CardOffset,
             CardHeight - 2 * CardOffset,
             Color.WHITE
         );
         
         // Draw the face
-        cardImage.Draw(offsetX + 2 * CardOffset, offsetY + 2 * CardOffset);
+        if (displayImage) {
+            cardImage.Draw(posX + 2 * CardOffset, posY + 2 * CardOffset);
+        }
 
         // Border around the face
         DrawRectangleLines(
-            offsetX + 2 * CardOffset,
-            offsetY + 2 * CardOffset,
+            posX + 2 * CardOffset,
+            posY + 2 * CardOffset,
             CardWidth - 4 * CardOffset,
             CardWidth - 4 * CardOffset,
             Color.BLACK
@@ -145,8 +147,8 @@ public class Player {
             CardFontSize
         );
 
-        int textPosX = boxX + offsetX;
-        int textPosY = boxY +  offsetY + CardWidth - 2 * CardOffset;
+        int textPosX = boxX + posX;
+        int textPosY = boxY +  posY + CardWidth - 2 * CardOffset;
 
         DrawText(Name, textPosX, textPosY, CardFontSize, Color.BLACK);
     }
