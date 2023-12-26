@@ -2,6 +2,7 @@ using System;
 using Raylib_cs;
 using static Raylib_cs.Raylib;
 using static PlayerAlbum.Settings;
+using static PlayerAlbum.Settings.PackScreen;
 
 namespace PlayerAlbum;
 
@@ -35,9 +36,6 @@ public class PackScreen : Screen {
 
     public void SetPlayers(List<Player> players) {
         this.players = players;
-        foreach (Player player in players) {
-            Console.WriteLine(player.Name);
-        }
     }
 
     private List<Button> GetPlayerButtons() {
@@ -47,6 +45,13 @@ public class PackScreen : Screen {
     public override void Display() {
         /* Header */
         DrawRectangle(0, 0, ScreenWidth, HeaderHeight, HeaderColour);
+
+        /* Players */
+        int playerPosY = HeaderHeight + TopPadding;
+        for (int i = 0; i < players.Count; i++) {
+            int playerPosX = SidePadding + i * (Settings.Player.CardWidth + CardPadding);
+            players[i].DisplayCard(playerPosX, playerPosY);
+        }
 
         /* Buttons */
         foreach (Button button in buttons) {

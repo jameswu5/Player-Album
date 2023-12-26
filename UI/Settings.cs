@@ -28,6 +28,9 @@ public static class Settings {
     public static readonly int HeaderHeight = 80;
     public static readonly int HeaderFontSize = 30;
 
+    // This is technically not a UI setting so I will likely move it elsewhere
+    public static readonly int PlayersPerPack = 5;
+
     /* Home Screen UI Settings */
     public static class HomeScreen {
         public static readonly int FontSize = 64;
@@ -100,5 +103,14 @@ public static class Settings {
         public static readonly int PageNumberFontSize = 18;
 
         public static readonly Color DarkenFilter = new Color(0, 0, 0, 150);
+    }
+
+    /* Pack Screen Settings */
+    public static class PackScreen {
+        public static readonly int TopPadding = 100;
+
+        // These are the same, but I separate them for more customisability
+        public static readonly int CardPadding = (ScreenWidth - PlayersPerPack * Player.CardWidth) / (PlayersPerPack + 1);
+        public static readonly int SidePadding = CardPadding;
     }
 }

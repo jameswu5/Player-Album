@@ -86,9 +86,8 @@ public class Game {
                     collectionScreen.SetClub(action.club);
                     break;
                 case GameScreen.Pack:
-                    // Add logic here
                     if (activeCollection != null) {
-                        List<Player> packedPlayers = Pack.GetRandomPlayers((Collection)activeCollection, 5);
+                        List<Player> packedPlayers = Pack.GetRandomPlayers((Collection)activeCollection, PlayersPerPack);
                         packScreen.SetPlayers(packedPlayers);
                     } else {
                         throw new Exception("Cannot open pack, active collection is null");
