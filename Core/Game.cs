@@ -15,6 +15,8 @@ public class Game {
 
     private Collection? activeCollection;
 
+    private Dictionary<int, int> save;
+
     public Game() {
         Data.Initialise();
         currentScreen = GameScreen.Home;
@@ -30,6 +32,8 @@ public class Game {
 
         packScreen = new PackScreen();
         packScreen.clickAction += ExecuteAction;
+
+        save = File.LoadFile(SavePath);
     }
 
     public void Run() {
@@ -113,7 +117,19 @@ public class Game {
         }
 
         if (action.packedPlayers != null) {
-            // Deal with packed players
+            foreach (Player player in action.packedPlayers) {
+                int id = (int)player.ID;
+
+                // Add packed players to dictionary
+                if (save.ContainsKey(id)) {
+                    save[id] += 1;
+                } else {
+                    save[id] = 1;
+                }
+
+                // Save it to save file
+                File.AppendFile(SavePath, id);
+            }
         }
     }
 }

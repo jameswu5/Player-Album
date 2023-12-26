@@ -32,6 +32,7 @@ public static class Settings {
 
     // This is technically not a UI setting so I will likely move it elsewhere
     public static readonly int PlayersPerPack = 5;
+    public static readonly string SavePath = "save/save.txt";
 
     /* Home Screen UI Settings */
     public static class HomeScreen {

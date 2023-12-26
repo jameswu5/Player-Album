@@ -25,9 +25,9 @@ public static class File {
         return res;
     }
 
-    public static void SaveFile(string path, Dictionary<int, int> dict) {
+    public static void WriteFile(string path, Dictionary<int, int> dict) {
         using StreamWriter writer = new StreamWriter(path);
-        
+
         foreach (int id in dict.Keys)
         {
             for (int k = 0; k < dict[id]; k++)
@@ -35,6 +35,19 @@ public static class File {
                 writer.WriteLine(id);
             }
         }
+    }
+
+    public static void AppendFile(string path, List<int> ids) {
+        using StreamWriter writer = new StreamWriter(path, true);
+        
+        foreach (int id in ids) {
+            writer.WriteLine(id);
+        }
+    }
+
+    public static void AppendFile(string path, int id) {
+        using StreamWriter writer = new StreamWriter(path, true);
+        writer.WriteLine(id);
     }
 
 }
