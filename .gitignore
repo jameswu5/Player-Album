@@ -167,3 +167,4 @@ obj/
 bin/
 *.csproj
 *.sln
+*.txt
