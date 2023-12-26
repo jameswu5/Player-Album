@@ -97,7 +97,6 @@ public class CollectionScreen : Screen {
     public void ResetPage() => ShiftPage(-page);
 
     public List<Button> GetPlayerButtons() {
-        Console.WriteLine("Getting player buttons");
         List<Button> res = new();
         int indexOffset = page * Rows * Columns;
         for (int i = 0; i < Rows; i++) {

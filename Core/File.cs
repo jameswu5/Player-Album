@@ -13,7 +13,6 @@ public static class File {
             while (!reader.EndOfStream) {
                 string line = reader.ReadLine();
                 int id = int.Parse(line);
-                Console.WriteLine(id);
                 if (res.ContainsKey(id)) {
                     res[id]++;
                 } else {

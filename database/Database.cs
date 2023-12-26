@@ -65,7 +65,6 @@ public static class Database {
         {
             foreach (object[] values in valuesList) {
                 Player player = new Player(values);
-                Console.WriteLine(player.Name);
                 players.Add(player);
             }
         }
