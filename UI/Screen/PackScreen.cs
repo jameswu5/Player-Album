@@ -4,10 +4,10 @@ namespace PlayerAlbum;
 
 public class PackScreen : Screen {
 
-    private IEnumerable<Player> players;
+    private List<Player> players;
 
-    public PackScreen(IEnumerable<Player> players) {
-        this.players = players;
+    public PackScreen() {
+        
     }
 
     protected override List<Button> InitialiseButtons() {
@@ -15,6 +15,6 @@ public class PackScreen : Screen {
     }
 
     public override void Display() {
-        throw new NotImplementedException();
+
     }
 }

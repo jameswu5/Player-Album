@@ -47,7 +47,7 @@ public class MenuScreen : Screen {
             text: "Open pack",
             fontSize: 40
         );
-        AddButtonAction(openPackButton, new Action());
+        AddButtonAction(openPackButton, new Action(targetScreen: Game.GameScreen.Pack));
         res.Add(openPackButton);
 
         // Right hand side

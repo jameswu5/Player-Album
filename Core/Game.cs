@@ -5,12 +5,13 @@ using static PlayerAlbum.Settings;
 namespace PlayerAlbum;
 
 public class Game {
-    public enum GameScreen {Home, Menu, Collection};
+    public enum GameScreen {Home, Menu, Collection, Pack};
     private GameScreen currentScreen;
 
     private HomeScreen homeScreen;
     private MenuScreen menuScreen;
     private CollectionScreen collectionScreen;
+    private PackScreen packScreen;
 
     public Game() {
         Data.Initialise();
@@ -24,6 +25,9 @@ public class Game {
 
         collectionScreen = new CollectionScreen();
         collectionScreen.clickAction += ExecuteAction;
+
+        packScreen = new PackScreen();
+        packScreen.clickAction += ExecuteAction;
     }
 
     public void Run() {
@@ -50,6 +54,9 @@ public class Game {
             case GameScreen.Collection:
                 collectionScreen.Display();
                 break;
+            case GameScreen.Pack:
+                packScreen.Display();
+                break;
             default:
                 throw new Exception("No screen found.");
         }
@@ -59,6 +66,8 @@ public class Game {
         if (action.debugText != null) {
             Console.WriteLine(action.debugText.Length == 0 ? $"Button clicked." : action.debugText);
         }
+
+        // Switch screen
         if (action.targetScreen != null) {
             switch (action.targetScreen) {
                 case GameScreen.Menu:
@@ -70,17 +79,22 @@ public class Game {
                 case GameScreen.Collection:
                     collectionScreen.SetClub(action.club);
                     break;
+                case GameScreen.Pack:
+                    // Add logic here
+
+                    break;
                 default:
                     break;
             }
             currentScreen = (GameScreen)action.targetScreen;
         }
-        if (action.pageShift != null) {
-            collectionScreen.ShiftPage((int)action.pageShift);
-        }
 
         // Technically this check is not needed, but it makes the code easier to understand
         if (currentScreen == GameScreen.Collection) {
+            if (action.pageShift != null) {
+                collectionScreen.ShiftPage((int)action.pageShift);
+            }
+
             collectionScreen.SetDisplayPlayer(action.player);
         }
     }
