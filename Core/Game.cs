@@ -13,6 +13,8 @@ public class Game {
     private CollectionScreen collectionScreen;
     private PackScreen packScreen;
 
+    private Collection? activeCollection;
+
     public Game() {
         Data.Initialise();
         currentScreen = GameScreen.Home;
@@ -70,10 +72,14 @@ public class Game {
         // Switch screen
         if (action.targetScreen != null) {
             switch (action.targetScreen) {
+                case GameScreen.Home:
+                    activeCollection = null;
+                    break;
                 case GameScreen.Menu:
                     if (action.collection != null) {
                         menuScreen.SetClubs((Collection)action.collection); 
                         collectionScreen.collection = (Collection)action.collection;
+                        activeCollection = action.collection;
                     }
                     break;
                 case GameScreen.Collection:
@@ -81,7 +87,12 @@ public class Game {
                     break;
                 case GameScreen.Pack:
                     // Add logic here
-
+                    if (activeCollection != null) {
+                        List<Player> packedPlayers = Pack.GetRandomPlayers((Collection)activeCollection, 5);
+                        packScreen.SetPlayers(packedPlayers);
+                    } else {
+                        throw new Exception("Cannot open pack, active collection is null");
+                    }
                     break;
                 default:
                     break;
