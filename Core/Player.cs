@@ -30,7 +30,6 @@ public class Player {
     public long SkillMoves;
     public string Gender;
 
-    public const string ImagePathRoot = "static/faces/";
     public string ImagePath;
 
     public Image cardImage;
@@ -64,7 +63,7 @@ public class Player {
         SkillMoves = (long)values[20];
         Gender = (string)values[21];
 
-        ImagePath = $"{ImagePathRoot}{ID}.png";
+        ImagePath = $"{Constants.FacePathRoot}{ID}.png";
         int size = CardWidth - 4 * CardOffset;
         cardImage = new Image(ImagePath, size, size);
         int detailedSize = DCardWidth / 2 - DCardImageWidthOffset * 2;

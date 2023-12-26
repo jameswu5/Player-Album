@@ -6,9 +6,7 @@ namespace PlayerAlbum;
 
 public static class Helper {
 
-    public const string BadgePathRoot = "static/badges/";
-
-    public static string GetBadgePath(string shortcode) => $"{BadgePathRoot}{shortcode}.png";
+    public static string GetBadgePath(string shortcode) => $"{Constants.BadgePathRoot}{shortcode}.png";
 
     public static (int, int) GetTextPositions(string text, int width, int height, int fontSize) {
         int textWidth = Raylib.MeasureText(text, fontSize);

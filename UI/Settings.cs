@@ -1,10 +1,11 @@
 using System;
 using Raylib_cs;
+using static PlayerAlbum.Constants;
 
 namespace PlayerAlbum;
 
 /// <summary>
-/// The default settings.
+/// The default UI Settings.
 /// </summary>
 public static class Settings {
     public static readonly int ScreenWidth  = 1080;
@@ -12,14 +13,11 @@ public static class Settings {
     public static readonly Color ScreenColour = new Color(250, 250, 250, 255);
     public static readonly Color DarkenFilter = new Color(0, 0, 0, 150);
 
-
     public static readonly Color ButtonColour = Color.LIGHTGRAY;
     public static readonly Color ButtonHoverColour = Color.DARKGRAY;
     public static readonly Color ButtonTextColour = Color.BLACK;
 
-    public static readonly int SmallFontSize  = 10;
     public static readonly int MediumFontSize = 20;
-    public static readonly int LargeFontSize  = 30;
 
     public static readonly Color DefaultDarkTextColour  = Color.BLACK;
     public static readonly Color DefaultLightTextColour = Color.WHITE;
@@ -29,10 +27,6 @@ public static class Settings {
     public static readonly Color HeaderColour = Color.LIGHTGRAY;
     public static readonly int HeaderHeight = 80;
     public static readonly int HeaderFontSize = 30;
-
-    // This is technically not a UI setting so I will likely move it elsewhere
-    public static readonly int PlayersPerPack = 5;
-    public static readonly string SavePath = "save/save.txt";
 
     /* Home Screen UI Settings */
     public static class HomeScreen {
@@ -58,9 +52,7 @@ public static class Settings {
         public static readonly int ClubsPerRow = 4;
         public static readonly int ClubButtonSize = 64;
         public static readonly int ClubButtonPadding = 35;
-        public static readonly int ClubButtonEdgePadding = (ScreenWidth / 2
-                                                         - ClubsPerRow * ClubButtonSize
-                                                         - (ClubsPerRow - 1) * ClubButtonPadding) / 2;
+        public static readonly int ClubButtonEdgePadding = (ScreenWidth / 2 - ClubsPerRow * ClubButtonSize - (ClubsPerRow - 1) * ClubButtonPadding) / 2;
     }
 
     /* Player UI Settings */

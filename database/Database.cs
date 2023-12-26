@@ -7,10 +7,9 @@ namespace PlayerAlbum;
 public static class Database {
 
     private static readonly SqliteConnection connection;
-    private const string path = "database/players.db";
 
     static Database() {
-        connection = new SqliteConnection($"data source = {path}");
+        connection = new SqliteConnection($"data source = {Constants.DatabasePath}");
         connection.Open();
         Console.WriteLine("Connection successfully opened");
     }
@@ -58,15 +57,26 @@ public static class Database {
         DisplayQueryResults($"SELECT * FROM {table} LIMIT {limit}");
     }
 
-    public static List<Player> GetPlayers(string query) {
+    public static List<Player> GetPlayers(string query, bool initialise = false) {
         List<Player> players = new();
-        SqliteCommand command = CreateCommand(query);
-        SqliteDataReader reader = command.ExecuteReader();
-        while (reader.Read()) {
-            object[] values = new object[reader.FieldCount];
-            reader.GetValues(values);
-            players.Add(new Player(values));
+        List<object[]> valuesList = GetColumns(query);
+
+        if (initialise)
+        {
+            foreach (object[] values in valuesList) {
+                Player player = new Player(values);
+                Console.WriteLine(player.Name);
+                players.Add(player);
+            }
         }
+        else
+        {
+            foreach (object[] values in valuesList) {
+                long id = (long)values[0];
+                players.Add(Setup.PlayerMap[id]);
+            }
+        }
+
         return players;
     }
 }

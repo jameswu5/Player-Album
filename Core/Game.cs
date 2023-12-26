@@ -1,6 +1,7 @@
 using System;
 using Raylib_cs;
 using static PlayerAlbum.Settings;
+using static PlayerAlbum.Constants;
 
 namespace PlayerAlbum;
 
@@ -18,10 +19,13 @@ public class Game {
     private Dictionary<int, int> save;
 
     public Game() {
-        Data.Initialise();
+        Raylib.InitWindow(ScreenWidth, ScreenHeight, "Game");
+        Raylib.SetTargetFPS(60);
+
+        Setup.Initialise();
         currentScreen = GameScreen.Home;
 
-        homeScreen = new HomeScreen(Data.collections);
+        homeScreen = new HomeScreen(Setup.Collections);
         homeScreen.clickAction += ExecuteAction;
 
         menuScreen = new MenuScreen();
@@ -37,8 +41,6 @@ public class Game {
     }
 
     public void Run() {
-        Raylib.InitWindow(ScreenWidth, ScreenHeight, "Game");
-        Raylib.SetTargetFPS(60);
         while (!Raylib.WindowShouldClose()) {
             Raylib.BeginDrawing();
             Raylib.ClearBackground(ScreenColour);
