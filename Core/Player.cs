@@ -26,8 +26,6 @@ public partial class Player {
     private readonly int SkillMoves;
     private readonly string Gender;
 
-    private readonly string[] statTexts;
-
     public Player(object[] values) {
         ID = (int)(long)values[0];
         Club = (string)values[1];
@@ -51,7 +49,6 @@ public partial class Player {
         WeakFoot = (int)(long)values[19];
         SkillMoves = (int)(long)values[20];
         Gender = (string)values[21];
-        statTexts = (Position != "GK") ? new string[] {"PAC", "SHO", "PAS", "DRI", "DEF", "PHY"} : new string[] {"DIV", "HAN", "KIC", "REF", "SPE", "POS"};
         InitialiseUI();
     }
 

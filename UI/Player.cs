@@ -14,6 +14,7 @@ public partial class Player {
 
     private Color clubColour;
 
+    private string[] statTexts;
     private int[] statTextLengths;
     private int[] statTextLengthsPrefix;
 
@@ -26,6 +27,8 @@ public partial class Player {
         cardImage = new Image(ImagePath, size, size);
         detailedCardImage = new Image(ImagePath, DCardImageSize, DCardImageSize);
         clubColour = GetColour();
+
+        statTexts = (Position != "GK") ? new string[] {"PAC", "SHO", "PAS", "DRI", "DEF", "PHY"} : new string[] {"DIV", "HAN", "KIC", "REF", "SPE", "POS"};
 
         statTextLengths = new int[6];
         statTextLengths[0] = MeasureText(statTexts[0], StatsFontSize);
@@ -290,11 +293,7 @@ public partial class Player {
             MainStatsFontSize, Settings.DefaultDarkTextColour
         );
 
-        DrawHexagon(
-            DCardWidthOffset + 3 * DCardWidth / 4,
-            DCardHeightOffset + DCardHeight / 2,
-            HexagonRadius
-        );
+        DrawHexagon(DCardWidthOffset + 3 * DCardWidth / 4, DCardHeightOffset + DCardHeight / 2);
 
         (int x, int y) statsText2Pos = Helper.GetTextPositions(statsText2, DCardWidth >> 1, MainStatsHeight, MainStatsFontSize);
         DrawText(
@@ -305,10 +304,9 @@ public partial class Player {
         );
     }
 
-    private void DrawHexagon(int centreX, int centreY, int radius) {
-
-        DrawCircle(centreX, centreY, radius, Color.BLACK);
-        DrawCircle(centreX, centreY, radius - 3, Color.WHITE);
+    private void DrawHexagon(int centreX, int centreY) {
+        DrawCircle(centreX, centreY, HexagonRadius, Color.BLACK);
+        DrawCircle(centreX, centreY, HexagonRadius - 3, Color.WHITE);
 
         int[] GetCoordinates(double modulus, double argument) {
             int x = (int)Math.Round(modulus * Math.Cos(argument));
@@ -317,24 +315,24 @@ public partial class Player {
         }
 
         int[][] endpoints = new int[6][];
-        endpoints[0] = GetCoordinates(radius,  2 * Math.PI / 3);
-        endpoints[1] = GetCoordinates(radius,      Math.PI / 3);
-        endpoints[2] = GetCoordinates(radius,                0);
-        endpoints[3] = GetCoordinates(radius,    - Math.PI / 3);
-        endpoints[4] = GetCoordinates(radius, -2 * Math.PI / 3);
-        endpoints[5] = GetCoordinates(radius,          Math.PI);
+        endpoints[0] = GetCoordinates(HexagonRadius,  2 * Math.PI / 3);
+        endpoints[1] = GetCoordinates(HexagonRadius,      Math.PI / 3);
+        endpoints[2] = GetCoordinates(HexagonRadius,                0);
+        endpoints[3] = GetCoordinates(HexagonRadius,    - Math.PI / 3);
+        endpoints[4] = GetCoordinates(HexagonRadius, -2 * Math.PI / 3);
+        endpoints[5] = GetCoordinates(HexagonRadius,          Math.PI);
 
         for (int i = 0; i < 3; i++) {
             DrawLine(endpoints[i][0], endpoints[i][1], endpoints[i+3][0], endpoints[i+3][1], Color.BLACK);
         }
 
         int[][] coordinates = new int[6][];
-        coordinates[0] = GetCoordinates(radius * Pace        / 100.0,  2 * Math.PI / 3);
-        coordinates[1] = GetCoordinates(radius * Shooting    / 100.0,      Math.PI / 3);
-        coordinates[2] = GetCoordinates(radius * Passing     / 100.0,                0);
-        coordinates[3] = GetCoordinates(radius * Dribbling   / 100.0,    - Math.PI / 3);
-        coordinates[4] = GetCoordinates(radius * Defending   / 100.0, -2 * Math.PI / 3);
-        coordinates[5] = GetCoordinates(radius * Physicality / 100.0,          Math.PI);
+        coordinates[0] = GetCoordinates(HexagonRadius * Pace        / 100.0,  2 * Math.PI / 3);
+        coordinates[1] = GetCoordinates(HexagonRadius * Shooting    / 100.0,      Math.PI / 3);
+        coordinates[2] = GetCoordinates(HexagonRadius * Passing     / 100.0,                0);
+        coordinates[3] = GetCoordinates(HexagonRadius * Dribbling   / 100.0,    - Math.PI / 3);
+        coordinates[4] = GetCoordinates(HexagonRadius * Defending   / 100.0, -2 * Math.PI / 3);
+        coordinates[5] = GetCoordinates(HexagonRadius * Physicality / 100.0,          Math.PI);
 
         for (int i = 0; i < 6; i++) {
             DrawLineEx(
@@ -342,6 +340,21 @@ public partial class Player {
                 new Vector2(coordinates[(i+1)%6][0], coordinates[(i+1)%6][1]),
                 3, Color.DARKBLUE
             );
+        }
+
+        // Text
+        int[][] textCentres = new int[6][];
+        textCentres[0] = GetCoordinates(HexagonRadius + HexagonTextPadding,  2 * Math.PI / 3);
+        textCentres[1] = GetCoordinates(HexagonRadius + HexagonTextPadding,      Math.PI / 3);
+        textCentres[2] = GetCoordinates(HexagonRadius + HexagonTextPadding,                0);
+        textCentres[3] = GetCoordinates(HexagonRadius + HexagonTextPadding,    - Math.PI / 3);
+        textCentres[4] = GetCoordinates(HexagonRadius + HexagonTextPadding, -2 * Math.PI / 3);
+        textCentres[5] = GetCoordinates(HexagonRadius + HexagonTextPadding,          Math.PI);
+        
+        for (int i = 0; i < 6; i++) {
+            int posX = textCentres[i][0] - MeasureText(statTexts[i], HexagonFontSize) / 2;
+            int posY = textCentres[i][1] - HexagonFontSize / 2;
+            DrawText(statTexts[i], posX, posY, HexagonFontSize, Settings.DefaultDarkTextColour);
         }
     }
 }

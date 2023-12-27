@@ -91,6 +91,8 @@ public static class Settings {
         // Right hand side
         public const int HexagonRadius = 120;
         public const int HexagonPadding = 20;
+        public const int HexagonTextPadding = 25;
+        public const int HexagonFontSize = 15;
         public const int MainStatsFontSize = 35;
 
         public const int MainStatsHeight = DCardHeight / 2 - HexagonRadius - 2 * HexagonPadding;
