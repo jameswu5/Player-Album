@@ -21,6 +21,7 @@ public class PackScreen : Screen {
         playerStatuses = new();
         dynamicButtons = new();
         staticButtons = new();
+        InitialiseButtons();
     }
 
     protected override void InitialiseButtons() {
