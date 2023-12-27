@@ -11,7 +11,7 @@ public class PackScreen : Screen {
 
     private List<PlayerStatus> playerStatuses;
     private List<Button> dynamicButtons;
-    private TextButton exitButton;
+    private HoverButton exitButton;
 
     private Player? displayPlayer;
 
@@ -27,7 +27,7 @@ public class PackScreen : Screen {
         List<Button> res = new();
 
         // Exit button
-        exitButton = new TextButton(
+        exitButton = new HoverButton(
             DCardWidthOffset + DCardWidth - ExitPadding - ExitButtonSize,
             DCardHeightOffset + ExitPadding,
             ExitButtonSize, ExitButtonSize, colour: ExitButtonColour, hoverColour: ExitButtonHoverColour, text: "x"
@@ -46,7 +46,7 @@ public class PackScreen : Screen {
         List<Button> res = new();
 
         // OK Button
-        TextButton okButton = new TextButton(
+        HoverButton okButton = new HoverButton(
             ButtonSidePadding, ScreenHeight - ButtonTopPadding - ButtonHeight, ButtonWidth, ButtonHeight,
             text: "OK", fontSize: ButtonFontSize
         );
@@ -62,7 +62,7 @@ public class PackScreen : Screen {
         int posY = HeaderHeight + TopPadding;
         for (int i = 0; i < playerStatuses.Count; i++) {
             int posX = SidePadding + i * (CardWidth + CardPadding);
-            GhostButton button = new GhostButton(posX, posY, CardWidth, CardHeight);
+            BorderButton button = new BorderButton(posX, posY, CardWidth, CardHeight);
             AddButtonAction(button, new Action(player: players[i]));
             res.Add(button);
         }

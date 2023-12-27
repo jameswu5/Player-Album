@@ -10,17 +10,20 @@ public class MenuScreen : Screen {
 
     private Collection collection;
     private List<Club> clubs;
+    private List<(Image img, int posX, int posY)> images;
 
     public MenuScreen() {
         clubs = new List<Club>();
+        images = new();
         buttons = InitialiseButtons();
     }
 
     protected override List<Button> InitialiseButtons() {
         List<Button> res = new();
+        images = new();
 
         // Home button
-        TextButton homeButton = new TextButton(
+        HoverButton homeButton = new HoverButton(
             0, 0, HeaderHeight, HeaderHeight,
             colour: Color.BLACK,
             text: "Home",
@@ -31,7 +34,7 @@ public class MenuScreen : Screen {
         res.Add(homeButton);
         
         // See all player button
-        TextButton allPlayerButton = new TextButton(
+        HoverButton allPlayerButton = new HoverButton(
             ButtonWidthPadding, HeaderHeight + ButtonHeightPadding, ButtonWidth, ButtonHeight,
             colour: Color.SKYBLUE,
             text: "See all players",
@@ -41,7 +44,7 @@ public class MenuScreen : Screen {
         res.Add(allPlayerButton);
 
         // Open pack button
-        TextButton openPackButton = new TextButton(
+        HoverButton openPackButton = new HoverButton(
             ButtonWidthPadding, HeaderHeight + ButtonHeightPadding * 2 + ButtonHeight, ButtonWidth, ButtonHeight,
             colour: Color.ORANGE,
             text: "Open pack",
@@ -59,13 +62,14 @@ public class MenuScreen : Screen {
             int r = i / ClubsPerRow;
             int c = i % ClubsPerRow;
 
-            Image img = new Image(Helper.GetBadgePath(clubs[i].shortcode), ClubButtonSize, ClubButtonSize);
+            int posX = ScreenWidth / 2 + ClubButtonEdgePadding + c * (ClubButtonSize + ClubButtonPadding);
+            int posY = HeaderHeight + (ClubTitleBoxHeight + ClubFontSize) / 2 + clubTopPadding + r * (ClubButtonSize + ClubButtonPadding);
 
-            ImageButton button = new(
-                ScreenWidth / 2 + ClubButtonEdgePadding + c * (ClubButtonSize + ClubButtonPadding),
-                HeaderHeight + (ClubTitleBoxHeight + ClubFontSize) / 2 + clubTopPadding + r * (ClubButtonSize + ClubButtonPadding),
-                img, clubs[i].name
-            );
+            Image img = new Image(Helper.GetBadgePath(clubs[i].shortcode), ClubButtonSize, ClubButtonSize);
+            images.Add((img, posX, posY));
+
+            BorderButton button = new BorderButton(posX, posY, ClubButtonSize, ClubButtonSize, clubs[i].name);
+            
             AddButtonAction(button, new Action(targetScreen: Game.GameScreen.Collection, club: clubs[i]));
             res.Add(button);
         }
@@ -92,6 +96,11 @@ public class MenuScreen : Screen {
 
         (int x, int y) clubTextPos = Helper.GetTextPositions(clubText, ScreenWidth / 2, ClubTitleBoxHeight, ClubFontSize);
         DrawText(clubText, ScreenWidth / 2 + clubTextPos.x, HeaderHeight + clubTextPos.y, ClubFontSize, Color.BLACK);
+
+        // Club images
+        foreach ((Image img, int posX, int posY) in images) {
+            img.Draw(posX, posY);
+        }
 
         // Buttons
         foreach (Button button in buttons) {
