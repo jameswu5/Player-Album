@@ -173,7 +173,6 @@ public partial class Player {
             Color.BLACK
         );
 
-
         // Face picture
         detailedCardImage.Draw(DCardWidthOffset + DCardImageWidthOffset, DCardHeightOffset + DCardImageHeightOffset);
 
@@ -184,7 +183,6 @@ public partial class Player {
             DCardImageSize,
             Color.BLACK
         );
-
 
         /* Player information */
 
@@ -198,6 +196,41 @@ public partial class Player {
             Color.BLACK
         );
         
+        DisplayStats();
+        
+        /* Middle divider */
+
+        DrawLine(
+            DCardWidthOffset + DCardWidth / 2,
+            DCardHeightOffset,
+            DCardWidthOffset + DCardWidth / 2,
+            DCardHeightOffset + DCardHeight,
+            Color.BLACK
+        );
+
+
+        /* Right hand side */
+
+        (int x, int y) statsText1Pos = Helper.GetTextPositions(statsText1, DCardWidth >> 1, MainStatsHeight, MainStatsFontSize);
+        DrawText(
+            statsText1,
+            statsText1Pos.x + Settings.ScreenWidth / 2,
+            statsText1Pos.y + DCardHeightOffset + HexagonPadding,
+            MainStatsFontSize, Settings.DefaultDarkTextColour
+        );
+
+        DrawHexagon();
+
+        (int x, int y) statsText2Pos = Helper.GetTextPositions(statsText2, DCardWidth >> 1, MainStatsHeight, MainStatsFontSize);
+        DrawText(
+            statsText2,
+            statsText2Pos.x + Settings.ScreenWidth / 2,
+            statsText2Pos.y + Settings.ScreenHeight / 2 + HexagonRadius + SmallPadding,
+            MainStatsFontSize, Settings.DefaultDarkTextColour
+        );
+    }
+
+    private void DisplayStats() {
         int totalStatsWidth = 5 * StatsWidthPadding + statTextLengthsPrefix[5];
         int totalStatsHeight = 2 * StatsFontSize + StatsHeightPadding;
 
@@ -308,38 +341,6 @@ public partial class Player {
             statsNumPosY,
             StatsFontSize,
             Color.BLACK
-        );
-
-        
-        /* Middle divider */
-
-        DrawLine(
-            DCardWidthOffset + DCardWidth / 2,
-            DCardHeightOffset,
-            DCardWidthOffset + DCardWidth / 2,
-            DCardHeightOffset + DCardHeight,
-            Color.BLACK
-        );
-
-
-        /* Right hand side */
-
-        (int x, int y) statsText1Pos = Helper.GetTextPositions(statsText1, DCardWidth >> 1, MainStatsHeight, MainStatsFontSize);
-        DrawText(
-            statsText1,
-            statsText1Pos.x + Settings.ScreenWidth / 2,
-            statsText1Pos.y + DCardHeightOffset + HexagonPadding,
-            MainStatsFontSize, Settings.DefaultDarkTextColour
-        );
-
-        DrawHexagon();
-
-        (int x, int y) statsText2Pos = Helper.GetTextPositions(statsText2, DCardWidth >> 1, MainStatsHeight, MainStatsFontSize);
-        DrawText(
-            statsText2,
-            statsText2Pos.x + Settings.ScreenWidth / 2,
-            statsText2Pos.y + Settings.ScreenHeight / 2 + HexagonRadius + SmallPadding,
-            MainStatsFontSize, Settings.DefaultDarkTextColour
         );
     }
 
