@@ -16,7 +16,7 @@ public class CollectionScreen : Screen {
     private Club? club;
 
     private List<Button> playerButtons;
-    private TextButton exitButton;
+    private HoverButton exitButton;
 
     public Player? displayPlayer;
 
@@ -32,7 +32,7 @@ public class CollectionScreen : Screen {
         List<Button> res = new();
 
         // Home button
-        TextButton backButton = new TextButton(
+        HoverButton backButton = new HoverButton(
             0, 0, HeaderHeight, HeaderHeight,
             colour: Color.BLACK,
             text: "Back",
@@ -43,14 +43,14 @@ public class CollectionScreen : Screen {
         res.Add(backButton);
 
         // Direction buttons
-        TextButton left = new TextButton(
+        HoverButton left = new HoverButton(
             0, DirectionButtonPadding, DirectionButtonWidth, DirectionButtonHeight,
             colour: DirectionButtonColour, text: "<", fontSize: DirectionButtonFontSize
         );
         AddButtonAction(left, new Action(pageShift: -1));
         res.Add(left);
         
-        TextButton right = new TextButton(
+        HoverButton right = new HoverButton(
             ScreenWidth - DirectionButtonWidth, DirectionButtonPadding, DirectionButtonWidth, DirectionButtonHeight,
             colour: DirectionButtonColour, text: ">", fontSize: DirectionButtonFontSize
         );
@@ -58,7 +58,7 @@ public class CollectionScreen : Screen {
         res.Add(right);
 
         // Exit button
-        exitButton = new TextButton(
+        exitButton = new HoverButton(
             DCardWidthOffset + DCardWidth - ExitPadding - ExitButtonSize,
             DCardHeightOffset + ExitPadding,
             ExitButtonSize, ExitButtonSize, colour: ExitButtonColour, hoverColour: ExitButtonHoverColour, text: "x"
@@ -116,7 +116,7 @@ public class CollectionScreen : Screen {
                 int posX = HorizontalPadding + (CardWidth + CardPadding) * j;
                 int posY = HeaderHeight + VerticalPadding + (CardHeight + VerticalPadding) * i;
 
-                GhostButton button = new(posX, posY, CardWidth, CardHeight);
+                BorderButton button = new(posX, posY, CardWidth, CardHeight);
                 AddButtonAction(button, new Action(player: playerStatuses[index].player));
                 res.Add(button);
             }

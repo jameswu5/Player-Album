@@ -1,4 +1,5 @@
 using System;
+using System.Numerics;
 using Raylib_cs;
 using static Raylib_cs.Raylib;
 
@@ -8,21 +9,18 @@ public abstract class Button {
 
     public event System.Action OnClick;
 
-    protected readonly int posX;
-    protected readonly int posY;
-    protected readonly int height;
-    protected readonly int width;
     protected readonly string name;
+    protected readonly string text;
+    protected readonly Color textColour;
+    protected readonly int fontSize;
 
     protected bool activated; // Deactivated buttons still display, but cannot be clicked or hovered
 
-    public Button(int posX, int posY, int width, int height, string? name = null) {
-        this.posX = posX;
-        this.posY = posY;
-        this.height = height;
-        this.width = width;
+    public Button(string? name = null, string? text = null, Color? textColour = null, int? fontSize = null) {
         this.name = name ?? "";
-
+        this.text = text ?? "";
+        this.textColour = textColour ?? Settings.DefaultDarkTextColour;
+        this.fontSize = fontSize ?? Settings.MediumFontSize;
         activated = true;
     }
 
@@ -42,16 +40,17 @@ public abstract class Button {
         }
     }
 
-    protected bool IsHovered(float x, float y) => x >= posX && x <= posX + width && y >= posY && y <= posY + height;
-
-    /* These methods are supposed to be overridden.
-     * Implement how the button should be displayed,
-     * and by default hover display is the same.
-     * Also implement when it's clicked, a basic
-     * functionality is already provided.
-     */
+    protected abstract bool IsHovered(float x, float y);
 
     protected abstract void Display();
+
+    // protected void DisplayText(int centreX, int centreY) {
+    //     int posX = centreX - MeasureText(text, fontSize) / 2;
+    //     int posY = centreY - fontSize / 2;
+    //     DrawText(text, posX, posY, fontSize, textColour);
+    // }
+
+    protected abstract void DisplayText();
 
     protected virtual void HoverDisplay() => Display();
 
