@@ -68,13 +68,26 @@ public static class Settings {
         // Detailed Card
         public const int DCardWidth = 810;
         public const int DCardHeight = 540;
+        public const int BorderWidth = 5;
+        public const int DCardImageSize = 250;
+
         public const int DCardWidthOffset = (ScreenWidth - DCardWidth) >> 1;
         public const int DCardHeightOffset = (ScreenHeight - DCardHeight) >> 1;
 
         // Left side of detailed card
-        public const int DCardImageWidthOffset = 80;
         public const int DCardImageHeightOffset = 90;
+        public const int HeaderStatsFontSize = 50;
+        public const int NameFontSize = 32;
+        public const int HeaderImageWidthPadding = 10;
+        public const int SmallPadding = 5;
+        public const int StatsWidthPadding = 15; // padding between stats
+        public const int StatsHeightPadding = 10; // padding between the stat name and the corresponding number
+        public const int StatsFontSize = 22;
 
+        public const int DCardImageWidthOffset = (DCardWidth / 2 - DCardImageSize) >> 1;
+        public const int HeightPadding = (DCardImageHeightOffset - HeaderStatsFontSize) >> 1;
+        public const int SegmentHeight = (DCardHeight - DCardImageHeightOffset - DCardImageSize - SmallPadding * 2) / 9;
+        
         // Exit button
         public const int ExitPadding = 20;
         public const int ExitButtonSize = 40;
