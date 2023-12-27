@@ -1,5 +1,4 @@
 using System;
-using System.Numerics;
 using Raylib_cs;
 using static Raylib_cs.Raylib;
 
@@ -20,7 +19,7 @@ public abstract class Button {
         this.name = name ?? "";
         this.text = text ?? "";
         this.textColour = textColour ?? Settings.DefaultDarkTextColour;
-        this.fontSize = fontSize ?? Settings.MediumFontSize;
+        this.fontSize = fontSize ?? Settings.DefaultFontSize;
         activated = true;
     }
 
