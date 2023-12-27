@@ -93,8 +93,10 @@ public static class Settings {
         public const int HexagonPadding = 20;
         public const int HexagonTextPadding = 25;
         public const int HexagonFontSize = 15;
-        public const int MainStatsFontSize = 35;
+        public const int MainStatsFontSize = 32;
 
+        public const int HexagonCentreX = DCardWidthOffset + 3 * DCardWidth / 4;
+        public const int HexagonCentreY = DCardHeightOffset + DCardHeight / 2;
         public const int MainStatsHeight = DCardHeight / 2 - HexagonRadius - 2 * HexagonPadding;
 
         // Exit button
