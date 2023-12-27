@@ -7,14 +7,14 @@ using System.Numerics;
 namespace PlayerAlbum;
 
 public partial class Player {
-    public string ImagePath;
+    private string ImagePath;
 
-    public Image cardImage;
-    public Image detailedCardImage;
+    private Image cardImage;
+    private Image detailedCardImage;
 
-    public Color clubColour;
+    private Color clubColour;
 
-    public void InitialiseUI() {
+    private void InitialiseUI() {
         ImagePath = $"{Constants.FacePathRoot}{ID}.png";
         int size = CardWidth - 4 * CardOffset;
         cardImage = new Image(ImagePath, size, size);
@@ -377,5 +377,4 @@ public partial class Player {
             );
         }
     }
-
 }

@@ -1,34 +1,32 @@
 using System;
-using Raylib_cs;
-using static PlayerAlbum.Settings.Player;
 
 namespace PlayerAlbum;
 
 public partial class Player {
-    public int ID;
-    public string Club;
-    public string League;
-    public string Nation;
-    public string Name;
-    public string Position;
-    public int Age;
-    public int Height;
-    public int Weight;
-    public int Overall;
-    public int Pace;
-    public int Shooting;
-    public int Passing;
-    public int Dribbling;
-    public int Defending;
-    public int Physicality;
-    public string DefensiveWorkRate;
-    public string AttackingWorkRate;
-    public string PreferredFoot;
-    public int WeakFoot;
-    public int SkillMoves;
-    public string Gender;
+    public readonly int ID;
+    private readonly string Club;
+    private readonly string League;
+    private readonly string Nation;
+    public readonly string Name;
+    private readonly string Position;
+    private readonly int Age;
+    private readonly int Height;
+    private readonly int Weight;
+    private readonly int Overall;
+    private readonly int Pace;
+    private readonly int Shooting;
+    private readonly int Passing;
+    private readonly int Dribbling;
+    private readonly int Defending;
+    private readonly int Physicality;
+    private readonly string DefensiveWorkRate;
+    private readonly string AttackingWorkRate;
+    private readonly string PreferredFoot;
+    private readonly int WeakFoot;
+    private readonly int SkillMoves;
+    private readonly string Gender;
 
-    private string[] statTexts;
+    private readonly string[] statTexts;
 
     public Player(object[] values) {
         ID = (int)(long)values[0];
