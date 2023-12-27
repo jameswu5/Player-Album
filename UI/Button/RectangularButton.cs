@@ -29,6 +29,8 @@ public class RectangularButton : Button {
     protected override void Display() {}
 
     protected override void DisplayText() {
+        // It should never be null?
+        if (text == null) return;
         if (text.Length == 0) return;
         (int x, int y) = Helper.GetTextPositions(text, width, height, fontSize);
         Raylib.DrawText(text, x + posX, y + posY, fontSize, textColour);

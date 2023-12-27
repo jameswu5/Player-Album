@@ -97,14 +97,14 @@ public class MenuScreen : Screen {
         (int x, int y) clubTextPos = Helper.GetTextPositions(clubText, ScreenWidth / 2, ClubTitleBoxHeight, ClubFontSize);
         DrawText(clubText, ScreenWidth / 2 + clubTextPos.x, HeaderHeight + clubTextPos.y, ClubFontSize, Color.BLACK);
 
-        // Club images
-        foreach ((Image img, int posX, int posY) in images) {
-            img.Draw(posX, posY);
-        }
-
         // Buttons
         foreach (Button button in buttons) {
             button.Render();
+        }
+        
+        // Club images
+        foreach ((Image img, int posX, int posY) in images) {
+            img.Draw(posX, posY);
         }
     }
 }
