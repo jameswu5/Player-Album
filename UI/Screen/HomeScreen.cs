@@ -20,11 +20,11 @@ public class HomeScreen : Screen {
         // UI Offsets
         int heightNeeded = FontSize + collections.Count * (ButtonHeight + Padding);
         heightOffset = (ScreenHeight - heightNeeded) >> 1;
-        buttons = InitialiseButtons();
+        InitialiseButtons();
     }
 
-    protected override List<Button> InitialiseButtons() {
-        List<Button> res = new();
+    protected override void InitialiseButtons() {
+        staticButtons = new();
 
         int posX = (ScreenWidth - ButtonWidth) >> 1;
         for (int i = 0; i < collections.Count; i++) {
@@ -32,10 +32,8 @@ public class HomeScreen : Screen {
             HoverButton button = new(posX, posY, ButtonWidth, ButtonHeight, name: collections[i].name, text: collections[i].name, fontSize: ButtonFontSize); // test
             Action action = new(targetScreen: Game.GameScreen.Menu, debugText: collections[i].name, collection: collections[i]);
             AddButtonAction(button, action);
-            res.Add(button);
+            staticButtons.Add(button);
         }
-
-        return res;
     }
 
     public override void Display() {
@@ -44,7 +42,7 @@ public class HomeScreen : Screen {
         DrawText(TitleText, titleWidthOffset, heightOffset, FontSize, Color.BLACK);
 
         // Buttons
-        foreach (Button button in buttons) {
+        foreach (Button button in staticButtons) {
             button.Render();
         }
     }

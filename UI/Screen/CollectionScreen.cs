@@ -23,13 +23,13 @@ public class CollectionScreen : Screen {
     public CollectionScreen() {
         page = 0;
         playerStatuses = new();
-        buttons = InitialiseButtons();
         playerButtons = new();
         displayPlayer = null;
+        InitialiseButtons();
     }
 
-    protected override List<Button> InitialiseButtons() {
-        List<Button> res = new();
+    protected override void InitialiseButtons() {
+        staticButtons = new();
 
         // Home button
         HoverButton backButton = new HoverButton(
@@ -40,7 +40,7 @@ public class CollectionScreen : Screen {
             fontSize: HeaderFontSize
         );
         AddButtonAction(backButton, new Action(targetScreen: Game.GameScreen.Menu));
-        res.Add(backButton);
+        staticButtons.Add(backButton);
 
         // Direction buttons
         HoverButton left = new HoverButton(
@@ -48,14 +48,14 @@ public class CollectionScreen : Screen {
             colour: DirectionButtonColour, text: "<", fontSize: DirectionButtonFontSize
         );
         AddButtonAction(left, new Action(pageShift: -1));
-        res.Add(left);
+        staticButtons.Add(left);
         
         HoverButton right = new HoverButton(
             ScreenWidth - DirectionButtonWidth, DirectionButtonPadding, DirectionButtonWidth, DirectionButtonHeight,
             colour: DirectionButtonColour, text: ">", fontSize: DirectionButtonFontSize
         );
         AddButtonAction(right, new Action(pageShift: 1));
-        res.Add(right);
+        staticButtons.Add(right);
 
         // Exit button
         exitButton = new HoverButton(
@@ -64,8 +64,6 @@ public class CollectionScreen : Screen {
             ExitButtonSize, ExitButtonSize, colour: ExitButtonColour, hoverColour: ExitButtonHoverColour, text: "x"
         );
         AddButtonAction(exitButton, new Action());
-
-        return res;
     }
 
     public void SetClub(Club? club, Dictionary<int, int> save) {
@@ -154,7 +152,7 @@ public class CollectionScreen : Screen {
         }
 
         /* Buttons */
-        foreach (Button button in buttons) {
+        foreach (Button button in staticButtons) {
             button.Render();
         }
 
@@ -177,7 +175,7 @@ public class CollectionScreen : Screen {
     public void SetDisplayPlayer(Player? player) {
         if (player == null) {
             // Activate all the buttons
-            foreach (Button button in buttons) {
+            foreach (Button button in staticButtons) {
                 button.Activate();
             }
             foreach (Button button in playerButtons) {
@@ -185,7 +183,7 @@ public class CollectionScreen : Screen {
             }
         } else {
             // Deactivate all the buttons
-            foreach (Button button in buttons) {
+            foreach (Button button in staticButtons) {
                 button.Deactivate();
             }
             foreach (Button button in playerButtons) {

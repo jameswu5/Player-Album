@@ -15,11 +15,10 @@ public class MenuScreen : Screen {
     public MenuScreen() {
         clubs = new List<Club>();
         images = new();
-        buttons = InitialiseButtons();
     }
 
-    protected override List<Button> InitialiseButtons() {
-        List<Button> res = new();
+    protected override void InitialiseButtons() {
+        staticButtons = new();
         images = new();
 
         // Home button
@@ -31,7 +30,7 @@ public class MenuScreen : Screen {
             fontSize: HeaderFontSize
         );
         AddButtonAction(homeButton, new Action(targetScreen: Game.GameScreen.Home));
-        res.Add(homeButton);
+        staticButtons.Add(homeButton);
         
         // See all player button
         HoverButton allPlayerButton = new HoverButton(
@@ -41,7 +40,7 @@ public class MenuScreen : Screen {
             fontSize: 40
         );
         AddButtonAction(allPlayerButton, new Action(targetScreen: Game.GameScreen.Collection));
-        res.Add(allPlayerButton);
+        staticButtons.Add(allPlayerButton);
 
         // Open pack button
         HoverButton openPackButton = new HoverButton(
@@ -51,7 +50,7 @@ public class MenuScreen : Screen {
             fontSize: 40
         );
         AddButtonAction(openPackButton, new Action(targetScreen: Game.GameScreen.Pack));
-        res.Add(openPackButton);
+        staticButtons.Add(openPackButton);
 
         // Right hand side
         int rows = (clubs.Count - 1) / ClubsPerRow + 1;
@@ -71,16 +70,14 @@ public class MenuScreen : Screen {
             BorderButton button = new BorderButton(posX, posY, ClubButtonSize, ClubButtonSize, clubs[i].name);
             
             AddButtonAction(button, new Action(targetScreen: Game.GameScreen.Collection, club: clubs[i]));
-            res.Add(button);
+            staticButtons.Add(button);
         }
-
-        return res;
     }
 
     public void SetClubs(Collection collection) {
         this.collection = collection;
         clubs = collection.clubs;
-        buttons = InitialiseButtons();
+        InitialiseButtons();
     }
 
     public override void Display() {
@@ -98,7 +95,7 @@ public class MenuScreen : Screen {
         DrawText(clubText, ScreenWidth / 2 + clubTextPos.x, HeaderHeight + clubTextPos.y, ClubFontSize, Color.BLACK);
 
         // Buttons
-        foreach (Button button in buttons) {
+        foreach (Button button in staticButtons) {
             button.Render();
         }
         

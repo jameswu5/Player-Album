@@ -20,11 +20,11 @@ public class PackScreen : Screen {
     public PackScreen() {
         playerStatuses = new();
         dynamicButtons = new();
-        buttons = InitialiseButtons();
+        staticButtons = new();
     }
 
-    protected override List<Button> InitialiseButtons() {
-        List<Button> res = new();
+    protected override void InitialiseButtons() {
+        staticButtons = new();
 
         // Exit button
         exitButton = new HoverButton(
@@ -33,8 +33,6 @@ public class PackScreen : Screen {
             ExitButtonSize, ExitButtonSize, colour: ExitButtonColour, hoverColour: ExitButtonHoverColour, text: "x"
         );
         AddButtonAction(exitButton, new Action());
-
-        return res;
     }
 
     public void SetPlayers(List<PlayerStatus> playerStatuses) {
@@ -101,7 +99,7 @@ public class PackScreen : Screen {
         }
 
         /* Buttons */
-        foreach (Button button in buttons) {
+        foreach (Button button in staticButtons) {
             button.Render();
         }
 
@@ -118,7 +116,7 @@ public class PackScreen : Screen {
     public void SetDisplayPlayer(Player? player) {
         if (player == null) {
             // Activate all the buttons
-            foreach (Button button in buttons) {
+            foreach (Button button in staticButtons) {
                 button.Activate();
             }
             foreach (Button button in dynamicButtons) {
@@ -126,7 +124,7 @@ public class PackScreen : Screen {
             }
         } else {
             // Deactivate all the buttons
-            foreach (Button button in buttons) {
+            foreach (Button button in staticButtons) {
                 button.Deactivate();
             }
             foreach (Button button in dynamicButtons) {
