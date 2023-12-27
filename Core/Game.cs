@@ -6,13 +6,14 @@ using static PlayerAlbum.Constants;
 namespace PlayerAlbum;
 
 public class Game {
-    public enum GameScreen {Home, Menu, Collection, Pack};
+    public enum GameScreen {Home, Menu, Collection, Pack, Test};
     private GameScreen currentScreen;
 
     private HomeScreen homeScreen;
     private MenuScreen menuScreen;
     private CollectionScreen collectionScreen;
     private PackScreen packScreen;
+    private TestScreen testScreen;
 
     private Collection? activeCollection;
 
@@ -23,7 +24,8 @@ public class Game {
         Raylib.SetTargetFPS(60);
 
         Setup.Initialise();
-        currentScreen = GameScreen.Home;
+        // currentScreen = GameScreen.Home;
+        currentScreen = GameScreen.Test;
 
         homeScreen = new HomeScreen(Setup.Collections);
         homeScreen.clickAction += ExecuteAction;
@@ -36,6 +38,9 @@ public class Game {
 
         packScreen = new PackScreen();
         packScreen.clickAction += ExecuteAction;
+
+        testScreen = new TestScreen();
+        testScreen.clickAction += ExecuteAction;
 
         save = File.LoadFile(SavePath);
     }
@@ -64,6 +69,9 @@ public class Game {
                 break;
             case GameScreen.Pack:
                 packScreen.Display();
+                break;
+            case GameScreen.Test:
+                testScreen.Display();
                 break;
             default:
                 throw new Exception("No screen found.");
