@@ -17,7 +17,6 @@ public struct Club {
     public Club(string name, string shortcode, string hexCode) {
         this.name = name;
         this.shortcode = shortcode;
-        int[] codes = Helper.ParseHexCode(hexCode);
-        colour = new Color(codes[0], codes[1], codes[2], 255);
+        colour = Helper.ParseHexCode(hexCode);
     }
 }

@@ -27,8 +27,7 @@ public partial class Player {
     // Can make more generalised?
     private Color GetColour() {
         string hexCode = Database.GetDistinctColumn($"""SELECT Colour FROM Club WHERE Name = "{Club}";""")[0];
-        int[] codes = Helper.ParseHexCode(hexCode);
-        return new Color(codes[0], codes[1], codes[2], 255);
+        return Helper.ParseHexCode(hexCode);
     }
 
     public void DisplayCard(int posX, int posY, bool displayImage) {

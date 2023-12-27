@@ -19,7 +19,7 @@ public static class Helper {
         return (x, y);
     }
 
-    public static int[] ParseHexCode(string hexCode) {
+    public static Color ParseHexCode(string hexCode) {
         if (hexCode.Length != 6) {
             throw new Exception($"Colour code {hexCode} not of correct length.");
         }
@@ -28,7 +28,7 @@ public static class Helper {
         for (int i = 0; i < 3; i++) {
             res[i] = Convert.ToInt32(hexCode.Substring(i * 2, 2), 16);
         }
-        return res;
+        return new Color(res[0], res[1], res[2], 255);
     }
 
     public static double CalculateLuminance(Color colour) => (0.2126 * colour.R + 0.7152 * colour.G + 0.0722 * colour.B) / 255;
