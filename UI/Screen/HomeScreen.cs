@@ -29,7 +29,7 @@ public class HomeScreen : Screen {
         int posX = (ScreenWidth - ButtonWidth) >> 1;
         for (int i = 0; i < collections.Count; i++) {
             int posY = heightOffset + FontSize + (i + 1) * Padding + i * ButtonHeight;
-            HoverButton button = new(posX, posY, ButtonWidth, ButtonHeight, name: collections[i].name, text: collections[i].name, fontSize: ButtonFontSize);
+            HoverButton button = new(posX, posY, ButtonWidth, ButtonHeight, name: collections[i].name, text: collections[i].name, fontSize: ButtonFontSize); // test
             Action action = new(targetScreen: Game.GameScreen.Menu, debugText: collections[i].name, collection: collections[i]);
             AddButtonAction(button, action);
             res.Add(button);

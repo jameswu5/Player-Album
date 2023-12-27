@@ -22,6 +22,9 @@ public class RectangularButton : Button {
         this.posY = posY;
         this.height = height;
         this.width = width;
+
+        // Adding this line fixes the problem, although I'm not sure why
+        this.text = text ?? "";
     }
 
     protected override bool IsHovered(float x, float y) => x >= posX && x <= posX + width && y >= posY && y <= posY + height;
@@ -29,8 +32,6 @@ public class RectangularButton : Button {
     protected override void Display() {}
 
     protected override void DisplayText() {
-        // It should never be null?
-        if (text == null) return;
         if (text.Length == 0) return;
         (int x, int y) = Helper.GetTextPositions(text, width, height, fontSize);
         Raylib.DrawText(text, x + posX, y + posY, fontSize, textColour);

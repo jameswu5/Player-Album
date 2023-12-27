@@ -1,4 +1,5 @@
 using System;
+using System.Numerics;
 using Raylib_cs;
 using static Raylib_cs.Raylib;
 
@@ -42,6 +43,12 @@ public abstract class Button {
     protected abstract bool IsHovered(float x, float y);
 
     protected abstract void Display();
+
+    // protected void DisplayText(int centreX, int centreY) {
+    //     int posX = centreX - MeasureText(text, fontSize) / 2;
+    //     int posY = centreY - fontSize / 2;
+    //     DrawText(text, posX, posY, fontSize, textColour);
+    // }
 
     protected abstract void DisplayText();
 
