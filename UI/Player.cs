@@ -17,6 +17,9 @@ public partial class Player {
     private int[] statTextLengths;
     private int[] statTextLengthsPrefix;
 
+    private string statsText1;
+    private string statsText2;
+
     private void InitialiseUI() {
         ImagePath = $"{Constants.FacePathRoot}{ID}.png";
         int size = CardWidth - 4 * CardOffset;
@@ -37,6 +40,9 @@ public partial class Player {
         for (int i = 1; i < 6; i++) {
             statTextLengthsPrefix[i] = statTextLengths[i] + statTextLengthsPrefix[i-1];
         }
+
+        statsText1 = $"{Age} | {Height}cm | {Weight}kg";
+        statsText2 = $"{AttackingWorkRate[0]}/{DefensiveWorkRate[0]} | SM: {SkillMoves} | WF: {WeakFoot}";
     }
 
     // Can make more generalised?
@@ -107,8 +113,6 @@ public partial class Player {
 
         /* Left hand side */
 
-        // Header
-
         // Overall
         DrawText(
             Overall.ToString(),
@@ -140,19 +144,9 @@ public partial class Player {
         );
 
 
-        // Player information
+        /* Player information */
 
         // Player name
-
-        // placeholder -- to delete
-        // DrawRectangle(
-        //     DCardWidthOffset,
-        //     DCardHeightOffset + DCardImageHeightOffset + imageSize + smallPadding,
-        //     DCardWidth / 2,
-        //     segmentHeight * 3,
-        //     Color.LIGHTGRAY
-        // );
-
         (int namePosX, int namePosY) = Helper.GetTextPositions(Name, DCardWidth >> 1, 3 * SegmentHeight, NameFontSize);
         DrawText(
             Name,
@@ -161,16 +155,6 @@ public partial class Player {
             NameFontSize,
             Color.BLACK
         );
-
-        // Stats placeholder -- to delete
-        // DrawRectangle(
-        //     DCardWidthOffset,
-        //     DCardHeightOffset + DCardImageHeightOffset + DCardImageSize + SmallPadding + SegmentHeight * 3,
-        //     DCardWidth / 2,
-        //     SegmentHeight * 4,
-        //     Color.YELLOW
-        // );
-
         
         int totalStatsWidth = 5 * StatsWidthPadding + statTextLengthsPrefix[5];
         int totalStatsHeight = 2 * StatsFontSize + StatsHeightPadding;
@@ -230,9 +214,7 @@ public partial class Player {
 
         int statsNumPosY = statsPosY + StatsFontSize + StatsHeightPadding;
 
-
         (int x, int y) pacOffset = Helper.GetTextPositions(Pace.ToString(), statTextLengths[0], StatsFontSize, StatsFontSize);
-
         DrawText(
             Pace.ToString(),
             DCardWidthOffset + statsOffsetX + pacOffset.x,
@@ -241,9 +223,7 @@ public partial class Player {
             Color.BLACK
         );
 
-
         (int x, int y) shoOffset = Helper.GetTextPositions(Shooting.ToString(), statTextLengths[1], StatsFontSize, StatsFontSize);
-
         DrawText(
             Shooting.ToString(),
             DCardWidthOffset + statsOffsetX + statTextLengthsPrefix[0] + 1 * StatsWidthPadding + shoOffset.x,
@@ -253,7 +233,6 @@ public partial class Player {
         );
 
         (int x, int y) pasOffset = Helper.GetTextPositions(Passing.ToString(), statTextLengths[2], StatsFontSize, StatsFontSize);
-
         DrawText(
             Passing.ToString(),
             DCardWidthOffset + statsOffsetX + statTextLengthsPrefix[1] + 2 * StatsWidthPadding + pasOffset.x,
@@ -263,7 +242,6 @@ public partial class Player {
         );
 
         (int x, int y) driOffset = Helper.GetTextPositions(Dribbling.ToString(), statTextLengths[3], StatsFontSize, StatsFontSize);
-
         DrawText(
             Dribbling.ToString(),
             DCardWidthOffset + statsOffsetX + statTextLengthsPrefix[2] + 3 * StatsWidthPadding + driOffset.x,
@@ -272,9 +250,7 @@ public partial class Player {
             Color.BLACK
         );
 
-
         (int x, int y) defOffset = Helper.GetTextPositions(Defending.ToString(), statTextLengths[4], StatsFontSize, StatsFontSize);
-
         DrawText(
             Defending.ToString(),
             DCardWidthOffset + statsOffsetX + statTextLengthsPrefix[3] + 4 * StatsWidthPadding + defOffset.x,
@@ -284,7 +260,6 @@ public partial class Player {
         );
 
         (int x, int y) phyOffset = Helper.GetTextPositions(Physicality.ToString(), statTextLengths[5], StatsFontSize, StatsFontSize);
-
         DrawText(
             Physicality.ToString(),
             DCardWidthOffset + statsOffsetX + statTextLengthsPrefix[4] + 5 * StatsWidthPadding + phyOffset.x,
@@ -292,16 +267,6 @@ public partial class Player {
             StatsFontSize,
             Color.BLACK
         );
-
-
-        // Badges placeholder -- to delete
-        // DrawRectangle(
-        //     DCardWidthOffset,
-        //     DCardHeightOffset + DCardImageHeightOffset + imageSize + smallPadding + segmentHeight * 7,
-        //     DCardWidth / 2,
-        //     segmentHeight * 2,
-        //     Color.SKYBLUE
-        // );
 
         
         /* Middle divider */
@@ -317,16 +282,27 @@ public partial class Player {
 
         /* Right hand side */
 
-        int hexagonRadius = 120;
+        (int x, int y) statsText1Pos = Helper.GetTextPositions(statsText1, DCardWidth >> 1, MainStatsHeight, MainStatsFontSize);
+        DrawText(
+            statsText1,
+            statsText1Pos.x + Settings.ScreenWidth / 2,
+            statsText1Pos.y + DCardHeightOffset + HexagonPadding,
+            MainStatsFontSize, Settings.DefaultDarkTextColour
+        );
 
         DrawHexagon(
             DCardWidthOffset + 3 * DCardWidth / 4,
             DCardHeightOffset + DCardHeight / 2,
-            hexagonRadius
+            HexagonRadius
         );
 
-
-        // DrawRectangle(DCardWidthOffset, DCardHeightOffset + DCardImageHeightOffset + DCardImageSize + SmallPadding, DCardWidth / 2, SegmentHeight * 9, Color.VIOLET);
+        (int x, int y) statsText2Pos = Helper.GetTextPositions(statsText2, DCardWidth >> 1, MainStatsHeight, MainStatsFontSize);
+        DrawText(
+            statsText2,
+            statsText2Pos.x + Settings.ScreenWidth / 2,
+            statsText2Pos.y + Settings.ScreenHeight / 2 + HexagonRadius + SmallPadding,
+            MainStatsFontSize, Settings.DefaultDarkTextColour
+        );
     }
 
     private void DrawHexagon(int centreX, int centreY, int radius) {

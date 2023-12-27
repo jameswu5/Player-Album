@@ -87,7 +87,14 @@ public static class Settings {
         public const int DCardImageWidthOffset = (DCardWidth / 2 - DCardImageSize) >> 1;
         public const int HeightPadding = (DCardImageHeightOffset - HeaderStatsFontSize) >> 1;
         public const int SegmentHeight = (DCardHeight - DCardImageHeightOffset - DCardImageSize - SmallPadding * 2) / 9;
-        
+
+        // Right hand side
+        public const int HexagonRadius = 120;
+        public const int HexagonPadding = 20;
+        public const int MainStatsFontSize = 35;
+
+        public const int MainStatsHeight = DCardHeight / 2 - HexagonRadius - 2 * HexagonPadding;
+
         // Exit button
         public const int ExitPadding = 20;
         public const int ExitButtonSize = 40;

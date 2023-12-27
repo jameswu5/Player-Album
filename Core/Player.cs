@@ -45,8 +45,8 @@ public partial class Player {
         Dribbling = (int)(long)values[13];
         Defending = (int)(long)values[14];
         Physicality = (int)(long)values[15];
-        DefensiveWorkRate = (string)values[16];
-        AttackingWorkRate = (string)values[17];
+        AttackingWorkRate = (string)values[16];
+        DefensiveWorkRate = (string)values[17];
         PreferredFoot = (string)values[18];
         WeakFoot = (int)(long)values[19];
         SkillMoves = (int)(long)values[20];
