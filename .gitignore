@@ -165,6 +165,5 @@ cython_debug/
 # Csharp-related files
 obj/
 bin/
-*.csproj
 *.sln
 *.txt
