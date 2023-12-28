@@ -17,6 +17,12 @@ public static class Settings {
     public static readonly Color ButtonHoverColour = Color.DARKGRAY;
     public static readonly Color ButtonTextColour = Color.BLACK;
 
+    public static readonly Color HomeButtonColour = Palette.LightBrown;
+    public static readonly Color HomeButtonHoverColour = Palette.DarkBrown;
+
+    public static readonly Color BackButtonColour = Color.BLACK;
+    public static readonly Color BackButtonHoverColour = Color.DARKGRAY;
+
     public const int ButtonBorderWidth = 4;
 
     public const int DefaultFontSize = 20;
@@ -26,7 +32,7 @@ public static class Settings {
     public static readonly double LuminanceThreshold = 0.5;
 
     /* Header Settings */
-    public static readonly Color HeaderColour = Color.LIGHTGRAY;
+    public static readonly Color HeaderColour = Palette.Iron;
     public const int HeaderHeight = 80;
     public const int HeaderFontSize = 30;
 
@@ -140,5 +146,16 @@ public static class Settings {
         public const int ButtonFontSize = 40;
         public const int ButtonTopPadding = (ScreenHeight - HeaderHeight - TopPadding - Player.CardHeight - ButtonHeight) >> 1;
         public const int ButtonSidePadding = (ScreenWidth - ButtonWidth) >> 1;
+    }
+
+    public static class Palette {
+        public static readonly Color DarkBlue = Helper.ParseHexCode("809bce");
+        public static readonly Color LightBlue = Helper.ParseHexCode("95b8d1");
+        public static readonly Color DarkGreen = Helper.ParseHexCode("b8e0d2");
+        public static readonly Color LightGreen = Helper.ParseHexCode("d6eadf");
+        public static readonly Color Iron = Helper.ParseHexCode("ded6d1");
+        public static readonly Color LightBrown = Helper.ParseHexCode("deb68a");
+        public static readonly Color DarkBrown = Helper.ParseHexCode("d4a373");
+
     }
 }

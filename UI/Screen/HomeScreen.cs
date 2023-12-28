@@ -39,7 +39,7 @@ public class HomeScreen : Screen {
     public override void Display() {
         // Title
         int titleWidthOffset = (ScreenWidth - MeasureText(TitleText, FontSize)) >> 1;
-        DrawText(TitleText, titleWidthOffset, heightOffset, FontSize, Color.BLACK);
+        DrawText(TitleText, titleWidthOffset, heightOffset, FontSize, DefaultDarkTextColour);
 
         // Buttons
         foreach (Button button in staticButtons) {

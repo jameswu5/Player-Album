@@ -24,9 +24,10 @@ public class MenuScreen : Screen {
         // Home button
         HoverButton homeButton = new HoverButton(
             0, 0, HeaderHeight, HeaderHeight,
-            colour: Color.BLACK,
+            colour: HomeButtonColour,
+            hoverColour: HomeButtonHoverColour,
             text: "Home",
-            textColour: Color.WHITE,
+            textColour: Helper.GetTextColour(HomeButtonColour),
             fontSize: HeaderFontSize
         );
         AddButtonAction(homeButton, new Action(targetScreen: Game.GameScreen.Home));
@@ -35,7 +36,8 @@ public class MenuScreen : Screen {
         // See all player button
         HoverButton allPlayerButton = new HoverButton(
             ButtonWidthPadding, HeaderHeight + ButtonHeightPadding, ButtonWidth, ButtonHeight,
-            colour: Color.SKYBLUE,
+            colour: Palette.LightBlue,
+            hoverColour: Palette.DarkBlue,
             text: "See all players",
             fontSize: 40
         );
@@ -45,7 +47,8 @@ public class MenuScreen : Screen {
         // Open pack button
         HoverButton openPackButton = new HoverButton(
             ButtonWidthPadding, HeaderHeight + ButtonHeightPadding * 2 + ButtonHeight, ButtonWidth, ButtonHeight,
-            colour: Color.ORANGE,
+            colour: Palette.LightGreen,
+            hoverColour: Palette.DarkGreen,
             text: "Open pack",
             fontSize: 40
         );
@@ -86,13 +89,13 @@ public class MenuScreen : Screen {
 
         // Collection name
         (int x, int y) headerPos = Helper.GetTextPositions(collection.name, ScreenWidth, HeaderHeight, HeaderFontSize);
-        DrawText(collection.name, headerPos.x, headerPos.y, HeaderFontSize, Color.BLACK);
+        DrawText(collection.name, headerPos.x, headerPos.y, HeaderFontSize, DefaultDarkTextColour);
 
         // Club title text
         string clubText = "CLUBS";
 
         (int x, int y) clubTextPos = Helper.GetTextPositions(clubText, ScreenWidth / 2, ClubTitleBoxHeight, ClubFontSize);
-        DrawText(clubText, ScreenWidth / 2 + clubTextPos.x, HeaderHeight + clubTextPos.y, ClubFontSize, Color.BLACK);
+        DrawText(clubText, ScreenWidth / 2 + clubTextPos.x, HeaderHeight + clubTextPos.y, ClubFontSize, DefaultDarkTextColour);
 
         // Buttons
         foreach (Button button in staticButtons) {

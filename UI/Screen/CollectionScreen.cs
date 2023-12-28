@@ -31,12 +31,13 @@ public class CollectionScreen : Screen {
     protected override void InitialiseButtons() {
         staticButtons = new();
 
-        // Home button
+        // Back button
         HoverButton backButton = new HoverButton(
             0, 0, HeaderHeight, HeaderHeight,
-            colour: Color.BLACK,
+            colour: BackButtonColour,
+            hoverColour: BackButtonHoverColour,
             text: "Back",
-            textColour: Color.WHITE,
+            textColour: Helper.GetTextColour(BackButtonColour),
             fontSize: HeaderFontSize
         );
         AddButtonAction(backButton, new Action(targetScreen: Game.GameScreen.Menu));
@@ -159,8 +160,7 @@ public class CollectionScreen : Screen {
         /* Page number */
         string pageText = $"Page {page + 1} of {maxPages + 1}";
         (int x, int y) pagePos = Helper.GetTextPositions(pageText, ScreenWidth, VerticalPadding, PageNumberFontSize);
-        DrawText(pageText, pagePos.x, ScreenHeight - VerticalPadding + pagePos.y, PageNumberFontSize, Color.BLACK);
-
+        DrawText(pageText, pagePos.x, ScreenHeight - VerticalPadding + pagePos.y, PageNumberFontSize, DefaultDarkTextColour);
 
         if (displayPlayer != null) {
             // Make screen darker

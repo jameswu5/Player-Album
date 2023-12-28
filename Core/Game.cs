@@ -24,8 +24,7 @@ public class Game {
         Raylib.SetTargetFPS(60);
 
         Setup.Initialise();
-        // currentScreen = GameScreen.Home;
-        currentScreen = GameScreen.Test;
+        currentScreen = GameScreen.Home;
 
         homeScreen = new HomeScreen(Setup.Collections);
         homeScreen.clickAction += ExecuteAction;
