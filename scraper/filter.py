@@ -21,5 +21,5 @@ if __name__ == '__main__':
     TARGET_FILE2 = "static/csv/womens_super_league.csv"
     LEAGUE2 = "Barclays WSL"
 
-    # filter_file(SOURCE_FILE, TARGET_FILE, LEAGUE)
+    filter_file(SOURCE_FILE, TARGET_FILE, LEAGUE)
     filter_file(SOURCE_FILE2, TARGET_FILE2, LEAGUE2)

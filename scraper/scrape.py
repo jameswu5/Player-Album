@@ -1,7 +1,5 @@
 """Crawl the EA SPORTS database."""
 
-# Bug report: Since there are two Dribbling attributes, the one that appears on the card gets overwritten.
-
 import numpy as np
 import requests
 from bs4 import BeautifulSoup as bs
@@ -11,17 +9,12 @@ import csv
 MALE_CSV   = "static/csv/male_players.csv"
 FEMALE_CSV = "static/csv/female_players.csv"
 
-fields = ['Name', 'Nation', 'Club', 'League',
+fields = ['ID', 'Name', 'Nation', 'Club', 'League',
          'Position', 'Age', 'Height', 'Weight',
          'Overall', 'Pace', 'Shooting', 'Passing',
-         'Dribbling', 'Defending', 'Physicality', 'Acceleration',
-         'Sprint', 'Positioning', 'Finishing', 'Shot', 'Long',
-         'Volleys', 'Penalties', 'Vision', 'Crossing', 'Free',
-         'Curve', 'Agility', 'Balance', 'Reactions', 'Ball',
-         'Composure', 'Interceptions', 'Heading', 'Def', 'Standing',
-         'Sliding', 'Jumping', 'Stamina', 'Strength', 'Aggression',
-         'Att work rate', 'Def work rate', 'Preferred foot', 'Weak foot',
-         'Skill moves', 'URL', 'Gender', 'GK']
+         'Dribbling', 'Defending', 'Physicality',
+         'Att work rate', 'Def work rate', 'Preferred foot', 'Skill moves',
+         'Weak foot', 'Gender']
 
 def scrape_players(gender, overwrite=False):
     pages = 16 if gender else 160
@@ -34,7 +27,7 @@ def scrape_players(gender, overwrite=False):
             writer = csv.writer(fd)
             writer.writerow(fields)
 
-    for page in range(1, pages):
+    for page in range(139, pages):
         absolute = 'https://www.ea.com'
         url = f'https://www.ea.com/games/ea-sports-fc/ratings?gender={gender}&page={page}'
         html = requests.get(url)
@@ -50,6 +43,9 @@ def scrape_players(gender, overwrite=False):
             player_dict = {}
             player_html = requests.get(player_link)
             player_soup = bs(player_html.text)
+
+            # Player ID
+            player_dict['ID'] = player_link[-6::]
 
             # Club and national team
             teams = []
@@ -97,11 +93,11 @@ def scrape_players(gender, overwrite=False):
                 'Nation': national_team, 
                 'Club': club,
                 'League': league,
-                'Position':position, 
-                'Age':age,
+                'Position': position, 
+                'Age': age,
                 'Height': height,
                 'Weight': weight,
-                'Overall':overall 
+                'Overall': overall 
             })
 
             # Player general stats   
@@ -110,10 +106,6 @@ def scrape_players(gender, overwrite=False):
                     player_dict[re.search('[A-Za-z]+', stats.text)[0]] = int(re.search('[0-9]+', stats.text)[0])
                 except:
                     player_dict[re.search('[A-Za-z]+', stats.text)[0]] = np.nan
-
-            # All player stats
-            for stats in player_soup.findAll(class_='Stat_stat__lh90p Stat_bar__hVgdN generated_utility3__mFgLe'):
-                player_dict[re.search('[A-Za-z]+', stats.text)[0]] = int(re.search('[0-9]+', stats.text)[0])
 
             # Attacking workrate
             att_work_rate = player_soup.find(string = 'ATT WORK RATE').parent.text[13:]
@@ -131,12 +123,11 @@ def scrape_players(gender, overwrite=False):
             skill_moves = player_soup.find(string = 'SKILL MOVES').parent.span['aria-label'][0]
 
             player_dict.update({
-                'Att work rate':att_work_rate,
-                'Def work rate':def_work_rate,
-                'Preferred foot':preferred_foot,
+                'Att work rate': att_work_rate,
+                'Def work rate': def_work_rate,
+                'Preferred foot': preferred_foot,
                 'Weak foot': weak_foot,
-                'Skill moves':skill_moves,
-                'URL':player_link,
+                'Skill moves': skill_moves,
                 'Gender': 'F' if gender else 'M'
             })
 
@@ -150,8 +141,8 @@ def scrape_players(gender, overwrite=False):
                 writer.writerow(player_dict)
 
 def main():
-    scrape_players(gender=1)
-    scrape_players(gender=0)
+    scrape_players(gender=1, overwrite=True)
+    scrape_players(gender=0, overwrite=True)
 
 if __name__ == '__main__':
     main()
