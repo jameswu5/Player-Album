@@ -208,7 +208,7 @@ public partial class Player {
             Settings.ScreenHeight - DCardHeightOffset - SmallPadding - BadgeHeightPadding - BadgeSize,
             BadgeSize, BadgeSize, Color.YELLOW
         );
-        
+
         /* Middle divider */
 
         DrawLine(

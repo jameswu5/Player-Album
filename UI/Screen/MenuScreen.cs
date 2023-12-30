@@ -10,16 +10,13 @@ public class MenuScreen : Screen {
 
     private Collection collection;
     private List<Club> clubs;
-    private List<(Image img, int posX, int posY)> images;
 
     public MenuScreen() {
         clubs = new List<Club>();
-        images = new();
     }
 
     protected override void InitialiseButtons() {
         staticButtons = new();
-        images = new();
 
         // Home button
         HoverButton homeButton = new HoverButton(
@@ -67,9 +64,6 @@ public class MenuScreen : Screen {
             int posX = ScreenWidth / 2 + ClubButtonEdgePadding + c * (ClubButtonSize + ClubButtonPadding);
             int posY = HeaderHeight + (ClubTitleBoxHeight + ClubFontSize) / 2 + clubTopPadding + r * (ClubButtonSize + ClubButtonPadding);
 
-            Image img = new Image(Helper.GetBadgePath(clubs[i].shortcode), ClubButtonSize, ClubButtonSize);
-            images.Add((img, posX, posY));
-
             BorderButton button = new BorderButton(posX, posY, ClubButtonSize, ClubButtonSize, clubs[i].name);
             
             AddButtonAction(button, new Action(targetScreen: Game.GameScreen.Collection, club: clubs[i]));
@@ -103,8 +97,18 @@ public class MenuScreen : Screen {
         }
         
         // Club images
-        foreach ((Image img, int posX, int posY) in images) {
-            img.Draw(posX, posY);
+        int rows = (clubs.Count - 1) / ClubsPerRow + 1;
+        int clubRowsNeededHeight = rows * ClubButtonSize + (rows - 1) * ClubButtonPadding;
+        int clubTopPadding = (ScreenHeight - HeaderHeight - (ClubFontSize + ClubTitleBoxHeight) / 2 - clubRowsNeededHeight) >> 1;
+
+        for (int i = 0; i < clubs.Count; i++) {
+            int r = i / ClubsPerRow;
+            int c = i % ClubsPerRow;
+
+            int posX = ScreenWidth / 2 + ClubButtonEdgePadding + c * (ClubButtonSize + ClubButtonPadding);
+            int posY = HeaderHeight + (ClubTitleBoxHeight + ClubFontSize) / 2 + clubTopPadding + r * (ClubButtonSize + ClubButtonPadding);
+
+            clubs[i].menuImage.Draw(posX, posY);
         }
     }
 }

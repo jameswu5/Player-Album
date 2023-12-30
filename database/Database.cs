@@ -71,7 +71,7 @@ public static class Database {
         else
         {
             foreach (object[] values in valuesList) {
-                long id = (long)values[0];
+                int id = (int)(long)values[0];
                 players.Add(Setup.PlayerMap[id]);
             }
         }
