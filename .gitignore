@@ -167,3 +167,4 @@ obj/
 bin/
 *.sln
 *.txt
+!save1.txt
