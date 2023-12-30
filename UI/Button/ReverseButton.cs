@@ -11,9 +11,8 @@ public class ReverseButton : Button {
     protected readonly int posY;
     protected readonly int height;
     protected readonly int width;
-    protected readonly string name;
 
-    public ReverseButton(int posX, int posY, int width, int height, string? name = null) : base(name) {
+    public ReverseButton(int posX, int posY, int width, int height) : base() {
         this.posX = posX;
         this.posY = posY;
         this.height = height;

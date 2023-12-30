@@ -12,6 +12,7 @@ public class PackScreen : Screen {
     private List<PlayerStatus> playerStatuses;
     private List<Button> dynamicButtons;
     private HoverButton exitButton;
+    private ReverseButton reverseButton;
 
     private Player? displayPlayer;
 
@@ -34,6 +35,15 @@ public class PackScreen : Screen {
             ExitButtonSize, ExitButtonSize, colour: ExitButtonColour, hoverColour: ExitButtonHoverColour, text: "x"
         );
         AddButtonAction(exitButton, new Action());
+
+        // Reverse button
+        reverseButton = new ReverseButton(
+            DCardWidthOffset - BorderWidth,
+            DCardHeightOffset - BorderWidth,
+            DCardWidth + BorderWidth * 2,
+            DCardHeight + BorderWidth * 2
+        );
+        AddButtonAction(reverseButton, new Action());
     }
 
     public void SetPlayers(List<PlayerStatus> playerStatuses) {
@@ -111,6 +121,7 @@ public class PackScreen : Screen {
 
             displayPlayer.DisplayDetailedCard();
             exitButton.Render();
+            reverseButton.Render();
         }
     }
 
