@@ -191,7 +191,23 @@ public partial class Player {
             Color.BLACK
         );
         
+        // Player stats
         DisplayStats();
+
+        // Badges
+
+        // Placeholders - to delete
+        DrawRectangle(
+            DCardWidthOffset + BadgeEdgePadding,
+            Settings.ScreenHeight - DCardHeightOffset - SmallPadding - BadgeHeightPadding - BadgeSize,
+            BadgeSize, BadgeSize, Color.YELLOW
+        );
+
+        DrawRectangle(
+            DCardWidthOffset + BadgeEdgePadding + BadgeSize + BadgePadding,
+            Settings.ScreenHeight - DCardHeightOffset - SmallPadding - BadgeHeightPadding - BadgeSize,
+            BadgeSize, BadgeSize, Color.YELLOW
+        );
         
         /* Middle divider */
 
