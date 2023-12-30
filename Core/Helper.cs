@@ -1,4 +1,5 @@
 using System;
+using System.Text;
 using Raylib_cs;
 using static PlayerAlbum.Settings;
 
@@ -17,6 +18,60 @@ public static class Helper {
         int x = (boxWidth - width) >> 1;
         int y = (boxHeight - height) >> 1;
         return (x, y);
+    }
+
+    // If the text doesn't fit in the box, split it into two lines
+    public static List<(string, int, int)> FitTextInBox(string text, int width, int height, int fontSize) {
+        List<(string, int, int)> res = new();
+        string[] splitText = text.Split(' ');
+        int n = splitText.Length;
+
+        // If it already fits in the box or cannot be split
+        if (Raylib.MeasureText(text, fontSize) < width || n == 1) {
+            (int x, int y) = GetTextPositions(text, width, height, fontSize);
+            res.Add((text, x, y));
+            return res;
+        }
+
+        int[] prefix = new int[n];
+        int[] suffix = new int[n];
+        prefix[0] = splitText[0].Length;
+        suffix[^1] = splitText[^1].Length;
+        for (int i = 1; i < n; i++) {
+            prefix[i] = prefix[i-1] + splitText[i].Length;
+            suffix[n-i-1] = suffix[n-i] + splitText[n-i-1].Length;
+        }
+
+        PriorityQueue<int, int> heap = new();
+        for (int i = 0; i < n - 1; i++) {
+            int top = prefix[i] + i;
+            int bottom = suffix[i+1] + n - 2 - i;
+            int score = Math.Abs(top - bottom);
+            heap.Enqueue(i, score);
+        }
+
+        int splitPoint = heap.Dequeue();
+        StringBuilder topSb = new();
+        for (int i = 0; i < splitPoint; i++) {
+            topSb.Append(splitText[i]);
+            topSb.Append(' ');
+        }
+        topSb.Append(splitText[splitPoint]);
+        string topText = topSb.ToString();
+        (int x, int y) t = GetTextPositions(topText, width, height / 2, fontSize);
+        res.Add((topText, t.x, t.y));
+
+        StringBuilder bottomSb = new();
+        for (int i = splitPoint + 1; i < n - 1; i++) {
+            bottomSb.Append(splitText[i]);
+            bottomSb.Append(' ');
+        }
+        bottomSb.Append(splitText[^1]);
+        string bottomText = bottomSb.ToString();
+        (int x, int y) b = GetTextPositions(bottomText, width, height / 2, fontSize);
+        res.Add((bottomText, b.x, b.y + height / 2));
+
+        return res;
     }
 
     public static Color ParseHexCode(string hexCode) {

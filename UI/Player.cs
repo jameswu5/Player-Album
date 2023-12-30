@@ -25,6 +25,8 @@ public partial class Player {
     private int[][] statCoords;
     private int[][] statTextCentres;
 
+    private List<(string, int, int)> nameText;
+
     private void InitialiseUI() {
         ImagePath = $"{Constants.FacePathRoot}{ID}.png";
         int size = CardWidth - 4 * CardOffset;
@@ -52,6 +54,8 @@ public partial class Player {
         statsText2 = $"{AttackingWorkRate[0]}/{DefensiveWorkRate[0]} | {PreferredFoot[0]} | SM: {SkillMoves} | WF: {WeakFoot}";
 
         GetHexagonCoords();
+
+        nameText = Helper.FitTextInBox(Name, CardWidth - 2 * CardOffset, CardHeight - CardWidth + CardOffset, CardFontSize);
     }
 
     // Can make more generalised?
@@ -120,18 +124,9 @@ public partial class Player {
         );
 
         // Write the name
-        // Name might not fit on card -- deal with later
-        (int boxX, int boxY) = Helper.GetTextPositions(
-            Name,
-            CardWidth,
-            CardHeight - CardWidth + CardOffset,
-            CardFontSize
-        );
-
-        int textPosX = boxX + posX;
-        int textPosY = boxY +  posY + CardWidth - 2 * CardOffset;
-
-        DrawText(Name, textPosX, textPosY, CardFontSize, Color.BLACK);
+        foreach ((string t, int x, int y) in nameText) {
+            DrawText(t, x + posX + CardOffset, y + posY + CardWidth - 2 * CardOffset, CardFontSize, Settings.DefaultDarkTextColour);
+        }
     }
 
     public void DisplayDetailedCard() {
@@ -207,7 +202,6 @@ public partial class Player {
             DCardHeightOffset + DCardHeight,
             Color.BLACK
         );
-
 
         /* Right hand side */
 
