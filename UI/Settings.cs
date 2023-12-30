@@ -89,13 +89,12 @@ public static class Settings {
         public const int StatsWidthPadding = 15; // padding between stats
         public const int StatsHeightPadding = 10; // padding between the stat name and the corresponding number
         public const int StatsFontSize = 22;
-        public const int BadgePadding = 80;
-        public const int BadgeSize = 35;
+        public const int BadgeSize = 40;
 
         public const int DCardImageWidthOffset = (DCardWidth / 2 - DCardImageSize) >> 1;
         public const int HeightPadding = (DCardImageHeightOffset - HeaderStatsFontSize) >> 1;
         public const int SegmentHeight = (DCardHeight - DCardImageHeightOffset - DCardImageSize - SmallPadding * 2) / 9;
-        public const int BadgeEdgePadding = (DCardWidth / 2 - 2 * BadgeSize - BadgePadding) >> 1;
+        public const int BadgeEdgePadding = (DCardWidth / 2 - BadgeSize) >> 1;
         public const int BadgeHeightPadding = (2 * SegmentHeight - BadgeSize) >> 1;
 
         // Right hand side
@@ -160,6 +159,5 @@ public static class Settings {
         public static readonly Color Iron = Helper.ParseHexCode("ded6d1");
         public static readonly Color LightBrown = Helper.ParseHexCode("deb68a");
         public static readonly Color DarkBrown = Helper.ParseHexCode("d4a373");
-
     }
 }

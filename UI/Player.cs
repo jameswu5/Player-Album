@@ -132,7 +132,7 @@ public partial class Player {
             DCardHeightOffset - BorderWidth,
             DCardWidth + BorderWidth * 2,
             DCardHeight + BorderWidth * 2,
-            Color.BLACK
+            club.colour
         );
 
         DrawRectangle(
@@ -189,27 +189,12 @@ public partial class Player {
         // Player stats
         DisplayStats();
 
-        // Badges
-
-        // Placeholders - to delete
-        DrawRectangle(
-            DCardWidthOffset + BadgeEdgePadding,
-            Settings.ScreenHeight - DCardHeightOffset - SmallPadding - BadgeHeightPadding - BadgeSize,
-            BadgeSize, BadgeSize, Color.YELLOW
-        );
-
-        // DrawRectangle(
-        //     DCardWidthOffset + BadgeEdgePadding + BadgeSize + BadgePadding,
-        //     Settings.ScreenHeight - DCardHeightOffset - SmallPadding - BadgeHeightPadding - BadgeSize,
-        //     BadgeSize, BadgeSize, Color.YELLOW
-        // );
-
+        // Badge
         club.playerImage.Draw(
-            DCardWidthOffset + BadgeEdgePadding + BadgeSize + BadgePadding,
+            DCardWidthOffset + BadgeEdgePadding,
             Settings.ScreenHeight - DCardHeightOffset - SmallPadding - BadgeHeightPadding - BadgeSize
         );
         
-
         /* Middle divider */
 
         DrawLine(
