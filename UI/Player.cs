@@ -12,7 +12,7 @@ public partial class Player {
     private Image cardImage;
     private Image detailedCardImage;
 
-    private Color clubColour;
+    private Club club;
 
     private string[] statTexts;
     private int[] statTextLengths;
@@ -32,7 +32,8 @@ public partial class Player {
         int size = CardWidth - 4 * CardOffset;
         cardImage = new Image(ImagePath, size, size);
         detailedCardImage = new Image(ImagePath, DCardImageSize, DCardImageSize);
-        clubColour = GetColour();
+
+        club = Setup.ClubMap[Club];
 
         statTexts = (Position != "GK") ? new string[] {"PAC", "SHO", "PAS", "DRI", "DEF", "PHY"} : new string[] {"DIV", "HAN", "KIC", "REF", "SPE", "POS"};
 
@@ -56,12 +57,6 @@ public partial class Player {
         GetHexagonCoords();
 
         nameText = Helper.FitTextInBox(Name, CardWidth - 2 * CardOffset, CardHeight - CardWidth + CardOffset, CardFontSize);
-    }
-
-    // Can make more generalised?
-    private Color GetColour() {
-        string hexCode = Database.GetDistinctColumn($"""SELECT Colour FROM Club WHERE Name = "{Club}";""")[0];
-        return Helper.ParseHexCode(hexCode);
     }
 
     private void GetHexagonCoords() {
@@ -98,7 +93,7 @@ public partial class Player {
     }
 
     public void DisplayCard(int posX, int posY, bool displayImage) {
-        DrawRectangle(posX, posY, CardWidth, CardHeight, clubColour);
+        DrawRectangle(posX, posY, CardWidth, CardHeight, club.colour);
 
         // Main card
         DrawRectangle(
@@ -203,11 +198,17 @@ public partial class Player {
             BadgeSize, BadgeSize, Color.YELLOW
         );
 
-        DrawRectangle(
+        // DrawRectangle(
+        //     DCardWidthOffset + BadgeEdgePadding + BadgeSize + BadgePadding,
+        //     Settings.ScreenHeight - DCardHeightOffset - SmallPadding - BadgeHeightPadding - BadgeSize,
+        //     BadgeSize, BadgeSize, Color.YELLOW
+        // );
+
+        club.playerImage.Draw(
             DCardWidthOffset + BadgeEdgePadding + BadgeSize + BadgePadding,
-            Settings.ScreenHeight - DCardHeightOffset - SmallPadding - BadgeHeightPadding - BadgeSize,
-            BadgeSize, BadgeSize, Color.YELLOW
+            Settings.ScreenHeight - DCardHeightOffset - SmallPadding - BadgeHeightPadding - BadgeSize
         );
+        
 
         /* Middle divider */
 

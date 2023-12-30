@@ -25,12 +25,11 @@ public static class Setup {
             List<string> clubNames = Database.GetDistinctColumn($"""SELECT DISTINCT Club FROM Player WHERE League = "{name}";""");
             List<Club> clubs = new();
             foreach (string n in clubNames) {
-                if (ClubMap.ContainsKey(n)) {
-                    clubs.Add(ClubMap[n]);
-                } else {
+                if (!ClubMap.ContainsKey(n)) {
                     object[] info = Database.GetColumns($"""SELECT * FROM Club WHERE Name = "{n}";)""")[0];
-                    clubs.Add(new Club((string)info[0], (string)info[1], (string)info[2]));
+                    ClubMap[n] = new Club((string)info[0], (string)info[1], (string)info[2]);
                 }
+                clubs.Add(ClubMap[n]);
             }
             Collections.Add(new Collection(name, clubs));
         }
