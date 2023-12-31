@@ -12,6 +12,7 @@ public static class Settings {
     public const int ScreenHeight = 720;
     public static readonly Color ScreenColour = new Color(250, 250, 250, 255);
     public static readonly Color DarkenFilter = new Color(0, 0, 0, 150);
+    public static readonly Color PressedFilter = new Color(0, 0, 0, 50);
 
     public static readonly Color ButtonColour = Color.LIGHTGRAY;
     public static readonly Color ButtonHoverColour = Color.DARKGRAY;

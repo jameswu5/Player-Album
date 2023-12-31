@@ -12,24 +12,20 @@ public class RectangularButton : Button {
     protected readonly int posY;
     protected readonly int height;
     protected readonly int width;
-    protected readonly string name;
-    protected readonly string text;
-
-    protected bool activated; // Deactivated buttons still display, but cannot be clicked or hovered
 
     public RectangularButton(int posX, int posY, int width, int height, string? name = null, string? text = null, Color? textColour = null, int? fontSize = null) : base(name, text, textColour, fontSize) {
         this.posX = posX;
         this.posY = posY;
         this.height = height;
         this.width = width;
-
-        // Adding this line fixes the problem, although I'm not sure why
-        this.text = text ?? "";
     }
 
     protected override bool IsHovered(float x, float y) => x >= posX && x <= posX + width && y >= posY && y <= posY + height;
 
-    protected override void Display() {}
+    protected override void PressedDisplay() {
+        HoverDisplay();
+        Raylib.DrawRectangle(posX, posY, width, height, Settings.PressedFilter);
+    }
 
     protected override void DisplayText() {
         if (text.Length == 0) return;

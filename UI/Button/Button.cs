@@ -8,12 +8,13 @@ public abstract class Button {
 
     public event System.Action OnClick;
 
-    protected readonly string name;
-    protected readonly string text;
-    protected readonly Color textColour;
-    protected readonly int fontSize;
+    protected string name;
+    protected string text;
+    protected Color textColour;
+    protected int fontSize;
 
-    protected bool activated; // Deactivated buttons still display, but cannot be clicked or hovered
+    // Deactivated buttons still display, but cannot be clicked or hovered
+    protected bool activated;
 
     public Button(string? name = null, string? text = null, Color? textColour = null, int? fontSize = null) {
         this.name = name ?? "";
@@ -23,17 +24,22 @@ public abstract class Button {
         activated = true;
     }
 
-    public virtual void Render() {
+    public void Render() {
         if (!activated) {
             Display();
             return;
         }
 
         if (IsHovered(GetMouseX(), GetMouseY())) {
-            HoverDisplay();
-            if (IsMouseButtonPressed(0)) {
-                Click();
+            if (IsMouseButtonDown(0)) {
+                PressedDisplay();                
+            } else {
+                HoverDisplay();
             }
+
+            if (IsMouseButtonReleased(0)) {
+                Click();
+            }   
         } else {
             Display();
         }
@@ -46,6 +52,8 @@ public abstract class Button {
     protected virtual void DisplayText() {}
 
     protected virtual void HoverDisplay() => Display();
+
+    protected virtual void PressedDisplay() => HoverDisplay();
 
     protected virtual void Click() => OnClick.Invoke();
 
