@@ -23,7 +23,7 @@ public abstract class Button {
         activated = true;
     }
 
-    public void Render() {
+    public virtual void Render() {
         if (!activated) {
             Display();
             return;
@@ -41,15 +41,9 @@ public abstract class Button {
 
     protected abstract bool IsHovered(float x, float y);
 
-    protected abstract void Display();
+    protected virtual void Display() {}
 
-    // protected void DisplayText(int centreX, int centreY) {
-    //     int posX = centreX - MeasureText(text, fontSize) / 2;
-    //     int posY = centreY - fontSize / 2;
-    //     DrawText(text, posX, posY, fontSize, textColour);
-    // }
-
-    protected abstract void DisplayText();
+    protected virtual void DisplayText() {}
 
     protected virtual void HoverDisplay() => Display();
 

@@ -17,7 +17,6 @@ public class CollectionScreen : Screen {
 
     private List<Button> playerButtons;
     private HoverButton exitButton;
-    private ReverseButton reverseButton;
 
     public Player? displayPlayer;
 
@@ -65,16 +64,7 @@ public class CollectionScreen : Screen {
             DCardHeightOffset + ExitPadding,
             ExitButtonSize, ExitButtonSize, colour: ExitButtonColour, hoverColour: ExitButtonHoverColour, text: "x"
         );
-        AddButtonAction(exitButton, new Action());
-
-        // Reverse button
-        reverseButton = new ReverseButton(
-            DCardWidthOffset - BorderWidth,
-            DCardHeightOffset - BorderWidth,
-            DCardWidth + BorderWidth * 2,
-            DCardHeight + BorderWidth * 2
-        );
-        AddButtonAction(reverseButton, new Action());
+        AddButtonAction(exitButton, new Action(player: null));
     }
 
     public void SetClub(Club? club, Dictionary<int, int> save) {
@@ -178,7 +168,6 @@ public class CollectionScreen : Screen {
 
             displayPlayer.DisplayDetailedCard();
             exitButton.Render();
-            reverseButton.Render();
         }
     }
 
