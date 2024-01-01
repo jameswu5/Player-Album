@@ -13,18 +13,20 @@ public class CollectionScreen : Screen {
     private int maxPages;
     public Collection collection;
     private List<PlayerStatus> playerStatuses;
-    private Club? club;
+    public Club? club;
 
     private List<Button> playerButtons;
     private HoverButton exitButton;
 
     public Player? displayPlayer;
+    public bool ownedFlag;
 
     public CollectionScreen() {
         page = 0;
         playerStatuses = new();
         playerButtons = new();
         displayPlayer = null;
+        ownedFlag = false;
         InitialiseButtons();
     }
 
@@ -65,20 +67,50 @@ public class CollectionScreen : Screen {
             ExitButtonSize, ExitButtonSize, colour: ExitButtonColour, hoverColour: ExitButtonHoverColour, text: "x"
         );
         AddButtonAction(exitButton, new Action(player: null));
+
+        // Owned toggle button
+        HoverButton ownedButton = new HoverButton(
+            ScreenWidth - OwnedButtonWidth, 0, OwnedButtonWidth, HeaderHeight,
+            colour: OwnedButtonColour, text: "Owned", textColour: Helper.GetTextColour(OwnedButtonColour), fontSize: HeaderFontSize
+        );
+        AddButtonAction(ownedButton, new Action(ownedToggle: true));
+        staticButtons.Add(ownedButton);
     }
 
-    public void SetClub(Club? club, Dictionary<int, int> save) {
+    public void SetClub(Club? club, Dictionary<int, int> save, bool ownedOnly = false) {
         this.club = club;
+
         if (club == null) {
             List<Player> players = Database.GetPlayers($"""SELECT * FROM Player WHERE League = "{collection.name}" ORDER BY Overall DESC""");
-            playerStatuses = Helper.GetPlayerStatuses(players, save);
+            if (ownedOnly) {
+                List<Player> filteredPlayers = new();
+                foreach (Player player in players) {
+                    if (save.ContainsKey(player.ID)) {
+                        filteredPlayers.Add(player);
+                    }
+                }
+                playerStatuses = Helper.GetPlayerStatuses(filteredPlayers, save);
+            } else {
+                playerStatuses = Helper.GetPlayerStatuses(players, save);
+            }
         } else {
             Club cur = (Club)club;
             List<Player> players = Database.GetPlayers($"""SELECT * FROM Player WHERE Club = "{cur.name}" AND League = "{collection.name}" ORDER BY Overall DESC""");
-            playerStatuses = Helper.GetPlayerStatuses(players, save);
+            if (ownedOnly) {
+                List<Player> filteredPlayers = new();
+                foreach (Player player in players) {
+                    if (save.ContainsKey(player.ID)) {
+                        filteredPlayers.Add(player);
+                    }
+                }
+                playerStatuses = Helper.GetPlayerStatuses(filteredPlayers, save);
+            } else {
+                playerStatuses = Helper.GetPlayerStatuses(players, save);
+            }
         }
-        maxPages = (playerStatuses.Count - 1) / (Rows * Columns);
 
+        ownedFlag = ownedOnly;
+        maxPages = (playerStatuses.Count - 1) / (Rows * Columns);
         ResetPage();
     }
 
@@ -170,7 +202,6 @@ public class CollectionScreen : Screen {
             exitButton.Render();
         }
     }
-
 
     public void SetDisplayPlayer(Player? player) {
         if (player == null) {

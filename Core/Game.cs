@@ -82,7 +82,6 @@ public class Game {
             Console.WriteLine(action.debugText.Length == 0 ? $"Button clicked." : action.debugText);
         }
 
-        // Switch screen
         if (action.targetScreen != null) {
             switch (action.targetScreen) {
                 case GameScreen.Home:
@@ -117,6 +116,10 @@ public class Game {
         if (currentScreen == GameScreen.Collection) {
             if (action.pageShift != null) {
                 collectionScreen.ShiftPage((int)action.pageShift);
+            }
+
+            if (action.ownedToggle == true) {
+                collectionScreen.SetClub(collectionScreen.club, save, !collectionScreen.ownedFlag);
             }
 
             collectionScreen.SetDisplayPlayer(action.player);

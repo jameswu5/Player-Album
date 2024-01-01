@@ -121,6 +121,9 @@ public static class Settings {
         public const int Rows = 2;
         public const int Columns = 4;
 
+        public const int OwnedButtonWidth = 108;
+        public static readonly Color OwnedButtonColour = Color.BLACK;
+
         public const int HorizontalPadding = 100;
         public const int CardPadding = (ScreenWidth - 2 * HorizontalPadding - Columns * Player.CardWidth) / (Columns - 1);
         public const int VerticalPadding = (ScreenHeight - HeaderHeight - Rows * Player.CardHeight) / (Rows + 1);

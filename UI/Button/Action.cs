@@ -11,8 +11,9 @@ public class Action {
     public int? pageShift;
     public Player? player; // Passed for detailed card
     public List<Player>? packedPlayers;
+    public bool? ownedToggle;
 
-    public Action(Game.GameScreen? targetScreen = null, string? debugText = null, Collection? collection = null, Club? club = null, int? pageShift = null, Player? player = null, List<Player>? packedPlayers = null) {
+    public Action(Game.GameScreen? targetScreen = null, string? debugText = null, Collection? collection = null, Club? club = null, int? pageShift = null, Player? player = null, List<Player>? packedPlayers = null, bool? ownedToggle = null) {
         this.targetScreen = targetScreen;
         this.debugText = debugText;
         this.collection = collection;
@@ -20,5 +21,6 @@ public class Action {
         this.pageShift = pageShift;
         this.player = player;
         this.packedPlayers = packedPlayers;
+        this.ownedToggle = ownedToggle;
     }
 }
