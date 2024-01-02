@@ -15,4 +15,6 @@ public class BorderButton : RectangularButton {
         DrawRectangle(posX - ButtonBorderWidth * 2, posY - ButtonBorderWidth * 2, width + 4 * ButtonBorderWidth, height + 4 * ButtonBorderWidth, Color.BLACK);
         DrawRectangle(posX - ButtonBorderWidth, posY - ButtonBorderWidth, width + 2 * ButtonBorderWidth, height + 2 * ButtonBorderWidth, ScreenColour);
     }
+
+    protected override void PressedDisplay() => HoverDisplay();
 }
