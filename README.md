@@ -8,4 +8,4 @@ This game is inspired by companies such as Topps and Panini making collectable i
 
 The game is built in C# with the `Raylib` library, and all player data is scraped from the official EA sports website with Python.
 
-If setting up for the first time, run the python file with the path `database/initialise.py` to create and populate the local database. To run (and play) the game, enter `dotnet run` in the terminal to run the C# project.
+If setting up for the first time, run the python file with the path `database/initialise.py` to create and populate the local database. To run (and play) the game, enter `dotnet run` in the terminal to run the C# project. If you encounter a `Raylib_cs` not found error, then type `dotnet add package Raylib-cs` in the terminal to install the package.
